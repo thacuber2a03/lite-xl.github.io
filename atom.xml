@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 	<title>Lite XL News</title>
-	<link href="https://lite-xl.github.io/lite-xl.github.io/atom.xml" rel="self"/>
-	<icon>https://lite-xl.github.io/lite-xl.github.io/assets/ico/favicon.ico</icon>
-	<link href="https://lite-xl.github.io/lite-xl.github.io/"/>
-	<updated>2021-09-02T11:59:11+00:00</updated>
-	<id>https://lite-xl.github.io/lite-xl.github.io/</id>
+	<link href="https://lite-xl.github.io/atom.xml" rel="self"/>
+	<icon>https://lite-xl.github.io/assets/ico/favicon.ico</icon>
+	<link href="https://lite-xl.github.io/"/>
+	<updated>2021-09-02T12:29:41+00:00</updated>
+	<id>https://lite-xl.github.io/</id>
 
 	<entry>
 		<title>Documentation Website</title>
 		<author><name>redtide</name></author>
-		<link href="https://lite-xl.github.io/lite-xl.github.io/news/2021/05/29/documentation-website.html"/>
+		<link href="https://lite-xl.github.io/news/2021/05/29/documentation-website.html"/>
 		<published>2021-05-29T09:15:47+00:00</published>
-		<id>https://lite-xl.github.io/lite-xl.github.io/news/2021/05/29/documentation-website</id>
+		<id>https://lite-xl.github.io/news/2021/05/29/documentation-website</id>
 		<content type="html">&lt;p&gt;Lite XL website.&lt;/p&gt;
 
 &lt;ul&gt;
