@@ -5,6 +5,9 @@
 <lastmod>2021-05-29T09:15:47+00:00</lastmod>
 </url>
 <url>
+<loc>https://lite-xl.github.io/en/tutorials/api-overview/</loc>
+</url>
+<url>
 <loc>https://lite-xl.github.io/en/documentation/build/</loc>
 </url>
 <url>
@@ -23,10 +26,10 @@
 <loc>https://lite-xl.github.io/en/about/features/</loc>
 </url>
 <url>
-<loc>https://lite-xl.github.io/search/</loc>
+<loc>https://lite-xl.github.io/en/</loc>
 </url>
 <url>
-<loc>https://lite-xl.github.io/en/</loc>
+<loc>https://lite-xl.github.io/search/</loc>
 </url>
 <url>
 <loc>https://lite-xl.github.io/news/archive/</loc>
@@ -41,6 +44,12 @@
 <loc>https://lite-xl.github.io/en/documentation/keymap/</loc>
 </url>
 <url>
+<loc>https://lite-xl.github.io/en/tutorials/overview/process/</loc>
+</url>
+<url>
+<loc>https://lite-xl.github.io/en/tutorials/overview/regex/</loc>
+</url>
+<url>
 <loc>https://lite-xl.github.io/en/plugins/repository/</loc>
 </url>
 <url>
@@ -48,6 +57,9 @@
 </url>
 <url>
 <loc>https://lite-xl.github.io/en/tutorials/simple-plugin/</loc>
+</url>
+<url>
+<loc>https://lite-xl.github.io/en/tutorials/overview/system/</loc>
 </url>
 <url>
 <loc>https://lite-xl.github.io/en/about/team/</loc>

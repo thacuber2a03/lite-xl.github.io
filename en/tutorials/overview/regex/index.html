@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>404</title>
+		<title>Regex API</title>
 
 		<meta name="author" content="redtide">
 		<meta name="web-author" content="redtide">
@@ -326,15 +326,62 @@
 				<div class="col-md-9">
 					<article>
 
-						<h1>404</h1>
+						<h1>Regex API</h1>
 
-<p>The page you requested could not be found. It seems that the page you were
-trying to reach doesn’t exist anymore, or maybe it has just moved. We think the
-the best thing to do is to start again from the home page, or use the site
-search feature.</p>
+<p>This API provides PCRE regular expressions for those who needs more power in matching text.
+This API written in C and Lua.</p>
 
-<div id="page-not-found"></div>
+<h4 id="creating-a-regex">Creating a regex</h4>
+<p>Use <code class="language-plaintext highlighter-rouge">regex.compile(pattern, options)</code> to compile a regex.</p>
 
+<p>Arguments:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pattern</code>: The regex pattern</li>
+  <li><code class="language-plaintext highlighter-rouge">options</code>: regex modifiers as a string, eg <code class="language-plaintext highlighter-rouge">"im"</code>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">"i"</code>: Case-insensitive search</li>
+      <li><code class="language-plaintext highlighter-rouge">"m"</code>: Multiline search</li>
+      <li><code class="language-plaintext highlighter-rouge">"s"</code>: Match all characters with dot (<code class="language-plaintext highlighter-rouge">.</code>), <strong>including newlines.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="matching">Matching</h4>
+<h5 id="low-level-functions">Low level functions</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">regex:cmatch(str, offset, options)</code> low-level matching function
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">str</code>: The string to match against</li>
+      <li><code class="language-plaintext highlighter-rouge">offset</code>: Where to start matching</li>
+      <li><code class="language-plaintext highlighter-rouge">options</code>: A bit field of options
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">regex.ANCHORED</code>: Only match from the start of the string</li>
+          <li><code class="language-plaintext highlighter-rouge">regex.ENDANCHORED</code>: Only match from the end of the string</li>
+          <li><code class="language-plaintext highlighter-rouge">regex.NOTBOL</code>: String is not beginning of line</li>
+          <li><code class="language-plaintext highlighter-rouge">regex.NOTEOL</code>: String is not the end of line</li>
+          <li><code class="language-plaintext highlighter-rouge">regex.NOTEMPTY</code>: Do not match an empty string</li>
+          <li><code class="language-plaintext highlighter-rouge">regex.NOTEMPTY_ATSTART</code>: Do not match empty string at the start</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="high-level-functions">High level functions</h5>
+<p>All the functions below can be in 2 forms:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">regex:fn(...)</code> where <code class="language-plaintext highlighter-rouge">regex</code> is the compiled regex instance</li>
+  <li><code class="language-plaintext highlighter-rouge">regex.fn(pattern, ...)</code> where <code class="language-plaintext highlighter-rouge">pattern</code> is a pattern string to be compiled and used directly.</li>
+</ul>
+
+<p>We will only document the first form.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">regex:match(str, offset, options)</code> high level matching function. This function accepts
+the same arguments as <code class="language-plaintext highlighter-rouge">regex:cmatch()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">regex:gsub(str, replacement)</code> replaces matches in <code class="language-plaintext highlighter-rouge">str</code> with <code class="language-plaintext highlighter-rouge">replacement</code>.
+Capture groups are identified with <code class="language-plaintext highlighter-rouge">\0</code> to <code class="language-plaintext highlighter-rouge">\9</code>, this might change in the future.</li>
+</ul>
 
 					</article>
 				</div>
