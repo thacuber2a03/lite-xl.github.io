@@ -367,6 +367,9 @@ This API written in C and Lua.</p>
   </li>
 </ul>
 
+<p><strong>Note: <code class="language-plaintext highlighter-rouge">regex:cmatch()</code> returns wrong indexes (currently at version 2.0.2).
+  The end index returned by <code class="language-plaintext highlighter-rouge">regex:cmatch()</code> is always off by 1 (-1 to get the actual end index).</strong></p>
+
 <h5 id="high-level-functions">High level functions</h5>
 <p>All the functions below can be in 2 forms:</p>
 <ul>
