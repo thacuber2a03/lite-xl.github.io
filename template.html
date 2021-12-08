@@ -1,0 +1,150 @@
+<html>
+  <head>
+    <title>Lite XL</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg" href="img/logo.svg">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <style type='text/css'>
+      /* Global */
+      body { margin: 0; line-height: 24px; background: #252529; color: #e1e1e6; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; }
+      pages, header { background: #2e2e32; margin: 0 auto; padding: 12px; box-sizing: border-box; }
+      pages, page { display: block; width: 100%; }
+      pre, code { background: #252529; border: 1px solid #e1e1e6; padding: 2px 4px; color: #bbb; }
+      pre { overflow-x: auto; padding: 12px; }
+      code { white-space: nowrap; }
+      
+      /* Menu */
+      header { width: 100%; max-width: 1200px; }
+      header, links, logo { margin: 0 auto 24px auto; display: flex; align-items: center; position: relative; }
+      logo > *, header > *, links > *, menu > * { margin: 0; font-size: 16px !important; padding: 0 8px; }
+      a, menu { text-decoration: none; color: #97979c; position: relative; cursor: pointer; }
+      menu { padding: 0; }
+      links h2 { padding: 0 16px; }
+      a:hover, menu:hover, menu.active { color: #e1e1e6; }
+      menu.active items, links.active { display: block;  }
+      menu items { display: none; position: absolute; z-index: 1; top: 24px; background: #2e2e32; min-width: 168px; padding: 8px 16px; border: 1px solid rgba(0,0,0,0.15); }
+      menu items > * { padding: 4px; display: block; }
+      expander { display: none; }
+      @media screen and (max-width: 767px) { 
+        header { display: block; margin-bottom: 0; }
+        links { display: none; padding-left: 26px; }
+        pages { background: #252529; }
+        expander { display: block; border: 1px solid #47474c; padding: 4px 8px; position: absolute; right: 24px; top: 16px; }
+        links > * { padding: 12px 0 12px 0; }
+        links h2 { padding-left: 0; }
+        menu.active items { position: static; border: 0; }
+      }
+      
+      /* Content */
+      content { display: block; max-width: 1200px; margin: 0 auto;  }
+      sidebar { display: inline-block; width: 100%; padding: 0; width: 255px; vertical-align: top; }
+      sidebar h2 { background: #2e2e32; margin: 0; padding: 8px; font-size: 18px; }
+      sidebar a { display: block; padding: 8px; margin: 4px; }
+      sidebar a img { width: 100%; }
+      sidebar i { margin-right: 4px; }
+      sidebar box { margin-bottom: 24px; border: 1px solid #343a40; display: block; }
+      pages { display: inline-block; width: calc(100% - 286px); margin-right: 24px; }
+      pages h1 { text-align: center; margin-top: 12px; margin-bottom: 32px; }
+      pages h1, pages h2, pages h3, pages h4, pages h5 { color: rgba(255,255,255,.75); font-weight: 500;  }
+      pages h4 { font-size: 24px; margin: 8px 0; }
+      pages page.active { display: block; } 
+      pages page { display: none; color: #999; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { border: 1px solid #fff; padding: 8px; }
+      img { max-width: 100%; }
+      
+      /* Specific Pages */
+      #page-en-about-screenshots p { display: grid; grid-template-columns: auto auto auto;  column-gap: 24px; row-gap: 24px; }
+      #page-en-about-screenshots img { display: block; }
+      #page-en-downloads a[href$="#align-right"] { position: absolute; right: 24px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <logo>
+        <a href='/'><img class='logo' src='img/logo.svg'/></a>
+        <h2><a href='/'>Lite XL</a></h2>
+      </logo>
+      <links>
+        <menu>
+          <h2>About <i class='fa fa-caret-down'></i></h2>
+          <items>
+            <a href='/about/faq'>FAQ</a>
+            <a href='/about/features'>Features</a>
+            <a href='/about/screenshots'>Screenshots</a>
+            <a href='/about/contributors'>Contributors</a>
+          </items>
+        </menu>
+        <menu>
+          <h2>Documentation <i class='fa fa-caret-down'></i></h2>
+          <items>
+            <a href='/documentation/usage'>Usage</a>
+            <a href='/documentation/build'>Build</a>
+            <a href='/documentation/keymap'>Default Keymap</a>
+            <a href='/documentation/keymap-macos'>MacOS Keymap</a>
+          </items>
+        </menu>
+        <menu>
+          <h2>Tutorials <i class='fa fa-caret-down'></i></h2>
+          <items>
+            <a href='/tutorials/simple-plugin'>Simple Plugin</a>
+            <a href='/tutorials/syntax-highlighting'>Syntax Highlighting</a>
+            <a href='/tutorials/api-overview'>API Overview</a>
+            <a href='/tutorials/system-fonts'>System Fonts</a>
+          </items>
+        </menu>
+        <h2><a target="_blank" href='https://github.com/lite-xl/lite-plugins'><i class="fas fa-plug"></i> Plugins</a></h2>
+        <h2><a href='/downloads'><i class='fa fa-download'></i> Downloads</a></h2>
+      </links>
+      <expander>
+        <svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'>
+          <path d="M5,8 l20,0 z M5,15 l20,0 z M5,22 l20,0 z" stroke="#97979c" stroke-width="2" stroke-linecap='round'/>
+        </svg>
+      </expander>
+    </header>
+    <content>
+      <pages>
+        {{ pages }}
+      </pages>
+      <sidebar>
+        <box>
+          <h2>Get Involved</h2>
+          <a target='_blank' href='https://github.com/lite-xl/lite-xl'><i class='fab fa-github'></i> Github</a>
+          <a target='_blank' href='https://discord.gg/RWzqC3nx7K'><i class='fab fa-discord'></i> Discord</a>
+          <a target='_blank' href='https://adamharrison.github.io/lite-xl-web'><i class="fas fa-globe"></i> Try Live!</a>
+        </box>
+        <box>
+          <h2>Status</h2>
+          <a target='_blank' href='https://discord.gg/RWzqC3nx7K'><img src='https://img.shields.io/discord/847122429742809208?label=discord&logo=discord'/></a>
+          <a href='https://repology.org/project/lite-xl/versions#align-right'><img style='width: 100%;' src='https://repology.org/badge/vertical-allrepos/lite-xl.svg'/></a>
+        </box>
+      </sidebar>
+    <content>
+    <script type='text/javascript'>
+      function hideMenus(except) { document.querySelectorAll('menu.active').forEach(function(e) { if (e != except) e.classList.remove('active'); }) }
+      function setActive(id) {
+        hideMenus();
+        var target = document.querySelector("#page-en-" + (id || "index"));
+        if (target) {
+          document.querySelectorAll('pages page.active').forEach(function(p) { p.classList.remove('active'); })
+          target.classList.add('active');
+          history.pushState({}, '', window.location.pathname + (id ? "#" + id : ""));
+        }
+      }
+      document.querySelectorAll('menu').forEach(function(e) { e.addEventListener('click', function(ev) { hideMenus(e); ev.stopPropagation(); e.classList.toggle('active'); }) })
+      document.querySelector('expander').addEventListener('click', function(e) { document.querySelector('links').classList.toggle('active'); })
+      document.querySelector('body').addEventListener('click', hideMenus);
+      setActive(window.location.hash.replace(/#/, "") || "index");
+      document.querySelectorAll('header a, pages a').forEach(function(a) { 
+        if (a.getAttribute('href').charAt(0) == "/") { 
+          a.addEventListener('click', function(ev) {
+            ev.stopPropagation(); ev.preventDefault();
+            setActive(a.getAttribute('href').toLowerCase().replace(/\//g, "-").replace(/^-/, ""));
+          }) ;
+      } else if (a.getAttribute("href").charAt(0) != "#") {
+        a.setAttribute('target', "_blank");
+      }});
+    </script>
+  </body>
+</html>
