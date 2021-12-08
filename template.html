@@ -132,7 +132,7 @@
         if (target) {
           document.querySelectorAll('pages page.active').forEach(function(p) { p.classList.remove('active'); })
           target.classList.add('active');
-          history.pushState({}, '', window.location.pathname + (id ? "#" + id : ""));
+          history.pushState({}, '', window.location.pathname + (id && id != "index" ? "#" + id : ""));
         }
       }
       document.querySelectorAll('menu').forEach(function(e) { e.addEventListener('click', function(ev) { hideMenus(e); ev.stopPropagation(); e.classList.toggle('active'); }) })
