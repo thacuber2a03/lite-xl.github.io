@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Lite XL</title>
+		<title>Using system fonts</title>
 
 		<meta name="author" content="redtide">
 		<meta name="web-author" content="redtide">
@@ -344,40 +344,54 @@
 				<div class="col-md-9">
 					<article>
 
-						<h1>Lite XL</h1>
+						<h1>Using system fonts</h1>
 
-<p>A lightweight text editor written in Lua, adapted from <a href="https://github.com/rxi/lite/">lite</a>.</p>
+<p>lite-xl does not provide a convenient way to use fonts on the system.
+There is literally _different APIs for the each platforms we support (Windows, Linux and Mac).
+This is where <a href="https://www.freedesktop.org/wiki/Software/fontconfig/">fontconfig</a> comes to our rescue. fontconfig is
+installable on a lot of OSes.</p>
 
-<p><img src="/assets/img/screenshots/editor.png" alt="Screenshot" /></p>
+<p>lite-xl has a <a href="https://github.com/lite-xl/lite-plugins/blob/master/plugins/fontconfig.lua">fontconfig plugin</a> that we can use to find system fonts.</p>
 
-<h2><a href="/news/2021/05/29/documentation-website/">Documentation Website</a></h2>
-<p>
+<h3 id="installing-fontconfig">Installing fontconfig</h3>
+<h5 id="windows">Windows</h5>
+<p><a href="https://github.com/takase1121/mingw-w64-fontconfig">mingw-w64-fontconfig</a> provides a build that can be used directly on Windows.
+Download the file, extract it to somewhere and (optionally) add it to the PATH.</p>
 
-	<span data-localize="news_by">by </span>
-	redtide
+<h5 id="linux">Linux</h5>
+<p>Check your distro-specific instructions.</p>
 
-	<span data-localize="news_at">at </span>
-	<time datetime="2021-05-29T09:15:47+00:00">
-		May 29, 2021 09:15 AM
-	</time>
-</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ubuntu / debian</span>
+apt <span class="nb">install </span>fontconfig
+<span class="c"># arch</span>
+pacman <span class="nt">-Su</span> fontconfig
+<span class="c"># fedora</span>
+dnf <span class="nb">install </span>fontconfig
+...
+</code></pre></div></div>
 
-<p>Lite XL website.</p>
+<h5 id="macos">MacOS</h5>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>fontconfig
+</code></pre></div></div>
 
-<ul>
-  <li>Built on <a href="http://jekyllrb.com/">Jekyll</a>.</li>
-  <li>Most content is authored in <a href="http://daringfireball.net/projects/markdown/">Markdown</a> format.</li>
-  <li>Utilizes <a href="http://getbootstrap.com/">Bootstrap</a> for easy skinning and responsive design,
-making the website available to mobile devices.</li>
-  <li>Utilizes <a href="http://fontawesome.io/">FontAwesome</a> and <a href="https://realfavicongenerator.net/">Favicon Generator</a> for content and website icons.</li>
-</ul>
+<h3 id="setting-up">Setting up</h3>
+<ol>
+  <li>Install the plugin</li>
+  <li>Put this in your user module:
+    <div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">local</span> <span class="n">fontconfig</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"plugins.fontconfig"</span>
+<span class="n">fontconfig</span><span class="p">.</span><span class="n">use</span> <span class="p">{</span>
+  <span class="n">font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"sans"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">},</span>
+  <span class="n">code_font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"monospace"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
 
-<p class="text-center" style="margin-top: 2em;">
-	<a class="btn btn-lg btn-default" href="/news/archive/">
-		<i class="fa fa-calendar fa-fw"></i>
-		<span data-localize="news_archive"> News Archive</span>
-	</a>
-</p>
+<p><code class="language-plaintext highlighter-rouge">"sans"</code> and <code class="language-plaintext highlighter-rouge">"monospace"</code> can be any <a href="https://www.freedesktop.org/software/fontconfig/fontconfig-user.html">fontconfig syntax. (check “Font Names”)</a></p>
+
+<p>Note that the font might not load immediately (because we need to wait for <code class="language-plaintext highlighter-rouge">fc-match</code> to return.
+If you want that, replace <code class="language-plaintext highlighter-rouge">fontconfig.use</code> with <code class="language-plaintext highlighter-rouge">fontconfig.use_blocking</code>. Doing this will force
+lite-xl to wait for <code class="language-plaintext highlighter-rouge">fc-match</code>, which can be much slower.</p>
 
 
 					</article>
