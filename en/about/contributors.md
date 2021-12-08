@@ -13,12 +13,3 @@
 | Mat Mariani                                                 | Help for macOS port. Some resources taken from mathewmariani/lite-macos.
 | [daubaris](https://github.com/daubaris)                    | Initial implementation of Xft.dpi query using xrdb command.
 | [Robert Štojs](https://github.com/netrobert)               | Continuos integration configuration.
-
-
-## Discord [![Discord Badge Image](https://img.shields.io/discord/847122429742809208?label=discord&logo=discord)](https://discord.gg/RWzqC3nx7K)
-
-Many of us are on Discord! 
-
-Feel free to come check things out!
-
-
