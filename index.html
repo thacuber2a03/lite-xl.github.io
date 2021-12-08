@@ -1538,16 +1538,14 @@ dnf <span class="nb">install </span>fontconfig
 
 <ol>
 <li>Install the plugin</li>
-<li>Put this in your user module:
-<code>lua
-local fontconfig = require &quot;plugins.fontconfig&quot;
-fontconfig.use {
- font = { name = &quot;sans&quot;, size = 13 * SCALE },
- code_font = { name = &quot;monospace&quot;, size = 13 * SCALE }
-}
-</code></li>
+<li>Put this in your user module:</li>
 </ol>
-
+<pre><span class="kd">local</span> <span class="n">fontconfig</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"plugins.fontconfig"</span>
+<span class="n">fontconfig</span><span class="p">.</span><span class="n">use</span> <span class="p">{</span>
+     <span class="n">font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"sans"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">},</span>
+     <span class="n">code_font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"monospace"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre>
 <p><code>&quot;sans&quot;</code> and <code>&quot;monospace&quot;</code> can be any <a href="https://www.freedesktop.org/software/fontconfig/fontconfig-user.html">fontconfig syntax. (check &quot;Font Names&quot;)</a></p>
 
 <p>Note that the font might not load immediately (because we need to wait for <code>fc-match</code> to return.

@@ -26,6 +26,7 @@ dnf install fontconfig
 ```
 
 #### MacOS
+
 ```sh
 brew install fontconfig
 ```
@@ -34,6 +35,7 @@ brew install fontconfig
 
 1. Install the plugin
 2. Put this in your user module:
+
 ```lua
 local fontconfig = require "plugins.fontconfig"
 fontconfig.use {
