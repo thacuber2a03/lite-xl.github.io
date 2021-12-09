@@ -142,7 +142,7 @@
       document.querySelectorAll('a[href^="http"], a[href^="//"], a[href^="img"]').forEach(function(a) { a.setAttribute('target', "_blank"); });
       document.querySelectorAll('a[href^="/"]').forEach(function(a) { a.addEventListener('click', function(ev) {
         ev.stopPropagation(); ev.preventDefault();
-        setActive(a.getAttribute('href').toLowerCase().replace(/\//g, "-").replace(/^-/, ""), true);
+        setActive(a.getAttribute('href').toLowerCase().replace(/\/$/, "").replace(/\//g, "-").replace(/^-/, ""), true);
       })});
       setActive(window.location.search.replace(/^\?\/?/, "").replace(/\//g, "-") || "index", true);
     </script>
