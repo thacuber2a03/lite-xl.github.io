@@ -132,14 +132,12 @@
       function setActive(id, pushState) {
         hideMenus();
         var target = document.querySelector("#page-en-" + (id || "index")) || document.querySelector('#page-en-not-found');
-        if (target) {
-          document.querySelectorAll('pages page.active').forEach(function(p) { p.classList.remove('active'); })
-          target.classList.add('active');
-          document.querySelector('content').className = id || "index";
-          document.title = "Lite XL" + (id && id != "index" && target.querySelector('h1') ? " - " + target.querySelector('h1').textContent : "");
-          if (pushState) 
-            history.pushState({ id: id }, document.title, window.location.pathname + (id && id != "index" ? "?/" + id.replace(/\-/,"/") : ""));
-        }
+        document.querySelectorAll('pages page.active').forEach(function(p) { p.classList.remove('active'); })
+        target.classList.add('active');
+        document.querySelector('content').className = id || "index";
+        document.title = "Lite XL" + (id && id != "index" && target.querySelector('h1') ? " - " + target.querySelector('h1').textContent : "");
+        if (pushState) 
+          history.pushState({ id: id }, document.title, window.location.pathname + (id && id != "index" ? "?/" + id.replace(/\-/,"/") : ""));
       }
       document.querySelectorAll('menu').forEach(function(e) { e.addEventListener('click', function(ev) { hideMenus(e); ev.stopPropagation(); e.classList.toggle('active'); }) })
       document.querySelector('expander').addEventListener('click', function(e) { document.querySelector('links').classList.toggle('active'); })
