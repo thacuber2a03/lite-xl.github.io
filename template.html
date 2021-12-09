@@ -131,7 +131,7 @@
         document.querySelectorAll('pages page.active').forEach(function(p) { p.classList.remove('active'); });
         (document.querySelector("#page-en-" + (id || "index")) || document.querySelector('#page-en-not-found')).classList.add('active');
         document.querySelector('content').className = id || "index";
-        document.title = "Lite XL" + (id && id != "index" ? document.querySelector('page.active h1').textContent : "");
+        document.title = "Lite XL" + (id && id != "index" ? " - " + document.querySelector('page.active h1').textContent : "");
         if (pushState) 
           history.pushState({ id: id }, document.title, window.location.pathname + (id && id != "index" ? "?/" + id.replace(/\-/,"/") : ""));
       }
