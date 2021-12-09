@@ -12,7 +12,7 @@
       pages, page { display: block; width: 100%; }
       pre, code { background: #252529; border: 1px solid #e1e1e6; padding: 2px 4px; color: #bbb; }
       pre { overflow-x: auto; padding: 12px; }
-      code { white-space: nowrap; }
+      code { white-space: nowrap; }   
       
       /* Menu */
       header { width: 100%; max-width: 1200px; }
@@ -37,7 +37,7 @@
       sidebar box { margin-bottom: 24px; border: 1px solid #343a40; display: block; }
       pages { display: inline-block; width: calc(100% - 286px); margin-right: 24px; }
       pages h1 { text-align: center; margin-top: 12px; margin-bottom: 32px; }
-      pages h1, pages h2, pages h3, pages h4, pages h5 { color: rgba(255,255,255,.75); font-weight: 500;  }
+      pages h1, pages h2, pages h3, pages h4, pages h5 { color: rgba(255,255,255,.75); font-weight: 500; line-height: 36px;  }
       pages h4 { font-size: 24px; margin: 8px 0; }
       pages page.active { display: block; } 
       pages page { display: none; color: #999; }
@@ -54,9 +54,11 @@
       @media screen and (max-width: 767px) { 
         header { display: block; margin-bottom: 0; }
         links { display: none; padding-left: 26px; }
-        pages { background: #252529; }
+        pages { background: #252529; width: 100%; display: block; }
+        content sidebar { display: none; }
+        content.index sidebar { display: block; margin: 0 auto; }
         expander { display: block; border: 1px solid #47474c; padding: 4px 8px; position: absolute; right: 24px; top: 16px; }
-        links > * { padding: 12px 0 12px 0; }
+        links > * { padding: 12px 0 12px 0 !important; }
         links h2 { padding-left: 0; }
         menu.active items { position: static; border: 0; }
         content { margin-bottom: 0; }
@@ -132,6 +134,7 @@
         if (target) {
           document.querySelectorAll('pages page.active').forEach(function(p) { p.classList.remove('active'); })
           target.classList.add('active');
+          document.querySelector('content').className = id || "index";
           document.title = "Lite XL" + (id && id != "index" && target.querySelector('h1') ? " - " + target.querySelector('h1').textContent : "");
           history.pushState({}, document.title, window.location.pathname + (id && id != "index" ? "?/" + id.replace(/\-/,"/") : ""));
         }
