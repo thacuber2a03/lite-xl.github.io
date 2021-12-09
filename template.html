@@ -137,12 +137,13 @@
           target.classList.add('active');
           document.querySelector('content').className = id || "index";
           document.title = "Lite XL" + (id && id != "index" && target.querySelector('h1') ? " - " + target.querySelector('h1').textContent : "");
-          history.pushState({}, document.title, window.location.pathname + (id && id != "index" ? "?/" + id.replace(/\-/,"/") : ""));
+          history.pushState({ id: id }, document.title, window.location.pathname + (id && id != "index" ? "?/" + id.replace(/\-/,"/") : ""));
         }
       }
       document.querySelectorAll('menu').forEach(function(e) { e.addEventListener('click', function(ev) { hideMenus(e); ev.stopPropagation(); e.classList.toggle('active'); }) })
       document.querySelector('expander').addEventListener('click', function(e) { document.querySelector('links').classList.toggle('active'); })
       document.querySelector('body').addEventListener('click', hideMenus);
+      window.addEventListener('popstate', function(e) { setActive(e.state.id); });
       setActive(window.location.search.replace(/^\?\/?/, "").replace(/\//g, "-") || "index");
       document.querySelectorAll('header a, pages a').forEach(function(a) { 
         if (a.getAttribute('href').charAt(0) == "/") { 
