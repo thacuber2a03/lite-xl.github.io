@@ -129,7 +129,7 @@
     <content>
     <script type='text/javascript'>
       function hideMenus(except) { document.querySelectorAll('menu.active').forEach(function(e) { if (e != except) e.classList.remove('active'); }) }
-      function setActive(id) {
+      function setActive(id, pushState) {
         hideMenus();
         var target = document.querySelector("#page-en-" + (id || "index")) || document.querySelector('#page-en-not-found');
         if (target) {
@@ -137,19 +137,20 @@
           target.classList.add('active');
           document.querySelector('content').className = id || "index";
           document.title = "Lite XL" + (id && id != "index" && target.querySelector('h1') ? " - " + target.querySelector('h1').textContent : "");
-          history.pushState({ id: id }, document.title, window.location.pathname + (id && id != "index" ? "?/" + id.replace(/\-/,"/") : ""));
+          if (pushState) 
+            history.pushState({ id: id }, document.title, window.location.pathname + (id && id != "index" ? "?/" + id.replace(/\-/,"/") : ""));
         }
       }
       document.querySelectorAll('menu').forEach(function(e) { e.addEventListener('click', function(ev) { hideMenus(e); ev.stopPropagation(); e.classList.toggle('active'); }) })
       document.querySelector('expander').addEventListener('click', function(e) { document.querySelector('links').classList.toggle('active'); })
       document.querySelector('body').addEventListener('click', hideMenus);
-      window.addEventListener('popstate', function(e) { setActive(e.state.id); });
-      setActive(window.location.search.replace(/^\?\/?/, "").replace(/\//g, "-") || "index");
+      window.addEventListener('popstate', function(e) { setActive(e.state.id, false); });
+      setActive(window.location.search.replace(/^\?\/?/, "").replace(/\//g, "-") || "index", true);
       document.querySelectorAll('header a, pages a').forEach(function(a) { 
         if (a.getAttribute('href').charAt(0) == "/") { 
           a.addEventListener('click', function(ev) {
             ev.stopPropagation(); ev.preventDefault();
-            setActive(a.getAttribute('href').toLowerCase().replace(/\//g, "-").replace(/^-/, ""));
+            setActive(a.getAttribute('href').toLowerCase().replace(/\//g, "-").replace(/^-/, ""), true);
           }) ;
       } else if (a.getAttribute("href").charAt(0) != "#") {
         a.setAttribute('target', "_blank");
