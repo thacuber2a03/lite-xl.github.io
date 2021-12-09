@@ -15,7 +15,7 @@ Binary packages are available on the [GitHub releases page](https://github.com/l
 
 ## Linux
 
-- [Archlinux] (AUR)
+- [Archlinux](https://aur.archlinux.org/packages/lite-xl/) (AUR)
 
 ## MacPorts
 
@@ -30,6 +30,4 @@ The [LuaJIT-based version](https://ports.macports.org/port/lite-xl-luajit/) of L
 ```
 sudo port install lite-xl-luajit
 ```
-
-  [Archlinux]: https://aur.archlinux.org/packages/lite-xl/
 
