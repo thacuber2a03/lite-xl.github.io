@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>404</title>
+		<title>Using system fonts</title>
 
 		<meta name="author" content="redtide">
 		<meta name="web-author" content="redtide">
@@ -344,14 +344,54 @@
 				<div class="col-md-9">
 					<article>
 
-						<h1>404</h1>
+						<h1>Using system fonts</h1>
 
-<p>The page you requested could not be found. It seems that the page you were
-trying to reach doesn’t exist anymore, or maybe it has just moved. We think the
-the best thing to do is to start again from the home page, or use the site
-search feature.</p>
+<p>lite-xl does not provide a convenient way to use fonts on the system.
+There is literally _different APIs for the each platforms we support (Windows, Linux and Mac).
+This is where <a href="https://www.freedesktop.org/wiki/Software/fontconfig/">fontconfig</a> comes to our rescue. fontconfig is
+installable on a lot of OSes.</p>
 
-<div id="page-not-found"></div>
+<p>lite-xl has a <a href="https://github.com/lite-xl/lite-plugins/blob/master/plugins/fontconfig.lua">fontconfig plugin</a> that we can use to find system fonts.</p>
+
+<h3 id="installing-fontconfig">Installing fontconfig</h3>
+<h5 id="windows">Windows</h5>
+<p><a href="https://github.com/takase1121/mingw-w64-fontconfig">mingw-w64-fontconfig</a> provides a build that can be used directly on Windows.
+Download the file, extract it to somewhere and (optionally) add it to the PATH.</p>
+
+<h5 id="linux">Linux</h5>
+<p>Check your distro-specific instructions.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ubuntu / debian</span>
+apt <span class="nb">install </span>fontconfig
+<span class="c"># arch</span>
+pacman <span class="nt">-Su</span> fontconfig
+<span class="c"># fedora</span>
+dnf <span class="nb">install </span>fontconfig
+...
+</code></pre></div></div>
+
+<h5 id="macos">MacOS</h5>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>fontconfig
+</code></pre></div></div>
+
+<h3 id="setting-up">Setting up</h3>
+<ol>
+  <li>Install the plugin</li>
+  <li>Put this in your user module:
+    <div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">local</span> <span class="n">fontconfig</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"plugins.fontconfig"</span>
+<span class="n">fontconfig</span><span class="p">.</span><span class="n">use</span> <span class="p">{</span>
+  <span class="n">font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"sans"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">},</span>
+  <span class="n">code_font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"monospace"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">"sans"</code> and <code class="language-plaintext highlighter-rouge">"monospace"</code> can be any <a href="https://www.freedesktop.org/software/fontconfig/fontconfig-user.html">fontconfig syntax. (check “Font Names”)</a></p>
+
+<p>Note that the font might not load immediately (because we need to wait for <code class="language-plaintext highlighter-rouge">fc-match</code> to return.
+If you want that, replace <code class="language-plaintext highlighter-rouge">fontconfig.use</code> with <code class="language-plaintext highlighter-rouge">fontconfig.use_blocking</code>. Doing this will force
+lite-xl to wait for <code class="language-plaintext highlighter-rouge">fc-match</code>, which can be much slower.</p>
 
 
 					</article>
