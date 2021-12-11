@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('a[href^="http"], a[href^="//"], a[href^="img"]').forEach(function(a) { a.setAttribute('target', "_blank"); });
   document.querySelectorAll('a[href^="/"]').forEach(function(a) { a.addEventListener('click', function(ev) {
     ev.stopPropagation(); ev.preventDefault();
-    setActive(a.getAttribute('href').toLowerCase().replace(/(^\/(\w{2})|\/$)/, "").replace(/\//g, "-").replace(/^-/, ""), true);
+    setActive(a.getAttribute('href').toLowerCase().replace(/\/$/, "").replace(/^\/\w{2}/, "").replace(/\//g, "-").replace(/^-/, ""), true);
   })});
   setActive(window.location.search.replace(/^\?\/?/, "").replace(/\/$/, "").replace(/\//g, "-") || "index", true);
 });

@@ -10,5 +10,5 @@ Dir.glob("locales/*").map { |locale| File.write(File.basename(locale) + ".html",
   Dir.glob("#{locale}/**/*.md").select { |x| File.file?(x) }.map { |x| 
     sitemap.write("https://lite-xl.com" + (x =~ /index\.md/ ? "" : "?/" + x.downcase.gsub(/^locales\//, "").gsub(/\.\w+$/, "")) + "\n")
     "<page id='page-#{x.downcase.gsub(/(^locales\/#{File.basename(locale)}\/|[^a-z0-9_\-\/\\\.]|\.\w+$)/,"").gsub(/[\s\\\/]+/, "-")}'>#{rc.render(File.read(x))}</page>" 
-  }.join("\n"))
+  }.join("\n")).gsub(/{{ baseurl }}/, ARGV[0] || "")
 ) }
