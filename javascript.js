@@ -18,5 +18,5 @@ window.addEventListener('DOMContentLoaded', function() {
     setActive(e.getAttribute('href').toLowerCase().replace(/(^\/\w{2}\/|\/$|^\/)/g, "").replace(/\//g, "-"), true);
   });
   window.addEventListener('popstate', function(ev) { setActive(ev.state.id, false); });
-  setActive(window.location.search.replace(/(^\?\/?|\/$)/, "").replace(/\//g, "-"), true);
+  setActive(window.location.search.replace(/(^\?\/?|\/$)/g, "").replace(/\//g, "-"), true);
 });
