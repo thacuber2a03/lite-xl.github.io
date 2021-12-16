@@ -4,7 +4,7 @@ require 'rouge'
 
 class RedRouge < Redcarpet::Render::HTML
   def block_code(code, language) "<pre>" + Rouge.highlight(code, language || "bash", 'html') + "</pre>" end
-  def link(link, title, link_content) "<a title='#{title}' #{link =~ /^(http|\/?img)/ && target='_blank'} href='#{link}'>#{link_content}</a>" end
+  def link(link, title, link_content) "<a title='#{title}' #{link =~ /^(http|\/?img)/ && "target='_blank'"} href='#{link}'>#{link_content}</a>" end
 end
 rc = Redcarpet::Markdown.new(RedRouge.new(with_toc_data: true), { fenced_code_blocks: true, tables: true, footnotes: true })
 sitemap = File.open("sitemap.txt", "w")
