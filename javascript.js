@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', function() {
   click('a', function(ev, e) {
     if (!/^((\w+:)?\/\/|img)/.test(e.getAttribute('href'))) {
       ev.stopPropagation(); ev.preventDefault();
-      setActive(e.getAttribute('href').toLowerCase().replace(/(^\w{2}\/|\/$)/g, "").replace(/\//g, "-"), true);
+      setActive(e.getAttribute('href').toLowerCase().replace(/(^\w{2}(\/|$)|\/$)/g, "").replace(/\//g, "-"), true);
     }
   });
   window.addEventListener('popstate', function(ev) { setActive(ev.state.id, false); });
