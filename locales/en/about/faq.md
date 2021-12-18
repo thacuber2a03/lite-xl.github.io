@@ -58,7 +58,7 @@ these are a list of plugins that just makes Lite XL a lot more pleasant.
 | ---                  | ---
 | [autoinsert]         | Automatically insert closing brackets and quotes
 | [bracketmatch]       | Highlight matching brackets
-| [ephemeraldocviews]  | Ephemeral tabs (previewing files without creating multiple tabs)
+| [ephemeral_tabs]     | Ephemeral tabs (previewing files without creating multiple tabs)
 | [gitdiff_highlight]  | Git diff gutter
 | [linecopypaste]      | Copy/Paste lines when nothing is selected
 | [lint+]              | Linter support
@@ -74,14 +74,14 @@ You can get more info in the [Features page](/about/features).
 [LSP]:                https://github.com/jgmdev/lite-xl-lsp
 [console]:            https://github.com/franko/console
 [vibe]:               https://github.com/eugenpt/lite-xl-vibe
-[autoinsert]:         https://github.com/lite-xl/lite-plugins/blob/master/plugins/autoinsert.lua?raw=1
-[bracketmatch]:       https://github.com/lite-xl/lite-plugins/blob/master/plugins/bracketmatch.lua?raw=1
-[ephemeraldocviews]:  https://github.com/lite-xl/lite-plugins/blob/master/plugins/ephemeraldocviews.lua?raw=1
+[autoinsert]:         https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/autoinsert.lua?raw=1
+[bracketmatch]:       https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/bracketmatch.lua?raw=1
+[ephemeral_tabs]:     https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/ephemeral_tabs.lua?raw=1
 [gitdiff_highlight]:  https://github.com/vincens2005/lite-xl-gitdiff-highlight
-[linecopypaste]:      https://github.com/lite-xl/lite-plugins/blob/master/plugins/linecopypaste.lua?raw=1
+[linecopypaste]:      https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/linecopypaste.lua?raw=1
 [lint+]:              https://github.com/liquid600pgm/lintplus
-[minimap]:            https://github.com/lite-xl/lite-plugins/blob/master/plugins/minimap.lua?raw=1
-[selectionhighlight]: https://github.com/lite-xl/lite-plugins/blob/master/plugins/selectionhighlight.lua?raw=1
+[minimap]:            https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/minimap.lua?raw=1
+[selectionhighlight]: https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/selectionhighlight.lua?raw=1
 [lite-xl-discord]:    https://github.com/vincens2005/lite-xl-discord
 
-[1]: https://github.com/lite-xl/lite-plugins
+[1]: https://github.com/lite-xl/lite-xl-plugins

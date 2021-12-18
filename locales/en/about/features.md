@@ -35,7 +35,7 @@ Right now, we decided to focus on optimizing the software renderer and various p
 
 ## System fonts
 This is painful because various systems has their own mechanism of managing fonts.
-For now, users can use the [fontconfig plugin](https://github.com/lite-xl/lite-plugins/blob/master/plugins/fontconfig.lua).
+For now, users can use the [fontconfig plugin](https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/fontconfig.lua).
 Fontconfig is widely available on Linux and [installable on MacOS](https://formulae.brew.sh/formula/fontconfig), while [Windows builds](https://github.com/takase1121/mingw-w64-fontconfig) are available.
 In the future, we might consider adding API to read font metadata, allowing us to write a fontconfig alternative in Lua. (no promises here)
 

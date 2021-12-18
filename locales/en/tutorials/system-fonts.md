@@ -53,6 +53,6 @@ lite-xl to wait for `fc-match`, which can be much slower.
 
 
 [1]: https://www.freedesktop.org/wiki/Software/fontconfig/
-[2]: https://github.com/lite-xl/lite-plugins/blob/master/plugins/fontconfig.lua
+[2]: https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/fontconfig.lua
 [3]: https://github.com/takase1121/mingw-w64-fontconfig
 [4]: https://www.freedesktop.org/software/fontconfig/fontconfig-user.html
