@@ -5,6 +5,7 @@ window.addEventListener('DOMContentLoaded', function() {
     hideMenus();
     document.querySelectorAll('pages page.active').forEach(function(p) { p.classList.remove('active'); });
     (document.querySelector("#page-" + (id || "index")) || document.querySelector('#page-404')).classList.add('active');
+    document.querySelectorAll('pages page.active img').forEach(function(e) { e.setAttribute('src', e.getAttribute('data-src')); });
     document.querySelector('content').className = id || "index";
     document.title = "Lite XL" + (id && id != "index" ? " - " + document.querySelector('page.active h1').textContent : "");
     if (pushState) 
