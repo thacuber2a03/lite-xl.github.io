@@ -9,13 +9,22 @@ The plugin displays a message (that is taken as input from the user) at the top
 right corner of the editor window. It also allows the user to toggle
 the visibility of the message.
 
+### I can't write Lua!
+If you come from other programming languages, take a look at [Lua cheatsheet][1].
+If you're new to programming, you can read [this][2].
+
 ### Format of the tutorial
 The code contains comments detailing what most (if not all)
 of the code in the file does.
 
+
 ### The code :
 ```lua
 -- mod-version:2 -- lite-xl 2.0
+
+-- you MUST put mod-version:x on the first line of your plugin
+-- mod-version usually maps to lite-xl releases (eg. mod-version: 2 == lite-xl 2.0)
+-- lite-xl won't load the plugin if the mod-version mismatches
 
 -----------------------------------------------------------------------
 -- NAME       : Simple
@@ -40,7 +49,7 @@ local core = require "core"
 -- the "command" module will help us register commands for our plugin.
 local command = require "core.command"
 
--- the "style" module will allow us to use default styling options
+-- the "style" module will allow us to use styling options
 local style = require "core.style"
 
 -- the "config" module will be used to store certain things like colors
@@ -49,18 +58,24 @@ local config = require "core.config"
 
 -- the "keymap" module will allow us to set keybindings for our commands
 local keymap = require "core.keymap"
------------------------------------------------------------------------
--- colors are just three comma separated values (RGB) (range 0 - 255)
--- put inside of '{ }'. We will add our color to the config module.
 
-config.text_color = {200, 140, 220}
+-- since we wants to modify RootView, we'll need to require it first
+local RootView = require "core.rootview"
+
+-----------------------------------------------------------------------
+-- per-plugin config must stay in config.plugins.(plugin name)
+config.plugins.simple = {}
+
+-- colors are just three or four comma separated values (RGBA) (range 0 - 255)
+-- put inside of '{ }'. We will add our color to the config module.
+config.plugins.simple.text_color = {200, 140, 220} -- or use `{ common.color "#C88CDC" }`
 -----------------------------------------------------------------------
 -- Let's create a function to calculate the coordinates of our text.
 -- While we're at it, let's add out function to the `config` module.
 -- We'll take the message we want to display as the argument to the
 -- function to determine the x and y coordinates of the text.
 
-function config.get_text_coordinates(message)
+function config.plugins.simple.get_text_coordinates(message)
    -- For this plugin, we want to display the text on the top right
    -- corner of the screen. For this, we need to know the editor's width
    -- and height.
@@ -79,48 +94,49 @@ function config.get_text_coordinates(message)
 end
 -----------------------------------------------------------------------
 -- Let's now get to actually drawing the text inside the editor.
--- The first thing we'll do is override the `parent` draw function from
--- `core.root_view`. We'll call it `parent_draw` for the time being.
+-- In order to "inject" our own code to draw text,
+-- we'll need to save the original draw function
+-- We'll save `RootView.draw` to a variable we call `parent_draw`
 
-local parent_draw = core.root_view.draw
+local parent_draw = RootView.draw
 
--- Now let's overload the original definition of `draw` in the
--- `core.root_view` module by redefining the function in the core module.
+-- Now let's overload the original definition of `draw` in RootView
+-- by redefining the function.
 
-core.root_view.draw = function(...)
+function RootView:draw()
    -- We call the parent's function to keep the editor functional...
    -- obviously we must still draw all the other stuff !
    -- So we call the `parent_draw` function before doing anything else.
-   parent_draw(...)
+   parent_draw(self)
 
    -- we'll add an option to toggle the message on and off. let's use a
    -- boolean variable to keep track of whether we want to display the
    -- message or not.
-   if config.show_my_message then
+   if config.plugins.simple.show_my_message then
       -- We'll be getting the message to display as input from the user
-      -- later. We'll store that user input in `config.hw_message`.
+      -- later. We'll store that user input in `config.plugins.simple.hw_message`.
       -- (NOTE: this variable does not come in-built in lite-xl;
-      --        it is a variable that we will create later.)
+      --        it is a variable that we will define later.)
 
-      -- let's store the value of config.hw_message in a local variable
-      -- `message` in case config.hw_message we set the message to
+      -- let's store the value of config.plugins.simple.hw_message in a local variable
+      -- `message` in case config.plugins.simple.hw_message we set the message to
       -- "message not set yet!"
       local message
 
-      if config.hw_message then
-	 message = config.hw_message
+      if config.plugins.simple.hw_message then
+          message = config.plugins.simple.hw_message
       else
-	 message = "Message not set yet !"
+          message = "Message not set yet !"
       end
 
       -- let's get the coordinates for our text
-      local x, y = config.get_text_coordinates(message)
+      local x, y = config.plugins.simple.get_text_coordinates(message)
 
       -- let's finally draw the text to the window !
       -- the draw_text function from `renderer` is an important function
       -- as it is used to display any and all text inside of the editor
       -- window
-      renderer.draw_text(style.code_font, message, x, y, config.text_color)
+      renderer.draw_text(style.code_font, message, x, y, config.plugins.simple.text_color)
    end
 end
 -----------------------------------------------------------------------
@@ -128,7 +144,7 @@ end
 -- we'll write a function to flip our "show" boolean variable.
 
 local function toggle_helloworld()
-   config.show_my_message = not config.show_my_message
+   config.plugins.simple.show_my_message = not config.plugins.simple.show_my_message
 end
 -----------------------------------------------------------------------
 -- Finally, let's add the toggle function to the command list so that
@@ -148,11 +164,11 @@ command.add(nil, {
    -- (NOTE: here the variable we are reading input into is `text`)
    ["simple:setshow"] = function()
       core.command_view:enter("Test to display", function(text)
-         config.hw_message = text
-         config.show_my_message = true
+         config.plugins.simple.hw_message = text
+         config.plugins.simple.show_my_message = true
       end)
    end
-})
+}
 -----------------------------------------------------------------------
 -- Just for fun, let's assign our commands their own keybindings.
 -- Here, we assign the keybinding the same string(its name) as the one
@@ -162,3 +178,13 @@ keymap.add {
    ["alt+t"] = "simple:toggle",
 }
 ```
+
+### Further reading
+- [Lite: An Implementation Overview][3], an excellent post by rxi that stays mostly relevant to lite-xl.
+- [API overview][4], where some of the APIs are explained.
+
+
+[1]: https://devhints.io/lua
+[2]: https://www.lua.org/pil
+[3]: https://rxi.github.io/lite_an_implementation_overview.html
+[4]: tutorials/api/overview

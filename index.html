@@ -1289,6 +1289,11 @@ who are new to Lite XL to the process of writing plugins for the editor.</p>
 right corner of the editor window. It also allows the user to toggle
 the visibility of the message.</p>
 
+<h3 id="i-cant-write-lua">I can&#39;t write Lua!</h3>
+
+<p>If you come from other programming languages, take a look at <a title='' target='_blank' href='https://devhints.io/lua'>Lua cheatsheet</a>.
+If you&#39;re new to programming, you can read <a title='' target='_blank' href='https://www.lua.org/pil'>this</a>.</p>
+
 <h3 id="format-of-the-tutorial">Format of the tutorial</h3>
 
 <p>The code contains comments detailing what most (if not all)
@@ -1296,6 +1301,10 @@ of the code in the file does.</p>
 
 <h3 id="the-code">The code :</h3>
 <pre><span class="c1">-- mod-version:2 -- lite-xl 2.0</span>
+
+<span class="c1">-- you MUST put mod-version:x on the first line of your plugin</span>
+<span class="c1">-- mod-version usually maps to lite-xl releases (eg. mod-version: 2 == lite-xl 2.0)</span>
+<span class="c1">-- lite-xl won't load the plugin if the mod-version mismatches</span>
 
 <span class="c1">-----------------------------------------------------------------------</span>
 <span class="c1">-- NAME       : Simple</span>
@@ -1320,7 +1329,7 @@ of the code in the file does.</p>
 <span class="c1">-- the "command" module will help us register commands for our plugin.</span>
 <span class="kd">local</span> <span class="n">command</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.command"</span>
 
-<span class="c1">-- the "style" module will allow us to use default styling options</span>
+<span class="c1">-- the "style" module will allow us to use styling options</span>
 <span class="kd">local</span> <span class="n">style</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.style"</span>
 
 <span class="c1">-- the "config" module will be used to store certain things like colors</span>
@@ -1329,18 +1338,24 @@ of the code in the file does.</p>
 
 <span class="c1">-- the "keymap" module will allow us to set keybindings for our commands</span>
 <span class="kd">local</span> <span class="n">keymap</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.keymap"</span>
-<span class="c1">-----------------------------------------------------------------------</span>
-<span class="c1">-- colors are just three comma separated values (RGB) (range 0 - 255)</span>
-<span class="c1">-- put inside of '{ }'. We will add our color to the config module.</span>
 
-<span class="n">config</span><span class="p">.</span><span class="n">text_color</span> <span class="o">=</span> <span class="p">{</span><span class="mi">200</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">220</span><span class="p">}</span>
+<span class="c1">-- since we wants to modify RootView, we'll need to require it first</span>
+<span class="kd">local</span> <span class="n">RootView</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.rootview"</span>
+
+<span class="c1">-----------------------------------------------------------------------</span>
+<span class="c1">-- per-plugin config must stay in config.plugins.(plugin name)</span>
+<span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1">-- colors are just three or four comma separated values (RGBA) (range 0 - 255)</span>
+<span class="c1">-- put inside of '{ }'. We will add our color to the config module.</span>
+<span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">text_color</span> <span class="o">=</span> <span class="p">{</span><span class="mi">200</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">220</span><span class="p">}</span> <span class="c1">-- or use `{ common.color "#C88CDC" }`</span>
 <span class="c1">-----------------------------------------------------------------------</span>
 <span class="c1">-- Let's create a function to calculate the coordinates of our text.</span>
 <span class="c1">-- While we're at it, let's add out function to the `config` module.</span>
 <span class="c1">-- We'll take the message we want to display as the argument to the</span>
 <span class="c1">-- function to determine the x and y coordinates of the text.</span>
 
-<span class="k">function</span> <span class="nc">config</span><span class="p">.</span><span class="nf">get_text_coordinates</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<span class="k">function</span> <span class="nc">config</span><span class="p">.</span><span class="nf">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">get_text_coordinates</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
    <span class="c1">-- For this plugin, we want to display the text on the top right</span>
    <span class="c1">-- corner of the screen. For this, we need to know the editor's width</span>
    <span class="c1">-- and height.</span>
@@ -1359,48 +1374,49 @@ of the code in the file does.</p>
 <span class="k">end</span>
 <span class="c1">-----------------------------------------------------------------------</span>
 <span class="c1">-- Let's now get to actually drawing the text inside the editor.</span>
-<span class="c1">-- The first thing we'll do is override the `parent` draw function from</span>
-<span class="c1">-- `core.root_view`. We'll call it `parent_draw` for the time being.</span>
+<span class="c1">-- In order to "inject" our own code to draw text,</span>
+<span class="c1">-- we'll need to save the original draw function</span>
+<span class="c1">-- We'll save `RootView.draw` to a variable we call `parent_draw`</span>
 
-<span class="kd">local</span> <span class="n">parent_draw</span> <span class="o">=</span> <span class="n">core</span><span class="p">.</span><span class="n">root_view</span><span class="p">.</span><span class="n">draw</span>
+<span class="kd">local</span> <span class="n">parent_draw</span> <span class="o">=</span> <span class="n">RootView</span><span class="p">.</span><span class="n">draw</span>
 
-<span class="c1">-- Now let's overload the original definition of `draw` in the</span>
-<span class="c1">-- `core.root_view` module by redefining the function in the core module.</span>
+<span class="c1">-- Now let's overload the original definition of `draw` in RootView</span>
+<span class="c1">-- by redefining the function.</span>
 
-<span class="n">core</span><span class="p">.</span><span class="n">root_view</span><span class="p">.</span><span class="n">draw</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">function</span> <span class="nf">RootView</span><span class="p">:</span><span class="n">draw</span><span class="p">()</span>
    <span class="c1">-- We call the parent's function to keep the editor functional...</span>
    <span class="c1">-- obviously we must still draw all the other stuff !</span>
    <span class="c1">-- So we call the `parent_draw` function before doing anything else.</span>
-   <span class="n">parent_draw</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+   <span class="n">parent_draw</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
 
    <span class="c1">-- we'll add an option to toggle the message on and off. let's use a</span>
    <span class="c1">-- boolean variable to keep track of whether we want to display the</span>
    <span class="c1">-- message or not.</span>
-   <span class="k">if</span> <span class="n">config</span><span class="p">.</span><span class="n">show_my_message</span> <span class="k">then</span>
+   <span class="k">if</span> <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">show_my_message</span> <span class="k">then</span>
       <span class="c1">-- We'll be getting the message to display as input from the user</span>
-      <span class="c1">-- later. We'll store that user input in `config.hw_message`.</span>
+      <span class="c1">-- later. We'll store that user input in `config.plugins.simple.hw_message`.</span>
       <span class="c1">-- (NOTE: this variable does not come in-built in lite-xl;</span>
-      <span class="c1">--        it is a variable that we will create later.)</span>
+      <span class="c1">--        it is a variable that we will define later.)</span>
 
-      <span class="c1">-- let's store the value of config.hw_message in a local variable</span>
-      <span class="c1">-- `message` in case config.hw_message we set the message to</span>
+      <span class="c1">-- let's store the value of config.plugins.simple.hw_message in a local variable</span>
+      <span class="c1">-- `message` in case config.plugins.simple.hw_message we set the message to</span>
       <span class="c1">-- "message not set yet!"</span>
       <span class="kd">local</span> <span class="n">message</span>
 
-      <span class="k">if</span> <span class="n">config</span><span class="p">.</span><span class="n">hw_message</span> <span class="k">then</span>
-     <span class="n">message</span> <span class="o">=</span> <span class="n">config</span><span class="p">.</span><span class="n">hw_message</span>
+      <span class="k">if</span> <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">hw_message</span> <span class="k">then</span>
+          <span class="n">message</span> <span class="o">=</span> <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">hw_message</span>
       <span class="k">else</span>
-     <span class="n">message</span> <span class="o">=</span> <span class="s2">"Message not set yet !"</span>
+          <span class="n">message</span> <span class="o">=</span> <span class="s2">"Message not set yet !"</span>
       <span class="k">end</span>
 
       <span class="c1">-- let's get the coordinates for our text</span>
-      <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">config</span><span class="p">.</span><span class="n">get_text_coordinates</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+      <span class="kd">local</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">get_text_coordinates</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
       <span class="c1">-- let's finally draw the text to the window !</span>
       <span class="c1">-- the draw_text function from `renderer` is an important function</span>
       <span class="c1">-- as it is used to display any and all text inside of the editor</span>
       <span class="c1">-- window</span>
-      <span class="n">renderer</span><span class="p">.</span><span class="n">draw_text</span><span class="p">(</span><span class="n">style</span><span class="p">.</span><span class="n">code_font</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">config</span><span class="p">.</span><span class="n">text_color</span><span class="p">)</span>
+      <span class="n">renderer</span><span class="p">.</span><span class="n">draw_text</span><span class="p">(</span><span class="n">style</span><span class="p">.</span><span class="n">code_font</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">text_color</span><span class="p">)</span>
    <span class="k">end</span>
 <span class="k">end</span>
 <span class="c1">-----------------------------------------------------------------------</span>
@@ -1408,7 +1424,7 @@ of the code in the file does.</p>
 <span class="c1">-- we'll write a function to flip our "show" boolean variable.</span>
 
 <span class="kd">local</span> <span class="k">function</span> <span class="nf">toggle_helloworld</span><span class="p">()</span>
-   <span class="n">config</span><span class="p">.</span><span class="n">show_my_message</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">config</span><span class="p">.</span><span class="n">show_my_message</span>
+   <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">show_my_message</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">show_my_message</span>
 <span class="k">end</span>
 <span class="c1">-----------------------------------------------------------------------</span>
 <span class="c1">-- Finally, let's add the toggle function to the command list so that</span>
@@ -1428,11 +1444,11 @@ of the code in the file does.</p>
    <span class="c1">-- (NOTE: here the variable we are reading input into is `text`)</span>
    <span class="p">[</span><span class="s2">"simple:setshow"</span><span class="p">]</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
       <span class="n">core</span><span class="p">.</span><span class="n">command_view</span><span class="p">:</span><span class="n">enter</span><span class="p">(</span><span class="s2">"Test to display"</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-         <span class="n">config</span><span class="p">.</span><span class="n">hw_message</span> <span class="o">=</span> <span class="n">text</span>
-         <span class="n">config</span><span class="p">.</span><span class="n">show_my_message</span> <span class="o">=</span> <span class="kc">true</span>
+         <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">hw_message</span> <span class="o">=</span> <span class="n">text</span>
+         <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">show_my_message</span> <span class="o">=</span> <span class="kc">true</span>
       <span class="k">end</span><span class="p">)</span>
    <span class="k">end</span>
-<span class="p">})</span>
+<span class="p">}</span>
 <span class="c1">-----------------------------------------------------------------------</span>
 <span class="c1">-- Just for fun, let's assign our commands their own keybindings.</span>
 <span class="c1">-- Here, we assign the keybinding the same string(its name) as the one</span>
@@ -1441,7 +1457,14 @@ of the code in the file does.</p>
    <span class="p">[</span><span class="s2">"alt+s"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"simple:setshow"</span><span class="p">,</span>
    <span class="p">[</span><span class="s2">"alt+t"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"simple:toggle"</span><span class="p">,</span>
 <span class="p">}</span>
-</pre></page>
+</pre>
+<h3 id="further-reading">Further reading</h3>
+
+<ul>
+<li><a title='' target='_blank' href='https://rxi.github.io/lite_an_implementation_overview.html'>Lite: An Implementation Overview</a>, an excellent post by rxi that stays mostly relevant to lite-xl.</li>
+<li><a title=''  href='tutorials/api/overview'>API overview</a>, where some of the APIs are explained.</li>
+</ul>
+</page>
 <page id='page-tutorials-overview-regex'><h1 id="regex-api">Regex API</h1>
 
 <p>This API provides PCRE regular expressions for those who needs more power in matching text.
@@ -1451,12 +1474,16 @@ This API written in C and Lua.</p>
 
 <p>Use <code>regex.compile(pattern, options)</code> to compile a regex.</p>
 
-<p>Arguments:
-- <code>pattern</code>: The regex pattern
-- <code>options</code>: regex modifiers as a string, eg <code>&quot;im&quot;</code>
-  - <code>&quot;i&quot;</code>: Case-insensitive search
-  - <code>&quot;m&quot;</code>: Multiline search
-  - <code>&quot;s&quot;</code>: Match all characters with dot (<code>.</code>), <strong>including newlines.</strong></p>
+<ul>
+<li><code>pattern</code>: The regex pattern</li>
+<li><code>options</code>: regex modifiers as a string, eg <code>&quot;im&quot;</code>
+
+<ul>
+<li><code>&quot;i&quot;</code>: Case-insensitive search</li>
+<li><code>&quot;m&quot;</code>: Multiline search</li>
+<li><code>&quot;s&quot;</code>: Match all characters with dot (<code>.</code>), <strong>including newlines.</strong></li>
+</ul></li>
+</ul>
 
 <h2 id="matching">Matching</h2>
 
@@ -1493,7 +1520,7 @@ This API written in C and Lua.</p>
 <li><code>regex:match(str, offset, options)</code> high level matching function. This function accepts
 the same arguments as <code>regex:cmatch()</code></li>
 <li><code>regex:gsub(str, replacement)</code> replaces matches in <code>str</code> with <code>replacement</code>.
-Capture groups are identified with <code>{{ pages }}</code> to <code></code>, this might change in the future.</li>
+Capture groups are identified with <code>\0</code> to <code>\9</code>, this might change in the future.</li>
 </ul>
 </page>
 <page id='page-tutorials-overview-system'><h1 id="system-api">System API</h1>
@@ -1514,17 +1541,10 @@ plugins.</p>
 <ul>
 <li><code>system.list_dir(dir)</code> returns a list of filenames in a directory.</li>
 <li><code>system.rmdir(dir)</code> removes a directory. Use this instead of <code>os.remove()</code>.
-This function can remove directories properly on Windows.
-
-<ul>
-<li><strong>The directory must be empty.</strong></li>
-</ul></li>
+<strong>The directory must be empty.</strong></li>
 <li><code>system.chdir(dir)</code> changes the current working directory (like <code>cd</code>).</li>
 <li><code>system.mkdir(dir)</code> creates a new directory.
-
-<ul>
-<li><code>system.mkdir()</code> does not recursively create directories.</li>
-</ul></li>
+<strong>It does not recursively create directories.</strong></li>
 <li><code>system.absolute_path(path)</code> resolves the path components (<code>.. and .</code>) to an absolute path.</li>
 <li><code>system.get_file_info(path)</code> returns info about a path.
 
@@ -1594,12 +1614,15 @@ matches the haystack.
 <p>Lite XL provides a process API to launch external applications. This API is meant to replace
 lua&#39;s <code>io.popen</code> and lite&#39;s <a title='' target='_blank' href='https://github.com/rxi/console/blob/fb3d414d085d4110364314d6cd8380dc1d386249/init.lua#L100'>pipe-to-a-file</a> approach.</p>
 
-<p>Advantages of this API includes:
-- Proper argument escaping (arguments are supplied via a table)
-- Nonblocking IO
-- Able to detach processes from Lite XL <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl/pull/535'>(in progress)</a>
-- Does not create temporary files
-- Mostly cross-platform (does not require special code for each shell)</p>
+<p>Advantages of this API includes:</p>
+
+<ul>
+<li>Proper argument escaping (arguments are supplied via a table)</li>
+<li>Nonblocking IO</li>
+<li>Able to detach processes from Lite XL <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl/pull/535'>(in progress)</a></li>
+<li>Does not create temporary files</li>
+<li>Mostly cross-platform (does not require special code for each shell)</li>
+</ul>
 
 <h2 id="using-the-process-api">Using the Process API</h2>
 
@@ -1621,44 +1644,51 @@ lua&#39;s <code>io.popen</code> and lite&#39;s <a title='' target='_blank' href=
 
 <p>To start a process, use <code>process.start(args, options)</code>.</p>
 
-<p>Here are some of the more useful arguments.
-- <code>args</code>: The executable and any arguments, eg: <code>{ &quot;sh&quot;, &quot;-c&quot;, &quot;echo hello world&quot; }</code>
-- <code>options</code>: Options for <code>process.start()</code>
-  - <code>env</code>: A key-value table containing the env. <strong>Note that if this is provided,
-            environment variables will not be inherited.</strong>
-  - <code>stdin</code>: Specify where to redirect stdin
-  - <code>stdout</code>: Specify where to redirect stdout
-  - <code>stderr</code>: Specify where to redirect stderr</p>
+<p>Here are some of the more useful arguments.</p>
 
-<p>for <code>options.std{in,out,err}</code>, valid values are:
-- <code>process.REDIRECT_PIPE</code> (Make it available to subprocess API for reading / writing)
-- <code>process.REDIRECT_DISCARD</code> (Discard the output. Use this to prevent buffering)
-- <code>process.REDIRECT_STDOUT</code> (<code>stderr</code> only, for redirecting <code>stderr</code> to <code>stdout</code>)</p>
+<ul>
+<li><code>args</code>: The executable and any arguments, eg: <code>{ &quot;sh&quot;, &quot;-c&quot;, &quot;echo hello world&quot; }</code></li>
+<li><code>options</code>: Options for <code>process.start()</code>
+
+<ul>
+<li><code>env</code>: A key-value table containing the env. <strong>Note that if this is provided,
+    environment variables will not be inherited.</strong></li>
+<li><code>stdin</code>: Specify where to redirect stdin</li>
+<li><code>stdout</code>: Specify where to redirect stdout</li>
+<li><code>stderr</code>: Specify where to redirect stderr</li>
+</ul></li>
+</ul>
+
+<p>for <code>options.std{in,out,err}</code>, valid values are:</p>
+
+<ul>
+<li><code>process.REDIRECT_PIPE</code> (Make it available to subprocess API for reading / writing)</li>
+<li><code>process.REDIRECT_DISCARD</code> (Discard the output. Use this to prevent buffering)</li>
+<li><code>process.REDIRECT_STDOUT</code> (<code>stderr</code> only, for redirecting <code>stderr</code> to <code>stdout</code>)</li>
+</ul>
 
 <h3 id="reading-from-process">Reading from process</h3>
 
 <p>To read from <code>stdout</code> or <code>stderr</code> of a process, use <code>process:read_stdout()</code> and
 <code>process:read_stderr()</code> respectively.</p>
 
-<p>You can specify a numeric argument to them, which will change the size of internal buffer used 
+<p>You can specify a numeric argument to them, which will change the size of internal buffer used
 to read the output.</p>
 
 <p>Alternatively, you could use <code>process:read()</code> with <code>process.STREAM_STDERR</code> and <code>process.STREAM_STDOUT</code>.</p>
 
-<p><strong>Example:</strong>
-```lua
-local proc = process.start { &quot;sh&quot;, &quot;-c&quot;, &quot;echo hello world!&quot; }</p>
+<p><strong>Example:</strong></p>
+<pre><span class="kd">local</span> <span class="n">proc</span> <span class="o">=</span> <span class="n">process</span><span class="p">.</span><span class="n">start</span> <span class="p">{</span> <span class="s2">"sh"</span><span class="p">,</span> <span class="s2">"-c"</span><span class="p">,</span> <span class="s2">"echo hello world!"</span> <span class="p">}</span>
 
-<p>-- do not use <code>while proc:running()</code> if you care about output.
--- The process could die and leave data in the buffer
--- You should just read until <code>proc:read_stdout()</code> returns nil
-while true do
-  local rdbuf = proc:read_stdout()
-  if not rdbuf then break end
-  -- yay, output
-end
-```</p>
-
+<span class="c1">-- do not use `while proc:running()` if you care about output.</span>
+<span class="c1">-- The process could die and leave data in the buffer</span>
+<span class="c1">-- You should just read until `proc:read_stdout()` returns nil</span>
+<span class="k">while</span> <span class="kc">true</span> <span class="k">do</span>
+  <span class="kd">local</span> <span class="n">rdbuf</span> <span class="o">=</span> <span class="n">proc</span><span class="p">:</span><span class="n">read_stdout</span><span class="p">()</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">rdbuf</span> <span class="k">then</span> <span class="k">break</span> <span class="k">end</span>
+  <span class="c1">-- yay, output</span>
+<span class="k">end</span>
+</pre>
 <h3 id="writing-to-process">Writing to process</h3>
 
 <p>You can use <code>process:write(data)</code> to write a string to <code>stdin</code>.</p>
@@ -1675,7 +1705,7 @@ end
 <ul>
 <li><code>process:terminate()</code> sends SIGTERM (or Windows equivalent) to the process.</li>
 <li><code>process:kill()</code> sends SIGKILL (or Windows equivalent) to the progress.
-** Use this only if <code>process:terminate()</code> cannot kill the process, <a title='' target='_blank' href='http://turnoff.us/geek/dont-sigkill/'>as it can cause issues</a>.</li>
+<strong>Use this only if <code>process:terminate()</code> cannot kill the process, <a title='' target='_blank' href='http://turnoff.us/geek/dont-sigkill/'>as it can cause issues</a>.</strong></li>
 </ul>
 
 <h3 id="misc">Misc</h3>

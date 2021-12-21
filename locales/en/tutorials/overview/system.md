@@ -11,11 +11,10 @@ plugins.
 ## File / Directory manipulation
 - `system.list_dir(dir)` returns a list of filenames in a directory.
 - `system.rmdir(dir)` removes a directory. Use this instead of `os.remove()`.
-  This function can remove directories properly on Windows.
-  - **The directory must be empty.**
+  **The directory must be empty.**
 - `system.chdir(dir)` changes the current working directory (like `cd`).
 - `system.mkdir(dir)` creates a new directory.
-  - `system.mkdir()` does not recursively create directories.
+  **It does not recursively create directories.**
 - `system.absolute_path(path)` resolves the path components (`.. and .`) to an absolute path.
 - `system.get_file_info(path)` returns info about a path.
   - `modified`: last modification time of the file in seconds since UNIX epoch.
@@ -57,5 +56,5 @@ plugins.
 - `system.fuzzy_match(haystack, needle, file)` generates a score depends on how close the needle
   matches the haystack.
   - `file`: match backwards (more accurate for filename matching).
-  
+
 [1]: "tutorials/overview/process"

@@ -6,7 +6,6 @@ This API written in C and Lua.
 ## Creating a regex
 Use `regex.compile(pattern, options)` to compile a regex.
 
-Arguments:
 - `pattern`: The regex pattern
 - `options`: regex modifiers as a string, eg `"im"`
   - `"i"`: Case-insensitive search
@@ -26,7 +25,7 @@ Arguments:
     - `regex.NOTEOL`: String is not the end of line
     - `regex.NOTEMPTY`: Do not match an empty string
     - `regex.NOTEMPTY_ATSTART`: Do not match empty string at the start
-    
+
 **Note: `regex:cmatch()` returns wrong indexes (currently at version 2.0.2).
   The end index returned by `regex:cmatch()` is always off by 1 (-1 to get the actual end index).**
 
@@ -40,4 +39,4 @@ We will only document the first form.
 - `regex:match(str, offset, options)` high level matching function. This function accepts
   the same arguments as `regex:cmatch()`
 - `regex:gsub(str, replacement)` replaces matches in `str` with `replacement`.
-  Capture groups are identified with `\0` to `\9`, this might change in the future.
+  Capture groups are identified with `\\0` to `\\9`, this might change in the future.
