@@ -6,8 +6,9 @@ Check out the [LSP] plugin.
 
 #### Where is the integrated terminal?
 
-Lite XL does not come with a terminal due to it's complexity.
-For now, we have the [console] plugin to run a command and dump its output. (not interactive)
+Work is being done on [lite-xl-terminal] and [lite-xl-tmt].
+Both plugins has their own supported features and bugs
+so you should try both out and see which one works for you.
 
 #### Tabs and indent size?
 
@@ -72,7 +73,8 @@ You can get more info in the [Features page](/about/features).
 
 
 [LSP]:                https://github.com/jgmdev/lite-xl-lsp
-[console]:            https://github.com/franko/console
+[lite-xl-terminal]:   https://github.com/benjcollins/lite-xl-terminal
+[lite-xl-tmt]:        https://github.com/ColonelPhantom/lite-xl-tmt
 [vibe]:               https://github.com/eugenpt/lite-xl-vibe
 [autoinsert]:         https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/autoinsert.lua?raw=1
 [bracketmatch]:       https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/bracketmatch.lua?raw=1
