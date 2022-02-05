@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', function() {
   click('expander', function() { document.querySelector('links').classList.toggle('active'); });
   click('body', hideMenus);
   click('a', function(ev, e) {
-    if (!/^((\w+:)?\/\/|assets)/.test(e.getAttribute('href'))) {
+    if (!/^(#|(\w+:)?\/\/|assets)/.test(e.getAttribute('href'))) {
       ev.stopPropagation(); ev.preventDefault();
       setActive(e.getAttribute('href').toLowerCase().replace(/(^\w{2}(\/|$)|\/$)/g, "").replace(/\//g, "-"), true);
     }
