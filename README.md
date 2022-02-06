@@ -10,7 +10,7 @@ This website is built using markdown, and a few line ruby script.
 ## Extra goodies
 - get [watchexec][2] for watching directories.
 ```sh
-$ watchexec -e md,html ./site.rb
+$ watchexec -e md,html -w locales -w assets ./site.rb
 ```
 
 
