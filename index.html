@@ -56,7 +56,11 @@
     </header>
     <content>
       <pages>
-        <page id='page-downloads'><h1 id="downloads">Downloads</h1>
+        <page id='page-404'><h1 id="not-found">Not Found</h1>
+
+<p>This page couldn&#39;t be found. Please note, that the site is undergoing testing at present, so pages may be missing/moved.</p>
+</page>
+<page id='page-downloads'><h1 id="downloads">Downloads</h1>
 
 <h2 id="binary-packages">Binary packages</h2>
 
@@ -145,6 +149,69 @@ or directly via git:</p>
 
 <p><a title='' target='_blank' href='assets/img/editor.png'><img data-src='assets/img/editor.png' title='' alt='Screenshot 1'/></a>
 <a title='' target='_blank' href='assets/img/editor2.png'><img data-src='assets/img/editor2.png' title='' alt='Screenshot 2'/></a></p>
+</page>
+<page id='page-about-features'><h1 id="features">Features</h1>
+
+<p>Currently, Lite XL offers a lot of features out of the box.</p>
+
+<h2 id="cross-platform">Cross-Platform</h2>
+
+<p>We currently support Windows, Linux and MacOS (with Retina display support).</p>
+
+<h2 id="lightweight">Lightweight</h2>
+
+<p>We are currently around 3MB in size and takes about 10MB in RAM (can be lower). No Electron / WebView involved. The whole thing is just Lua running on a rendering engine.</p>
+
+<h2 id="extensible">Extensible</h2>
+
+<p>While the editor is minimal by default, it is very extensible using Lua. In fact, a lot of features are provided by plugins. For example, <a title='' target='_blank' href='https://github.com/jgmdev/lite-xl-lsp'>VSC-like intellisense</a></p>
+
+<h2 id="better-font-rendering">Better font rendering</h2>
+
+<p>The editor looks good in screen of any sizes. Some other options are also configurable, such as hinting and antialiasing.</p>
+
+<h2 id="multi-cursor-editing">Multi-cursor editing</h2>
+
+<p>You can now place multiple cursors by <code>ctrl</code> + <code>lclick</code> on lines or <code>ctrl</code> + <code>shift</code> + <code>up</code> or <code>ctrl</code> + <code>shift</code> + <code>down</code>.</p>
+
+<hr>
+
+<p>Here are some features that aren&#39;t implemented with the rationales behind it.
+Some of these may be implemented via plugins.
+We encourage you to give it a shot.</p>
+
+<h2 id="hardware-accelerated-rendering">Hardware accelerated rendering</h2>
+
+<p><strong>tl;dr -  franko stated that he isn&#39;t considering using OpenGL due to the skills and work involved.</strong></p>
+
+<p>Hardware acceleration was brought up in this <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl/discussions/450'>discussion</a>.
+Takase had made 2 attempts at this - at first using <a title='' target='_blank' href='https://github.com/inniyah/nanovg'>NanoVG</a> and then forcing SDL to use GPU rendering.
+In both attempts, the performance gains at best is negligible, while at worst its completely unusable.
+Right now, we decided to focus on optimizing the software renderer and various part of Lua code.</p>
+
+<h2 id="system-fonts">System fonts</h2>
+
+<p>This is painful because various systems has their own mechanism of managing fonts.
+For now, users can use the <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/fontconfig.lua'>fontconfig plugin</a>.
+Fontconfig is widely available on Linux and <a title='' target='_blank' href='https://formulae.brew.sh/formula/fontconfig'>installable on MacOS</a>, while <a title='' target='_blank' href='https://github.com/takase1121/mingw-w64-fontconfig'>Windows builds</a> are available.
+In the future, we might consider adding API to read font metadata, allowing us to write a fontconfig alternative in Lua. (no promises here)</p>
+
+<h2 id="opening-unc-paths-on-windows-network-drives-accessing-wsl2-files-from-windows">Opening UNC paths on Windows (network drives, accessing WSL2 files from Windows)</h2>
+
+<p>Our path handling code can only handle POSIX and Windows paths.
+We also aren&#39;t sure how Lite XL will behave in these scenarios.</p>
+
+<h2 id="inter-window-communication-dragging-tabs-between-windows-and-other-magic">Inter-window communication (dragging tabs between windows and other magic)</h2>
+
+<p>This is by far the hardest to achieve.
+Lite XL has no intention to link to any widget toolkits (Qt and GTK) which are required for these features.
+An alternative approach is to create our own IPC mechanism, but that&#39;s <a title='' target='_blank' href='https://en.wikipedia.org/wiki/D-Bus'>reinventing</a> <a title='' target='_blank' href='https://en.wikipedia.org/wiki/Inter-Client_Communication_Conventions_Manual'>the</a> <a title='' target='_blank' href='https://github.com/swaywm/wlroots'>wheel</a>.</p>
+
+<h2 id="integrated-terminal">Integrated terminal</h2>
+
+<p>A terminal is complex to implement.
+There are projects that <em>can</em> be ported to Lua, such as <a title='' target='_blank' href='https://xtermjs.org/'>xterm.js</a>.
+If someone is interested, they can do so.</p>
 </page>
 <page id='page-about-faq'><h1 id="faq">FAQ</h1>
 
@@ -241,79 +308,6 @@ these are a list of plugins that just makes Lite XL a lot more pleasant.</p>
 <h4 id="wheres-feature-x-how-about-y">Where&#39;s feature X? How about Y?</h4>
 
 <p>You can get more info in the <a title=''  href='/about/features'>Features page</a>.</p>
-</page>
-<page id='page-about-features'><h1 id="features">Features</h1>
-
-<p>Currently, Lite XL offers a lot of features out of the box.</p>
-
-<h2 id="cross-platform">Cross-Platform</h2>
-
-<p>We currently support Windows, Linux and MacOS (with Retina display support).</p>
-
-<h2 id="lightweight">Lightweight</h2>
-
-<p>We are currently around 3MB in size and takes about 10MB in RAM (can be lower). No Electron / WebView involved. The whole thing is just Lua running on a rendering engine.</p>
-
-<h2 id="extensible">Extensible</h2>
-
-<p>While the editor is minimal by default, it is very extensible using Lua. In fact, a lot of features are provided by plugins. For example, <a title='' target='_blank' href='https://github.com/jgmdev/lite-xl-lsp'>VSC-like intellisense</a></p>
-
-<h2 id="better-font-rendering">Better font rendering</h2>
-
-<p>The editor looks good in screen of any sizes. Some other options are also configurable, such as hinting and antialiasing.</p>
-
-<h2 id="multi-cursor-editing">Multi-cursor editing</h2>
-
-<p>You can now place multiple cursors by <code>ctrl</code> + <code>lclick</code> on lines or <code>ctrl</code> + <code>shift</code> + <code>up</code> or <code>ctrl</code> + <code>shift</code> + <code>down</code>.</p>
-
-<hr>
-
-<p>Here are some features that aren&#39;t implemented with the rationales behind it.
-Some of these may be implemented via plugins.
-We encourage you to give it a shot.</p>
-
-<h2 id="hardware-accelerated-rendering">Hardware accelerated rendering</h2>
-
-<p><strong>tl;dr -  franko stated that he isn&#39;t considering using OpenGL due to the skills and work involved.</strong></p>
-
-<p>Hardware acceleration was brought up in this <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl/discussions/450'>discussion</a>.
-Takase had made 2 attempts at this - at first using <a title='' target='_blank' href='https://github.com/inniyah/nanovg'>NanoVG</a> and then forcing SDL to use GPU rendering.
-In both attempts, the performance gains at best is negligible, while at worst its completely unusable.
-Right now, we decided to focus on optimizing the software renderer and various part of Lua code.</p>
-
-<h2 id="system-fonts">System fonts</h2>
-
-<p>This is painful because various systems has their own mechanism of managing fonts.
-For now, users can use the <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/fontconfig.lua'>fontconfig plugin</a>.
-Fontconfig is widely available on Linux and <a title='' target='_blank' href='https://formulae.brew.sh/formula/fontconfig'>installable on MacOS</a>, while <a title='' target='_blank' href='https://github.com/takase1121/mingw-w64-fontconfig'>Windows builds</a> are available.
-In the future, we might consider adding API to read font metadata, allowing us to write a fontconfig alternative in Lua. (no promises here)</p>
-
-<h2 id="opening-unc-paths-on-windows-network-drives-accessing-wsl2-files-from-windows">Opening UNC paths on Windows (network drives, accessing WSL2 files from Windows)</h2>
-
-<p>Our path handling code can only handle POSIX and Windows paths.
-We also aren&#39;t sure how Lite XL will behave in these scenarios.</p>
-
-<h2 id="inter-window-communication-dragging-tabs-between-windows-and-other-magic">Inter-window communication (dragging tabs between windows and other magic)</h2>
-
-<p>This is by far the hardest to achieve.
-Lite XL has no intention to link to any widget toolkits (Qt and GTK) which are required for these features.
-An alternative approach is to create our own IPC mechanism, but that&#39;s <a title='' target='_blank' href='https://en.wikipedia.org/wiki/D-Bus'>reinventing</a> <a title='' target='_blank' href='https://en.wikipedia.org/wiki/Inter-Client_Communication_Conventions_Manual'>the</a> <a title='' target='_blank' href='https://github.com/swaywm/wlroots'>wheel</a>.</p>
-
-<h2 id="integrated-terminal">Integrated terminal</h2>
-
-<p>A terminal is complex to implement.
-There are projects that <em>can</em> be ported to Lua, such as <a title='' target='_blank' href='https://xtermjs.org/'>xterm.js</a>.
-If someone is interested, they can do so.</p>
-</page>
-<page id='page-404'><h1 id="not-found">Not Found</h1>
-
-<p>This page couldn&#39;t be found. Please note, that the site is undergoing testing at present, so pages may be missing/moved.</p>
-</page>
-<page id='page-index'><h1 id="lite-xl">Lite XL</h1>
-
-<p>A lightweight, <em>simple</em>, fast, feature-filled, and extremely extensible text editor written in C, and Lua, adapted from <a title='' target='_blank' href='https://github.com/rxi/lite/'>lite</a>.</p>
-
-<p><a title='' target='_blank' href='assets/img/editor.png'><img data-src='assets/img/editor.png' title='' alt='Lite XL Editor'/></a></p>
 </page>
 <page id='page-documentation-keymap'><h1 id="default-keymap">Default Keymap</h1>
 
@@ -713,10 +707,13 @@ or otherwise directly opening the <code>$HOME/.config/lite-xl/init.lua</code> fi
 <p>On Windows, the variable <code>$USERPROFILE</code> will be used instead of
 <code>$HOME</code>.</p>
 
-<p><strong>tl;dr:</strong>
-- Windows: <code>C:\Users\(username)\.config\lite-xl\init.lua</code>
-- MacOS: <code>/Users/(usernmame)/.config/lite-xl/init.lua</code>
-- Linux: <code>/home/(username)/.config/lite-xl/init.lua</code></p>
+<p><strong>tl;dr:</strong></p>
+
+<ul>
+<li>Windows: <code>C:\Users\(username)\.config\lite-xl\init.lua</code></li>
+<li>MacOS: <code>/Users/(usernmame)/.config/lite-xl/init.lua</code></li>
+<li>Linux: <code>/home/(username)/.config/lite-xl/init.lua</code></li>
+</ul>
 
 <p>These aren&#39;t the exact location, but it gives you an idea where to find.</p>
 
@@ -812,6 +809,32 @@ document as our active view.</p>
 </pre>
 <p>A list of default mappings can be viewed <a title=''  href='documentation/keymap'>here</a>.</p>
 
+<h3 id="global-variables">Global variables</h3>
+
+<p>There are a few global variables set by the editor.
+These variables are available everywhere and shouldn&#39;t be overwritten.</p>
+
+<ul>
+<li><code>ARGS</code>: command-line arguments. <code>argv[1]</code> is the program name, <code>argv[2]</code> is the 1st parameter, ...</li>
+<li><code>PLATFORM</code>: Output from <code>SDL_GetPlatform()</code>. Can be <code>Windows</code>, <code>Mac OS X</code>, <code>Linux</code>, <code>iOS</code> and <code>Android</code>.</li>
+<li><code>SCALE</code>: Font scale. Usually 1, but can be higher on HiDPI systems.</li>
+<li><code>EXEFILE</code>: An absolute path to the executable.</li>
+<li><code>EXEDIR</code>: The executable directory. <strong>DO NOT WRITE TO THIS DIRECTORY.</strong></li>
+<li><code>VERSION</code>: lite-xl version.</li>
+<li><code>MOD_VERSION</code>: mod-version used in plugins. This is usually incremented when there are API changes.</li>
+<li><code>PATHSEP</code>: Path seperator. <code>\</code> (Windows) or <code>/</code> (Other OSes)</li>
+<li><code>DATADIR</code>: The data directory, where the Lua part of lite-xl resides. <strong>DO NOT WRITE TO THIS DIRECTORY.</strong></li>
+<li><code>USERDIR</code>: User configuration directory.</li>
+</ul>
+
+<blockquote>
+<p><code>USERDIR</code> should be used instead of <code>DATADIR</code> when configuring the editor
+because <code>DATADIR</code> might not be writable.
+(for example, if the editor is installed in <code>/usr</code>, <code>DATADIR</code> will be <code>/usr/share/lite-xl</code>!)
+<code>USERDIR</code> on the other hand should always be writable for the user, and allows multiple users to customize
+their own editor.</p>
+</blockquote>
+
 <h2 id="plugins">Plugins</h2>
 
 <p>Plugins in Lite XL are normal lua modules and are treated as such — no
@@ -857,6 +880,121 @@ is actually reloaded when saving the user&#39;s configuration file.</p>
 
 <p>Color themes can be downloaded from the <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl-colors'>color themes repository</a>.
 They are included with Lite XL release packages.</p>
+</page>
+<page id='page-documentation-build'><h1 id="build">Build</h1>
+
+<p>Once you have downloaded the source code, you can build Lite XL yourself using Meson.
+In addition, the <code>build-packages.sh</code> script can be used to compile Lite XL and
+create an OS-specific package for Linux, Windows or macOS.</p>
+
+<p>The following libraries are required:</p>
+
+<ul>
+<li>freetype2</li>
+<li>SDL2</li>
+</ul>
+
+<p>The following libraries are <strong>optional</strong>:</p>
+
+<ul>
+<li>libagg</li>
+<li>Lua 5.2</li>
+</ul>
+
+<p>If they are not found, they will be downloaded and compiled by Meson.
+Otherwise, if they are present, they will be used to compile Lite XL.</p>
+
+<h2 id="build-script">Build Script</h2>
+
+<p>If you compile Lite XL yourself,
+it is recommended to use the script <code>build-packages.sh</code>:</p>
+<pre>bash build-packages.sh <span class="nt">-h</span>
+</pre>
+<p>The script will run Meson and create a tar compressed archive with the application or,
+for Windows, a zip file. Lite XL can be easily installed
+by unpacking the archive in any directory of your choice.</p>
+
+<p>On Windows two packages will be created, one called &quot;portable&quot; using the &quot;data&quot;
+folder next to the executable and the other one using a unix-like file layout.
+Both packages works correctly. The one with unix-like file layout is meant
+for people using a unix-like shell and the command line.</p>
+
+<p>Please note that there aren&#39;t any hard-coded directories in the executable,
+so that the package can be extracted and used in any directory.</p>
+
+<h2 id="portable">Portable</h2>
+
+<p>When performing the <code>meson setup</code> command you may enable the <code>-Dportable=true</code>
+option to specify whether files should be installed as in a portable application.</p>
+
+<p>If <code>portable</code> is enabled, Lite XL is built to use a <code>data</code> directory placed next
+to the executable.
+Otherwise, Lite XL will use unix-like directory locations.
+In this case, the <code>data</code> directory will be <code>$prefix/share/lite-xl</code>
+and the executable will be located in <code>$prefix/bin</code>.
+<code>$prefix</code> is determined when the application starts as a directory such that
+<code>$prefix/bin</code> corresponds to the location of the executable.</p>
+
+<p>The <code>user</code> directory does not depend on the <code>portable</code> option and will always be
+<code>$HOME/.config/lite-xl</code>.
+<code>$HOME</code> is determined from the corresponding environment variable.
+As a special case on Windows the variable <code>$USERPROFILE</code> will be used instead.</p>
+
+<h2 id="linux">Linux</h2>
+
+<p>On Debian-based systems the required libraries and Meson can be installed
+using the following commands:</p>
+<pre><span class="c"># To install the required libraries:</span>
+<span class="nb">sudo </span>apt <span class="nb">install </span>libfreetype6-dev libsdl2-dev
+
+<span class="c"># To install Meson:</span>
+<span class="nb">sudo </span>apt <span class="nb">install </span>meson
+<span class="c"># or pip3 install --user meson</span>
+</pre>
+<p>To build Lite XL with Meson the commands below can be used:</p>
+<pre>meson setup <span class="nt">--buildtype</span><span class="o">=</span>release <span class="nt">--prefix</span> &lt;prefix&gt; build
+meson compile <span class="nt">-C</span> build
+<span class="nv">DESTDIR</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span><span class="s2">/lite-xl"</span> meson <span class="nb">install</span> <span class="nt">--skip-subprojects</span> <span class="nt">-C</span> build
+</pre>
+<p>where <code>&lt;prefix&gt;</code> depends on the OS you are using:
+- on Linux is <code>/usr</code>
+- on macOS application bundle can be <code>&quot;/Lite XL.app&quot;</code></p>
+
+<p>If you are using a version of Meson below 0.54
+you need to use diffent commands to compile and install:</p>
+<pre>meson setup <span class="nt">--buildtype</span><span class="o">=</span>release build
+ninja <span class="nt">-C</span> build
+ninja <span class="nt">-C</span> build <span class="nb">install</span>
+</pre>
+<h2 id="macos">macOS</h2>
+
+<p>macOS is fully supported and a notarized app disk image is provided in the
+<a title='' target='_blank' href='https://github.com/lite-xl/lite-xl/releases/latest/'>release page</a>. 
+In addition the application can be compiled using the generic instructions given above.</p>
+
+<h2 id="windows-msys2">Windows MSYS2</h2>
+
+<p>The build environment chosen for Lite XL on Windows is <a title='' target='_blank' href='https://www.msys2.org/'>MSYS2</a>.
+Follow the install instructions in the link.</p>
+
+<ul>
+<li>Open <code>MinGW 64-bit</code> or <code>MinGW 32-bit</code> shell from the start menu.</li>
+<li>Update the MSYS2 installation with <code>pacman -Syu</code></li>
+<li>Restart the shell</li>
+<li>Install the dependencies:</li>
+</ul>
+<pre>pacman <span class="nt">-S</span> <span class="se">\</span>
+  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-freetype</span> <span class="se">\</span>
+  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-gcc</span> <span class="se">\</span>
+  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-ninja</span> <span class="se">\</span>
+  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-pcre2</span> <span class="se">\</span>
+  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-pkg-config</span> <span class="se">\</span>
+  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-python-pip</span> <span class="se">\</span>
+  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-SDL2</span>
+pip3 <span class="nb">install </span>meson
+</pre>
+<p><code>${MINGW_PACKAGE_PREFIX}</code> expands either to <code>mingw-w64-i686</code> or <code>mingw-w64-x86_64</code>
+depending if the current shell is 32 or 64 bit.</p>
 </page>
 <page id='page-documentation-keymap-macos'><h1 id="macos-keymap">MacOS Keymap</h1>
 
@@ -1203,168 +1341,11 @@ in order to conform to normal expectations for that operating system.</p>
 </tr>
 </tbody></table>
 </page>
-<page id='page-documentation-build'><h1 id="build">Build</h1>
+<page id='page-index'><h1 id="lite-xl">Lite XL</h1>
 
-<p>Once you have downloaded the source code, you can build Lite XL yourself using Meson.
-In addition, the <code>build-packages.sh</code> script can be used to compile Lite XL and
-create an OS-specific package for Linux, Windows or macOS.</p>
+<p>A lightweight, <em>simple</em>, fast, feature-filled, and extremely extensible text editor written in C, and Lua, adapted from <a title='' target='_blank' href='https://github.com/rxi/lite/'>lite</a>.</p>
 
-<p>The following libraries are required:</p>
-
-<ul>
-<li>freetype2</li>
-<li>SDL2</li>
-</ul>
-
-<p>The following libraries are <strong>optional</strong>:</p>
-
-<ul>
-<li>libagg</li>
-<li>Lua 5.2</li>
-</ul>
-
-<p>If they are not found, they will be downloaded and compiled by Meson.
-Otherwise, if they are present, they will be used to compile Lite XL.</p>
-
-<h2 id="build-script">Build Script</h2>
-
-<p>If you compile Lite XL yourself,
-it is recommended to use the script <code>build-packages.sh</code>:</p>
-<pre>bash build-packages.sh <span class="nt">-h</span>
-</pre>
-<p>The script will run Meson and create a tar compressed archive with the application or,
-for Windows, a zip file. Lite XL can be easily installed
-by unpacking the archive in any directory of your choice.</p>
-
-<p>On Windows two packages will be created, one called &quot;portable&quot; using the &quot;data&quot;
-folder next to the executable and the other one using a unix-like file layout.
-Both packages works correctly. The one with unix-like file layout is meant
-for people using a unix-like shell and the command line.</p>
-
-<p>Please note that there aren&#39;t any hard-coded directories in the executable,
-so that the package can be extracted and used in any directory.</p>
-
-<h2 id="portable">Portable</h2>
-
-<p>When performing the <code>meson setup</code> command you may enable the <code>-Dportable=true</code>
-option to specify whether files should be installed as in a portable application.</p>
-
-<p>If <code>portable</code> is enabled, Lite XL is built to use a <code>data</code> directory placed next
-to the executable.
-Otherwise, Lite XL will use unix-like directory locations.
-In this case, the <code>data</code> directory will be <code>$prefix/share/lite-xl</code>
-and the executable will be located in <code>$prefix/bin</code>.
-<code>$prefix</code> is determined when the application starts as a directory such that
-<code>$prefix/bin</code> corresponds to the location of the executable.</p>
-
-<p>The <code>user</code> directory does not depend on the <code>portable</code> option and will always be
-<code>$HOME/.config/lite-xl</code>.
-<code>$HOME</code> is determined from the corresponding environment variable.
-As a special case on Windows the variable <code>$USERPROFILE</code> will be used instead.</p>
-
-<h2 id="linux">Linux</h2>
-
-<p>On Debian-based systems the required libraries and Meson can be installed
-using the following commands:</p>
-<pre><span class="c"># To install the required libraries:</span>
-<span class="nb">sudo </span>apt <span class="nb">install </span>libfreetype6-dev libsdl2-dev
-
-<span class="c"># To install Meson:</span>
-<span class="nb">sudo </span>apt <span class="nb">install </span>meson
-<span class="c"># or pip3 install --user meson</span>
-</pre>
-<p>To build Lite XL with Meson the commands below can be used:</p>
-<pre>meson setup <span class="nt">--buildtype</span><span class="o">=</span>release <span class="nt">--prefix</span> &lt;prefix&gt; build
-meson compile <span class="nt">-C</span> build
-<span class="nv">DESTDIR</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span><span class="s2">/lite-xl"</span> meson <span class="nb">install</span> <span class="nt">--skip-subprojects</span> <span class="nt">-C</span> build
-</pre>
-<p>where <code>&lt;prefix&gt;</code> depends on the OS you are using:
-- on Linux is <code>/usr</code>
-- on macOS application bundle can be <code>&quot;/Lite XL.app&quot;</code></p>
-
-<p>If you are using a version of Meson below 0.54
-you need to use diffent commands to compile and install:</p>
-<pre>meson setup <span class="nt">--buildtype</span><span class="o">=</span>release build
-ninja <span class="nt">-C</span> build
-ninja <span class="nt">-C</span> build <span class="nb">install</span>
-</pre>
-<h2 id="macos">macOS</h2>
-
-<p>macOS is fully supported and a notarized app disk image is provided in the
-<a title='' target='_blank' href='https://github.com/lite-xl/lite-xl/releases/latest/'>release page</a>. 
-In addition the application can be compiled using the generic instructions given above.</p>
-
-<h2 id="windows-msys2">Windows MSYS2</h2>
-
-<p>The build environment chosen for Lite XL on Windows is <a title='' target='_blank' href='https://www.msys2.org/'>MSYS2</a>.
-Follow the install instructions in the link.</p>
-
-<ul>
-<li>Open <code>MinGW 64-bit</code> or <code>MinGW 32-bit</code> shell from the start menu.</li>
-<li>Update the MSYS2 installation with <code>pacman -Syu</code></li>
-<li>Restart the shell</li>
-<li>Install the dependencies:</li>
-</ul>
-<pre>pacman <span class="nt">-S</span> <span class="se">\</span>
-  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-freetype</span> <span class="se">\</span>
-  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-gcc</span> <span class="se">\</span>
-  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-ninja</span> <span class="se">\</span>
-  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-pcre2</span> <span class="se">\</span>
-  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-pkg-config</span> <span class="se">\</span>
-  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-python-pip</span> <span class="se">\</span>
-  <span class="k">${</span><span class="nv">MINGW_PACKAGE_PREFIX</span><span class="k">}</span><span class="nt">-SDL2</span>
-pip3 <span class="nb">install </span>meson
-</pre>
-<p><code>${MINGW_PACKAGE_PREFIX}</code> expands either to <code>mingw-w64-i686</code> or <code>mingw-w64-x86_64</code>
-depending if the current shell is 32 or 64 bit.</p>
-</page>
-<page id='page-tutorials-system-fonts'><h1 id="using-system-fonts">Using system fonts</h1>
-
-<p>lite-xl does not provide a convenient way to use fonts on the system.
-There is literally _different APIs for the each platforms we support (Windows, Linux and Mac).
-This is where <a title='' target='_blank' href='https://www.freedesktop.org/wiki/Software/fontconfig/'>fontconfig</a> comes to our rescue. fontconfig is
-installable on a lot of OSes.</p>
-
-<p>lite-xl has a <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/fontconfig.lua'>fontconfig plugin</a> that we can use to find system fonts.</p>
-
-<h2 id="installing-fontconfig">Installing fontconfig</h2>
-
-<h4 id="windows">Windows</h4>
-
-<p><a title='' target='_blank' href='https://github.com/takase1121/mingw-w64-fontconfig'>mingw-w64-fontconfig</a> provides a build that can be used directly on Windows.
-Download the file, extract it to somewhere and (optionally) add it to the PATH.</p>
-
-<h4 id="linux">Linux</h4>
-
-<p>Check your distro-specific instructions.</p>
-<pre><span class="c"># ubuntu / debian</span>
-apt <span class="nb">install </span>fontconfig
-<span class="c"># arch</span>
-pacman <span class="nt">-Su</span> fontconfig
-<span class="c"># fedora</span>
-dnf <span class="nb">install </span>fontconfig
-...
-</pre>
-<h4 id="macos">MacOS</h4>
-<pre>brew <span class="nb">install </span>fontconfig
-</pre>
-<h3 id="setting-up">Setting up</h3>
-
-<ol>
-<li>Install the plugin</li>
-<li>Put this in your user module:</li>
-</ol>
-<pre><span class="kd">local</span> <span class="n">fontconfig</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"plugins.fontconfig"</span>
-<span class="n">fontconfig</span><span class="p">.</span><span class="n">use</span> <span class="p">{</span>
-     <span class="n">font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"sans"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">},</span>
-     <span class="n">code_font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"monospace"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">}</span>
-<span class="p">}</span>
-</pre>
-<p><code>&quot;sans&quot;</code> and <code>&quot;monospace&quot;</code> can be any <a title='' target='_blank' href='https://www.freedesktop.org/software/fontconfig/fontconfig-user.html'>fontconfig syntax. (check &quot;Font Names&quot;)</a></p>
-
-<p>Note that the font might not load immediately (because we need to wait for <code>fc-match</code> to return.
-If you want that, replace <code>fontconfig.use</code> with <code>fontconfig.use_blocking</code>. Doing this will force
-lite-xl to wait for <code>fc-match</code>, which can be much slower.</p>
+<p><a title='' target='_blank' href='assets/img/editor.png'><img data-src='assets/img/editor.png' title='' alt='Lite XL Editor'/></a></p>
 </page>
 <page id='page-tutorials-api-overview'><h1 id="api-overview">API Overview</h1>
 
@@ -1380,317 +1361,6 @@ Thus, we&#39;ll not explain <em>everything</em>, only the more important and fre
 <li><a title=''  href='tutorials/overview/process'>Process API</a></li>
 <li><a title=''  href='tutorials/overview/system'>System API</a></li>
 <li><a title=''  href='tutorials/overview/regex'>Regex API</a></li>
-</ul>
-</page>
-<page id='page-tutorials-syntax-highlighting'><h1 id="syntax-highlighting">Syntax Highlighting</h1>
-
-<h2 id="how-to-create-syntax-highlighting-plugins-for-lite-xl">How to create syntax highlighting plugins for Lite XL</h2>
-
-<p>Syntax highlighting plugins for Lite XL are Lua files. These define some patterns or regular expressions that
-match different parts of a given language, assigning token types to each match.
-These different token types are then given different colors by your chosen color scheme.</p>
-
-<p>Like other plugins, syntax definitions are sourced from the following folders, in order:</p>
-
-<ul>
-<li><code>/usr/share/lite-xl/plugins/</code></li>
-<li><code>$HOME/.config/lite-xl/plugins/</code></li>
-</ul>
-
-<p>NOTE: The exact location of these folders will depend on your OS and installation method. For example, on Windows, the variable <code>$USERPROFILE</code> will be used instead of <code>$HOME</code>.</p>
-
-<p>The user module folder for Lite XL can generally be found in these places on different OSes:</p>
-
-<ul>
-<li>Windows: <code>C:\Users\(username)\.config\lite-xl</code></li>
-<li>MacOS: <code>/Users/(usernmame)/.config/lite-xl</code></li>
-<li>Linux: <code>/home/(username)/.config/lite-xl</code></li>
-</ul>
-
-<p>So, to create a new syntax definition on Linux, you can just create a <code>.lua</code> file in your <code>$HOME/.config/lite-xl/plugins/</code> folder.</p>
-
-<h2 id="what-syntax-token-types-are-supported">What syntax token types are supported?</h2>
-
-<p>The supported syntax token types, defined by <code>lite-xl/core/style.lua</code>, are:</p>
-
-<ul>
-<li>normal</li>
-<li>symbol</li>
-<li>comment</li>
-<li>keyword</li>
-<li>keyword2</li>
-<li>number</li>
-<li>literal</li>
-<li>string</li>
-<li>operator</li>
-<li>function</li>
-</ul>
-
-<p>In your syntax highlighting plugin, you write patterns to match parts of the language syntax, assigning these token types to matches. You don&#39;t have to use them all - just use as many as you need for your language.</p>
-
-<p>Let&#39;s walk through an example syntax definition and see how this works.</p>
-
-<h2 id="example-syntax-ssh-config-files">Example syntax: ssh config files</h2>
-
-<p>This is a small, simple example of a syntax definition. It&#39;s intended to highlight SSH Config files and looks like this:</p>
-<pre><span class="c1">-- mod-version:2 -- lite-xl 2.0</span>
-<span class="kd">local</span> <span class="n">syntax</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.syntax"</span>
-
-<span class="n">syntax</span><span class="p">.</span><span class="n">add</span> <span class="p">{</span>
-  <span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"sshd?/?_?config$"</span> <span class="p">},</span>
-  <span class="n">comment</span> <span class="o">=</span> <span class="s1">'#'</span><span class="p">,</span>
-  <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"#.*\n"</span><span class="p">,</span>        <span class="nb">type</span> <span class="o">=</span> <span class="s2">"comment"</span>  <span class="p">},</span>
-    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"%d+"</span><span class="p">,</span>          <span class="nb">type</span> <span class="o">=</span> <span class="s2">"number"</span>   <span class="p">},</span>
-    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"[%a_][%w_]*"</span><span class="p">,</span>  <span class="nb">type</span> <span class="o">=</span> <span class="s2">"symbol"</span>   <span class="p">},</span>
-    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"@"</span><span class="p">,</span>            <span class="nb">type</span> <span class="o">=</span> <span class="s2">"operator"</span> <span class="p">},</span>
-  <span class="p">},</span>
-  <span class="n">symbols</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">-- ssh config</span>
-    <span class="p">[</span><span class="s2">"Host"</span><span class="p">]</span>                         <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">"ProxyCommand"</span><span class="p">]</span>                 <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
-
-    <span class="p">[</span><span class="s2">"HostName"</span><span class="p">]</span>                     <span class="o">=</span> <span class="s2">"keyword"</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">"IdentityFile"</span><span class="p">]</span>                 <span class="o">=</span> <span class="s2">"keyword"</span><span class="p">,</span>
-    <span class="o">...</span>
-
-    <span class="c1">-- sshd config</span>
-    <span class="p">[</span><span class="s2">"Subsystem"</span><span class="p">]</span>                    <span class="o">=</span> <span class="s2">"keyword2"</span><span class="p">,</span>
-
-    <span class="c1">-- Literals</span>
-    <span class="p">[</span><span class="s2">"yes"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">"no"</span><span class="p">]</span>       <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">"any"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">"ask"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
-  <span class="p">},</span>
-<span class="p">}</span>
-</pre>
-<p>Let&#39;s take each section in turn and see how it works.</p>
-
-<h3 id="header">Header</h3>
-
-<p>The first line is a Lua comment &amp; tells Lite XL which version this plugin requires. The second imports the <code>core.syntax</code> module
-for us to use:</p>
-<pre><span class="c1">-- mod-version:2 -- lite-xl 2.0</span>
-<span class="kd">local</span> <span class="n">syntax</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.syntax"</span>
-</pre>
-<p>We then add a syntax definition to lite, using <code>syntax.add {...}</code>. The contents of this definition are covered next.</p>
-
-<h4 id="files">Files</h4>
-
-<p>The <code>files</code> property tells Lite XL which files this syntax should be used for. This is a Lua pattern that matches against the full path of the file being opened. For example, to match against Markdown files - with either a <code>.md</code> or a <code>.markdown</code> extension,
-you could do this:</p>
-<pre><span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%.md$"</span><span class="p">,</span> <span class="s2">"%.markdown$"</span> <span class="p">},</span>
-</pre>
-<p>In our original example, we match against the end of the path rather than the extension, because SSH config files don&#39;t have extensions - and we don&#39;t want to match all <code>config</code> files. We expect the path for SSH config files to look something like one of these:</p>
-
-<ul>
-<li><code>~/.ssh/config</code></li>
-<li><code>/etc/ssh/ssh_config</code></li>
-<li><code>/etc/ssh/sshd_config</code></li>
-</ul>
-
-<p>This pattern matches paths that look like that:</p>
-<pre><span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"sshd?/?_?config$"</span> <span class="p">},</span>
-</pre>
-<h3 id="comment">Comment</h3>
-
-<p>The comment property <em>doesn&#39;t</em> define which parts of the syntax are comments - see Patterns for that, below. This property tells Lite XL which character to insert at the start of selected lines when you press <code>ctrl+/</code>.</p>
-
-<h3 id="patterns">Patterns</h3>
-
-<p>A given piece of text can only match one pattern. Once Lite XL decides that a piece of text matches a pattern, it will assign that token type to that piece and move on.
-Patterns are tested in the order that they are written in the syntax definition, so the first match will win.</p>
-
-<p>Each pattern takes one of the following forms:</p>
-
-<h4 id="simple-pattern">Simple Pattern</h4>
-<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"#.*\n"</span><span class="p">,</span>        <span class="nb">type</span> <span class="o">=</span> <span class="s2">"comment"</span> <span class="p">},</span>
-</pre>
-<p>This form matches the line against the pattern and if it matches, assigns the matching text to the given token <code>type</code> - <code>comment</code>, in this case.</p>
-
-<h4 id="start-end-pattern">Start &amp; End Pattern</h4>
-<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%["</span><span class="p">,</span> <span class="s2">"%]"</span> <span class="p">},</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">"keyword"</span> <span class="p">},</span>
-</pre>
-<p>This form has two patterns - one that matches against the start of the range and one that matches against the end. Everything between the start and the end will be assigned the given token <code>type</code>.</p>
-
-<h4 id="start-end-pattern-with-escape">Start &amp; End Pattern, with Escape</h4>
-<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'"'</span><span class="p">,</span> <span class="s1">'"'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\</span><span class="s1">'</span> <span class="p">},</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">"string"</span> <span class="p">},</span>
-</pre>
-<p>This is the same as the previous form, but with an extra, third parameter.
-The 3rd part, the <code>&#39;\&#39;</code> part in this example, specifies the character that allows escaping the closing match.</p>
-
-<p>For more on Lua Patterns, see: <a title='' target='_blank' href='https://www.lua.org/manual/5.3/manual.html#6.4.1'>Lua Pattern Reference</a></p>
-
-<p>If you need to use PCRE Regular Expressions, instead of Lua Patterns, you can use the <code>regex</code> keyword here, instead of <code>pattern</code>.</p>
-
-<h3 id="symbols">Symbols</h3>
-
-<p>The symbols section allows you to assign token types to particular keywords or strings - usually reserved words in the language you are highlighting.</p>
-
-<p>For example this highlights <code>Host</code> using the <code>function</code> token type, <code>HostName</code> as a <code>keyword</code> and <code>yes</code>, <code>no</code>, <code>any</code> &amp; <code>ask</code> as a <code>literal</code>:</p>
-<pre><span class="p">[</span><span class="s2">"Host"</span><span class="p">]</span>                         <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
-<span class="p">[</span><span class="s2">"HostName"</span><span class="p">]</span>                     <span class="o">=</span> <span class="s2">"keyword"</span><span class="p">,</span>
-
-<span class="p">[</span><span class="s2">"yes"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
-<span class="p">[</span><span class="s2">"no"</span><span class="p">]</span>       <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
-<span class="p">[</span><span class="s2">"any"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
-<span class="p">[</span><span class="s2">"ask"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
-</pre>
-<h2 id="testing-your-new-syntax">Testing Your New Syntax</h2>
-
-<p>To test your new syntax highlighting you need to do two things:</p>
-
-<ul>
-<li>Reload the Lite XL core</li>
-<li>Load a file in your chosen language and see how it looks</li>
-</ul>
-
-<p>To reload the core, you can either restart Lite XL, or reload the core from the command palette, without needing to restart.
-To do this, type <code>ctrl+shit+p</code> to show the command palette, then select <code>Core: Restart</code> (or type <code>crr</code> or something similar to match it), then press Enter. You will need to restart the core after any changes you make to the syntax highlighting definition.</p>
-</page>
-<page id='page-tutorials-overview-regex'><h1 id="regex-api">Regex API</h1>
-
-<p>This API provides PCRE regular expressions for those who needs more power in matching text.
-This API written in C and Lua.</p>
-
-<h2 id="creating-a-regex">Creating a regex</h2>
-
-<p>Use <code>regex.compile(pattern, options)</code> to compile a regex.</p>
-
-<ul>
-<li><code>pattern</code>: The regex pattern</li>
-<li><code>options</code>: regex modifiers as a string, eg <code>&quot;im&quot;</code>
-
-<ul>
-<li><code>&quot;i&quot;</code>: Case-insensitive search</li>
-<li><code>&quot;m&quot;</code>: Multiline search</li>
-<li><code>&quot;s&quot;</code>: Match all characters with dot (<code>.</code>), <strong>including newlines.</strong></li>
-</ul></li>
-</ul>
-
-<h2 id="matching">Matching</h2>
-
-<h3 id="low-level-functions">Low level functions</h3>
-
-<ul>
-<li><code>regex:cmatch(str, offset, options)</code> low-level matching function
-
-<ul>
-<li><code>str</code>: The string to match against</li>
-<li><code>offset</code>: Where to start matching</li>
-<li><code>options</code>: A bit field of options</li>
-<li><code>regex.ANCHORED</code>: Only match from the start of the string</li>
-<li><code>regex.ENDANCHORED</code>: Only match from the end of the string</li>
-<li><code>regex.NOTBOL</code>: String is not beginning of line</li>
-<li><code>regex.NOTEOL</code>: String is not the end of line</li>
-<li><code>regex.NOTEMPTY</code>: Do not match an empty string</li>
-<li><code>regex.NOTEMPTY_ATSTART</code>: Do not match empty string at the start</li>
-</ul></li>
-</ul>
-
-<p><strong>Note: <code>regex:cmatch()</code> returns wrong indexes (currently at version 2.0.2).
-  The end index returned by <code>regex:cmatch()</code> is always off by 1 (-1 to get the actual end index).</strong></p>
-
-<h3 id="high-level-functions">High level functions</h3>
-
-<p>All the functions below can be in 2 forms:
-- <code>regex:fn(...)</code> where <code>regex</code> is the compiled regex instance
-- <code>regex.fn(pattern, ...)</code> where <code>pattern</code> is a pattern string to be compiled and used directly.</p>
-
-<p>We will only document the first form.</p>
-
-<ul>
-<li><code>regex:match(str, offset, options)</code> high level matching function. This function accepts
-the same arguments as <code>regex:cmatch()</code></li>
-<li><code>regex:gsub(str, replacement)</code> replaces matches in <code>str</code> with <code>replacement</code>.
-Capture groups are identified with <code>\0</code> to <code>\9</code>, this might change in the future.</li>
-</ul>
-</page>
-<page id='page-tutorials-overview-system'><h1 id="system-api">System API</h1>
-
-<p>This is where Lite XL&#39;s lua code interact with its underlying C engine.
-Some of the functions here will be omitted because they&#39;re not useful for
-plugins.</p>
-
-<h2 id="clipboard">Clipboard</h2>
-
-<ul>
-<li><code>system.set_clipboard(text)</code> sets the clipboard content.</li>
-<li><code>system.get_clipboard()</code> retrieves the content of the clipboard.</li>
-</ul>
-
-<h2 id="file-directory-manipulation">File / Directory manipulation</h2>
-
-<ul>
-<li><code>system.list_dir(dir)</code> returns a list of filenames in a directory.</li>
-<li><code>system.rmdir(dir)</code> removes a directory. Use this instead of <code>os.remove()</code>.
-<strong>The directory must be empty.</strong></li>
-<li><code>system.chdir(dir)</code> changes the current working directory (like <code>cd</code>).</li>
-<li><code>system.mkdir(dir)</code> creates a new directory.
-<strong>It does not recursively create directories.</strong></li>
-<li><code>system.absolute_path(path)</code> resolves the path components (<code>.. and .</code>) to an absolute path.</li>
-<li><code>system.get_file_info(path)</code> returns info about a path.
-
-<ul>
-<li><code>modified</code>: last modification time of the file in seconds since UNIX epoch.</li>
-<li><code>size</code>: file size in bytes.</li>
-<li><code>type</code>: Path type (<code>&quot;file&quot;</code> or <code>&quot;dir&quot;</code>).</li>
-</ul></li>
-</ul>
-
-<h2 id="timing">Timing</h2>
-
-<ul>
-<li><code>system.get_time()</code> returns time in seconds (as floating point number) since Lite XL started.
-Use this instead of <code>os.time()</code> for higher precision timers.</li>
-<li><code>system.sleep(time)</code> sleeps for <code>time</code> in milliseconds.
-<strong>Do not use this. Write asynchronous code.</strong></li>
-</ul>
-
-<h2 id="window-manipulation">Window manipulation</h2>
-
-<ul>
-<li><code>system.set_window_opacity(o)</code> sets the window opacity from 0 to 1.</li>
-<li><code>system.set_window_title(title)</code> sets the window title.</li>
-<li><code>system.set_window_mode(mode)</code> sets window mode:
-
-<ul>
-<li><code>&quot;normal&quot;</code>: also known as &quot;restored&quot; on Windows.</li>
-<li><code>&quot;maximized&quot;</code>: Maximize the window.</li>
-<li><code>&quot;minimized&quot;</code>: Minimize the window.</li>
-<li><code>&quot;fullscreen&quot;</code>: Fullscreen</li>
-</ul></li>
-<li><code>system.set_window_bordered(bordered)</code> enables or disable window border (decoration).</li>
-<li><code>system.set_window_hit_test(height, control_width, resize_border)</code> sets window hit test (used for
-<code>config.borderless</code> to make custom drawn border interactable).
-
-<ul>
-<li>If no argument is supplied, reset the hit test values.</li>
-<li><code>height</code>: height of the title bar.</li>
-<li><code>controls_width</code>: Not too sure about this, but it should be the size of the title bar controls
-(Maximize, Minimize and Normal buttons on the right).
-It seems to be fixed at the right side of the title bar.</li>
-<li><code>resize_border</code>: Number of pixels reserved for resizing the window.
-(setting this to a large value means that you can resize the window way easier)</li>
-</ul></li>
-<li><code>system.get_window_size()</code> gets the window size.</li>
-<li><code>system.set_window_size(w, h, x, y)</code> sets the window size (and also position).</li>
-<li><code>system.window_has_focus()</code> checks whether the window is in focus.</li>
-<li><code>system.show_fatal_error(title, msg)</code> shows an system error message box.
-<strong>Use nagview whenever possible.</strong></li>
-</ul>
-
-<h2 id="misc">Misc</h2>
-
-<ul>
-<li><code>system.exec(command)</code> runs a command. Use the <a title=''  href='"tutorials/overview/process"'>Process API</a> instead of this.</li>
-<li><code>system.fuzzy_match(haystack, needle, file)</code> generates a score depends on how close the needle
-matches the haystack.
-
-<ul>
-<li><code>file</code>: match backwards (more accurate for filename matching).</li>
-</ul></li>
 </ul>
 </page>
 <page id='page-tutorials-overview-process'><h1 id="process-api">Process API</h1>
@@ -1799,6 +1469,150 @@ to read the output.</p>
 <strong>There are no guarantees for this PID to be correct if the process terminated early.</strong></li>
 <li><code>process:returncode()</code> returns the exit code of the process, if any</li>
 <li><code>process:close_stream()</code> closes <code>stdin</code>, <code>stdout</code> or <code>stderr</code> stream of the process.</li>
+</ul>
+</page>
+<page id='page-tutorials-overview-system'><h1 id="system-api">System API</h1>
+
+<p>This is where Lite XL&#39;s lua code interact with its underlying C engine.
+Some of the functions here will be omitted because they&#39;re not useful for
+plugins.</p>
+
+<h2 id="clipboard">Clipboard</h2>
+
+<ul>
+<li><code>system.set_clipboard(text)</code> sets the clipboard content.</li>
+<li><code>system.get_clipboard()</code> retrieves the content of the clipboard.</li>
+</ul>
+
+<h2 id="file-directory-manipulation">File / Directory manipulation</h2>
+
+<ul>
+<li><code>system.list_dir(dir)</code> returns a list of filenames in a directory.</li>
+<li><code>system.rmdir(dir)</code> removes a directory. Use this instead of <code>os.remove()</code>.
+<strong>The directory must be empty.</strong></li>
+<li><code>system.chdir(dir)</code> changes the current working directory (like <code>cd</code>).</li>
+<li><code>system.mkdir(dir)</code> creates a new directory.
+<strong>It does not recursively create directories.</strong></li>
+<li><code>system.absolute_path(path)</code> resolves the path components (<code>.. and .</code>) to an absolute path.</li>
+<li><code>system.get_file_info(path)</code> returns info about a path.
+
+<ul>
+<li><code>modified</code>: last modification time of the file in seconds since UNIX epoch.</li>
+<li><code>size</code>: file size in bytes.</li>
+<li><code>type</code>: Path type (<code>&quot;file&quot;</code> or <code>&quot;dir&quot;</code>).</li>
+</ul></li>
+</ul>
+
+<h2 id="timing">Timing</h2>
+
+<ul>
+<li><code>system.get_time()</code> returns time in seconds (as floating point number) since Lite XL started.
+Use this instead of <code>os.time()</code> for higher precision timers.</li>
+<li><code>system.sleep(time)</code> sleeps for <code>time</code> in milliseconds.
+<strong>Do not use this. Write asynchronous code.</strong></li>
+</ul>
+
+<h2 id="window-manipulation">Window manipulation</h2>
+
+<ul>
+<li><code>system.set_window_opacity(o)</code> sets the window opacity from 0 to 1.</li>
+<li><code>system.set_window_title(title)</code> sets the window title.</li>
+<li><code>system.set_window_mode(mode)</code> sets window mode:
+
+<ul>
+<li><code>&quot;normal&quot;</code>: also known as &quot;restored&quot; on Windows.</li>
+<li><code>&quot;maximized&quot;</code>: Maximize the window.</li>
+<li><code>&quot;minimized&quot;</code>: Minimize the window.</li>
+<li><code>&quot;fullscreen&quot;</code>: Fullscreen</li>
+</ul></li>
+<li><code>system.set_window_bordered(bordered)</code> enables or disable window border (decoration).</li>
+<li><code>system.set_window_hit_test(height, control_width, resize_border)</code> sets window hit test (used for
+<code>config.borderless</code> to make custom drawn border interactable).
+
+<ul>
+<li>If no argument is supplied, reset the hit test values.</li>
+<li><code>height</code>: height of the title bar.</li>
+<li><code>controls_width</code>: Not too sure about this, but it should be the size of the title bar controls
+(Maximize, Minimize and Normal buttons on the right).
+It seems to be fixed at the right side of the title bar.</li>
+<li><code>resize_border</code>: Number of pixels reserved for resizing the window.
+(setting this to a large value means that you can resize the window way easier)</li>
+</ul></li>
+<li><code>system.get_window_size()</code> gets the window size.</li>
+<li><code>system.set_window_size(w, h, x, y)</code> sets the window size (and also position).</li>
+<li><code>system.window_has_focus()</code> checks whether the window is in focus.</li>
+<li><code>system.show_fatal_error(title, msg)</code> shows an system error message box.
+<strong>Use nagview whenever possible.</strong></li>
+</ul>
+
+<h2 id="misc">Misc</h2>
+
+<ul>
+<li><code>system.exec(command)</code> runs a command. Use the <a title=''  href='"tutorials/overview/process"'>Process API</a> instead of this.</li>
+<li><code>system.fuzzy_match(haystack, needle, file)</code> generates a score depends on how close the needle
+matches the haystack.
+
+<ul>
+<li><code>file</code>: match backwards (more accurate for filename matching).</li>
+</ul></li>
+</ul>
+</page>
+<page id='page-tutorials-overview-regex'><h1 id="regex-api">Regex API</h1>
+
+<p>This API provides PCRE regular expressions for those who needs more power in matching text.
+This API written in C and Lua.</p>
+
+<h2 id="creating-a-regex">Creating a regex</h2>
+
+<p>Use <code>regex.compile(pattern, options)</code> to compile a regex.</p>
+
+<ul>
+<li><code>pattern</code>: The regex pattern</li>
+<li><code>options</code>: regex modifiers as a string, eg <code>&quot;im&quot;</code>
+
+<ul>
+<li><code>&quot;i&quot;</code>: Case-insensitive search</li>
+<li><code>&quot;m&quot;</code>: Multiline search</li>
+<li><code>&quot;s&quot;</code>: Match all characters with dot (<code>.</code>), <strong>including newlines.</strong></li>
+</ul></li>
+</ul>
+
+<h2 id="matching">Matching</h2>
+
+<h3 id="low-level-functions">Low level functions</h3>
+
+<ul>
+<li><code>regex:cmatch(str, offset, options)</code> low-level matching function
+
+<ul>
+<li><code>str</code>: The string to match against</li>
+<li><code>offset</code>: Where to start matching</li>
+<li><code>options</code>: A bit field of options</li>
+<li><code>regex.ANCHORED</code>: Only match from the start of the string</li>
+<li><code>regex.ENDANCHORED</code>: Only match from the end of the string</li>
+<li><code>regex.NOTBOL</code>: String is not beginning of line</li>
+<li><code>regex.NOTEOL</code>: String is not the end of line</li>
+<li><code>regex.NOTEMPTY</code>: Do not match an empty string</li>
+<li><code>regex.NOTEMPTY_ATSTART</code>: Do not match empty string at the start</li>
+</ul></li>
+</ul>
+
+<p><strong>Note: <code>regex:cmatch()</code> returns wrong indexes (currently at version 2.0.2).
+  The end index returned by <code>regex:cmatch()</code> is always off by 1 (-1 to get the actual end index).</strong></p>
+
+<h3 id="high-level-functions">High level functions</h3>
+
+<p>All the functions below can be in 2 forms:
+- <code>regex:fn(...)</code> where <code>regex</code> is the compiled regex instance
+- <code>regex.fn(pattern, ...)</code> where <code>pattern</code> is a pattern string to be compiled and used directly.</p>
+
+<p>We will only document the first form.</p>
+
+<ul>
+<li><code>regex:match(str, offset, options)</code> high level matching function. This function accepts
+the same arguments as <code>regex:cmatch()</code></li>
+<li><code>regex:gsub(str, replacement)</code> replaces matches in <code>str</code> with <code>replacement</code>.
+Capture groups are identified with <code>\0</code> to <code>\9</code>, this might change in the future.</li>
 </ul>
 </page>
 <page id='page-tutorials-simple-plugin'><h1 id="simple-plugin">Simple Plugin</h1>
@@ -1989,6 +1803,221 @@ of the code in the file does.</p>
 <li><a title='' target='_blank' href='https://rxi.github.io/lite_an_implementation_overview.html'>Lite: An Implementation Overview</a>, an excellent post by rxi that stays mostly relevant to lite-xl.</li>
 <li><a title=''  href='tutorials/api/overview'>API overview</a>, where some of the APIs are explained.</li>
 </ul>
+</page>
+<page id='page-tutorials-syntax-highlighting'><h1 id="syntax-highlighting">Syntax Highlighting</h1>
+
+<h2 id="how-to-create-syntax-highlighting-plugins-for-lite-xl">How to create syntax highlighting plugins for Lite XL</h2>
+
+<p>Syntax highlighting plugins for Lite XL are Lua files. These define some patterns or regular expressions that
+match different parts of a given language, assigning token types to each match.
+These different token types are then given different colors by your chosen color scheme.</p>
+
+<p>Like other plugins, syntax definitions are sourced from the following folders, in order:</p>
+
+<ul>
+<li><code>/usr/share/lite-xl/plugins/</code></li>
+<li><code>$HOME/.config/lite-xl/plugins/</code></li>
+</ul>
+
+<p>NOTE: The exact location of these folders will depend on your OS and installation method. For example, on Windows, the variable <code>$USERPROFILE</code> will be used instead of <code>$HOME</code>.</p>
+
+<p>The user module folder for Lite XL can generally be found in these places on different OSes:</p>
+
+<ul>
+<li>Windows: <code>C:\Users\(username)\.config\lite-xl</code></li>
+<li>MacOS: <code>/Users/(usernmame)/.config/lite-xl</code></li>
+<li>Linux: <code>/home/(username)/.config/lite-xl</code></li>
+</ul>
+
+<p>So, to create a new syntax definition on Linux, you can just create a <code>.lua</code> file in your <code>$HOME/.config/lite-xl/plugins/</code> folder.</p>
+
+<h2 id="what-syntax-token-types-are-supported">What syntax token types are supported?</h2>
+
+<p>The supported syntax token types, defined by <code>lite-xl/core/style.lua</code>, are:</p>
+
+<ul>
+<li>normal</li>
+<li>symbol</li>
+<li>comment</li>
+<li>keyword</li>
+<li>keyword2</li>
+<li>number</li>
+<li>literal</li>
+<li>string</li>
+<li>operator</li>
+<li>function</li>
+</ul>
+
+<p>In your syntax highlighting plugin, you write patterns to match parts of the language syntax, assigning these token types to matches. You don&#39;t have to use them all - just use as many as you need for your language.</p>
+
+<p>Let&#39;s walk through an example syntax definition and see how this works.</p>
+
+<h2 id="example-syntax-ssh-config-files">Example syntax: ssh config files</h2>
+
+<p>This is a small, simple example of a syntax definition. It&#39;s intended to highlight SSH Config files and looks like this:</p>
+<pre><span class="c1">-- mod-version:2 -- lite-xl 2.0</span>
+<span class="kd">local</span> <span class="n">syntax</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.syntax"</span>
+
+<span class="n">syntax</span><span class="p">.</span><span class="n">add</span> <span class="p">{</span>
+  <span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"sshd?/?_?config$"</span> <span class="p">},</span>
+  <span class="n">comment</span> <span class="o">=</span> <span class="s1">'#'</span><span class="p">,</span>
+  <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"#.*\n"</span><span class="p">,</span>        <span class="nb">type</span> <span class="o">=</span> <span class="s2">"comment"</span>  <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"%d+"</span><span class="p">,</span>          <span class="nb">type</span> <span class="o">=</span> <span class="s2">"number"</span>   <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"[%a_][%w_]*"</span><span class="p">,</span>  <span class="nb">type</span> <span class="o">=</span> <span class="s2">"symbol"</span>   <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"@"</span><span class="p">,</span>            <span class="nb">type</span> <span class="o">=</span> <span class="s2">"operator"</span> <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="n">symbols</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- ssh config</span>
+    <span class="p">[</span><span class="s2">"Host"</span><span class="p">]</span>                         <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"ProxyCommand"</span><span class="p">]</span>                 <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
+
+    <span class="p">[</span><span class="s2">"HostName"</span><span class="p">]</span>                     <span class="o">=</span> <span class="s2">"keyword"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"IdentityFile"</span><span class="p">]</span>                 <span class="o">=</span> <span class="s2">"keyword"</span><span class="p">,</span>
+    <span class="o">...</span>
+
+    <span class="c1">-- sshd config</span>
+    <span class="p">[</span><span class="s2">"Subsystem"</span><span class="p">]</span>                    <span class="o">=</span> <span class="s2">"keyword2"</span><span class="p">,</span>
+
+    <span class="c1">-- Literals</span>
+    <span class="p">[</span><span class="s2">"yes"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"no"</span><span class="p">]</span>       <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"any"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"ask"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</pre>
+<p>Let&#39;s take each section in turn and see how it works.</p>
+
+<h3 id="header">Header</h3>
+
+<p>The first line is a Lua comment &amp; tells Lite XL which version this plugin requires. The second imports the <code>core.syntax</code> module
+for us to use:</p>
+<pre><span class="c1">-- mod-version:2 -- lite-xl 2.0</span>
+<span class="kd">local</span> <span class="n">syntax</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.syntax"</span>
+</pre>
+<p>We then add a syntax definition to lite, using <code>syntax.add {...}</code>. The contents of this definition are covered next.</p>
+
+<h4 id="files">Files</h4>
+
+<p>The <code>files</code> property tells Lite XL which files this syntax should be used for. This is a Lua pattern that matches against the full path of the file being opened. For example, to match against Markdown files - with either a <code>.md</code> or a <code>.markdown</code> extension,
+you could do this:</p>
+<pre><span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%.md$"</span><span class="p">,</span> <span class="s2">"%.markdown$"</span> <span class="p">},</span>
+</pre>
+<p>In our original example, we match against the end of the path rather than the extension, because SSH config files don&#39;t have extensions - and we don&#39;t want to match all <code>config</code> files. We expect the path for SSH config files to look something like one of these:</p>
+
+<ul>
+<li><code>~/.ssh/config</code></li>
+<li><code>/etc/ssh/ssh_config</code></li>
+<li><code>/etc/ssh/sshd_config</code></li>
+</ul>
+
+<p>This pattern matches paths that look like that:</p>
+<pre><span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"sshd?/?_?config$"</span> <span class="p">},</span>
+</pre>
+<h3 id="comment">Comment</h3>
+
+<p>The comment property <em>doesn&#39;t</em> define which parts of the syntax are comments - see Patterns for that, below. This property tells Lite XL which character to insert at the start of selected lines when you press <code>ctrl+/</code>.</p>
+
+<h3 id="patterns">Patterns</h3>
+
+<p>A given piece of text can only match one pattern. Once Lite XL decides that a piece of text matches a pattern, it will assign that token type to that piece and move on.
+Patterns are tested in the order that they are written in the syntax definition, so the first match will win.</p>
+
+<p>Each pattern takes one of the following forms:</p>
+
+<h4 id="simple-pattern">Simple Pattern</h4>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"#.*\n"</span><span class="p">,</span>        <span class="nb">type</span> <span class="o">=</span> <span class="s2">"comment"</span> <span class="p">},</span>
+</pre>
+<p>This form matches the line against the pattern and if it matches, assigns the matching text to the given token <code>type</code> - <code>comment</code>, in this case.</p>
+
+<h4 id="start-end-pattern">Start &amp; End Pattern</h4>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%["</span><span class="p">,</span> <span class="s2">"%]"</span> <span class="p">},</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">"keyword"</span> <span class="p">},</span>
+</pre>
+<p>This form has two patterns - one that matches against the start of the range and one that matches against the end. Everything between the start and the end will be assigned the given token <code>type</code>.</p>
+
+<h4 id="start-end-pattern-with-escape">Start &amp; End Pattern, with Escape</h4>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'"'</span><span class="p">,</span> <span class="s1">'"'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\</span><span class="s1">'</span> <span class="p">},</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">"string"</span> <span class="p">},</span>
+</pre>
+<p>This is the same as the previous form, but with an extra, third parameter.
+The 3rd part, the <code>&#39;\&#39;</code> part in this example, specifies the character that allows escaping the closing match.</p>
+
+<p>For more on Lua Patterns, see: <a title='' target='_blank' href='https://www.lua.org/manual/5.3/manual.html#6.4.1'>Lua Pattern Reference</a></p>
+
+<p>If you need to use PCRE Regular Expressions, instead of Lua Patterns, you can use the <code>regex</code> keyword here, instead of <code>pattern</code>.</p>
+
+<h3 id="symbols">Symbols</h3>
+
+<p>The symbols section allows you to assign token types to particular keywords or strings - usually reserved words in the language you are highlighting.</p>
+
+<p>For example this highlights <code>Host</code> using the <code>function</code> token type, <code>HostName</code> as a <code>keyword</code> and <code>yes</code>, <code>no</code>, <code>any</code> &amp; <code>ask</code> as a <code>literal</code>:</p>
+<pre><span class="p">[</span><span class="s2">"Host"</span><span class="p">]</span>                         <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
+<span class="p">[</span><span class="s2">"HostName"</span><span class="p">]</span>                     <span class="o">=</span> <span class="s2">"keyword"</span><span class="p">,</span>
+
+<span class="p">[</span><span class="s2">"yes"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+<span class="p">[</span><span class="s2">"no"</span><span class="p">]</span>       <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+<span class="p">[</span><span class="s2">"any"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+<span class="p">[</span><span class="s2">"ask"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+</pre>
+<h2 id="testing-your-new-syntax">Testing Your New Syntax</h2>
+
+<p>To test your new syntax highlighting you need to do two things:</p>
+
+<ul>
+<li>Reload the Lite XL core</li>
+<li>Load a file in your chosen language and see how it looks</li>
+</ul>
+
+<p>To reload the core, you can either restart Lite XL, or reload the core from the command palette, without needing to restart.
+To do this, type <code>ctrl+shit+p</code> to show the command palette, then select <code>Core: Restart</code> (or type <code>crr</code> or something similar to match it), then press Enter. You will need to restart the core after any changes you make to the syntax highlighting definition.</p>
+</page>
+<page id='page-tutorials-system-fonts'><h1 id="using-system-fonts">Using system fonts</h1>
+
+<p>lite-xl does not provide a convenient way to use fonts on the system.
+There is literally _different APIs for the each platforms we support (Windows, Linux and Mac).
+This is where <a title='' target='_blank' href='https://www.freedesktop.org/wiki/Software/fontconfig/'>fontconfig</a> comes to our rescue. fontconfig is
+installable on a lot of OSes.</p>
+
+<p>lite-xl has a <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl-plugins/blob/master/plugins/fontconfig.lua'>fontconfig plugin</a> that we can use to find system fonts.</p>
+
+<h2 id="installing-fontconfig">Installing fontconfig</h2>
+
+<h4 id="windows">Windows</h4>
+
+<p><a title='' target='_blank' href='https://github.com/takase1121/mingw-w64-fontconfig'>mingw-w64-fontconfig</a> provides a build that can be used directly on Windows.
+Download the file, extract it to somewhere and (optionally) add it to the PATH.</p>
+
+<h4 id="linux">Linux</h4>
+
+<p>Check your distro-specific instructions.</p>
+<pre><span class="c"># ubuntu / debian</span>
+apt <span class="nb">install </span>fontconfig
+<span class="c"># arch</span>
+pacman <span class="nt">-Su</span> fontconfig
+<span class="c"># fedora</span>
+dnf <span class="nb">install </span>fontconfig
+...
+</pre>
+<h4 id="macos">MacOS</h4>
+<pre>brew <span class="nb">install </span>fontconfig
+</pre>
+<h3 id="setting-up">Setting up</h3>
+
+<ol>
+<li>Install the plugin</li>
+<li>Put this in your user module:</li>
+</ol>
+<pre><span class="kd">local</span> <span class="n">fontconfig</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"plugins.fontconfig"</span>
+<span class="n">fontconfig</span><span class="p">.</span><span class="n">use</span> <span class="p">{</span>
+     <span class="n">font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"sans"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">},</span>
+     <span class="n">code_font</span> <span class="o">=</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"monospace"</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">*</span> <span class="n">SCALE</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+<p><code>&quot;sans&quot;</code> and <code>&quot;monospace&quot;</code> can be any <a title='' target='_blank' href='https://www.freedesktop.org/software/fontconfig/fontconfig-user.html'>fontconfig syntax. (check &quot;Font Names&quot;)</a></p>
+
+<p>Note that the font might not load immediately (because we need to wait for <code>fc-match</code> to return.
+If you want that, replace <code>fontconfig.use</code> with <code>fontconfig.use_blocking</code>. Doing this will force
+lite-xl to wait for <code>fc-match</code>, which can be much slower.</p>
 </page>
       </pages>
       <sidebar>
