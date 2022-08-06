@@ -187,4 +187,4 @@ keymap.add {
 [1]: https://devhints.io/lua
 [2]: https://www.lua.org/pil
 [3]: https://rxi.github.io/lite_an_implementation_overview.html
-[4]: tutorials/api/overview
+[4]: /en/tutorials/api/overview
