@@ -1,3 +1,9 @@
 <html>
-  <body>Can't find the page you're looking for.</body>
+  <head>
+    <script type='text/javascript'>
+      var groups = /^\/(\w{2})(\/.*)?/.exec(window.location.pathname);
+      window.location = groups ? "/" + groups[1] + "?" + (groups[2] || "/") : "/?" + window.location.pathname;
+    </script>
+  </head>
+  <body>Redirecting...</body>
 </html>
