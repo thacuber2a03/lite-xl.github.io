@@ -45,6 +45,7 @@ th, td { border: 1px solid #fff; padding: 8px; }
   header { display: block; margin-bottom: 0; }
   links { display: none; padding-left: 26px; }
   content sidebar { display: none; }
+  page { display: block; background: none; width: 100%; }
   content.index sidebar { display: block; margin: 0 auto; width: 100%; padding: 0 8px; }
   expander { display: block; border: 1px solid #47474c; padding: 4px 8px; position: absolute; right: 24px; top: 16px; }
   links > * { padding: 12px 0 12px 0 !important; }
