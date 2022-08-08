@@ -1,7 +1,7 @@
 /* Global */
 body { margin: 0; line-height: 24px; background: #252529; color: #e1e1e6; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; }
-pages, header { background: #2e2e32; margin: 0 auto; padding: 12px; box-sizing: border-box; }
-pages, page { display: block; width: 100%; }
+header, page { background: #2e2e32; margin: 0 auto; padding: 12px; box-sizing: border-box; }
+page { display: block; width: 100%; color: #999; }
 pre, code { background: #252529; border: 1px solid #e1e1e6; padding: 2px 4px; color: #bbb; }
 pre { overflow-x: auto; padding: 12px; }
 code { white-space: nowrap; }  
@@ -30,11 +30,10 @@ sidebar a { display: block; padding: 8px; margin: 4px; }
 sidebar i { margin-right: 4px; }
 sidebar box { margin-bottom: 24px; border: 1px solid #343a40; display: block; }
 sidebar svg { fill: #bbb; position: relative; top: 2px; margin-right: 4px; }
-pages { display: inline-block; width: calc(100% - 286px); margin-right: 24px; }
-pages h1 { text-align: center; margin-top: 12px; margin-bottom: 32px; }
-pages h1, pages h2, pages h3, pages h4, pages h5 { color: rgba(255,255,255,.75); font-weight: 500; line-height: 36px;  }
-pages h4 { font-size: 24px; margin: 8px 0; }
-pages page { display: none; color: #999; }
+page { display: inline-block; width: calc(100% - 286px); margin-right: 24px; }
+page h1 { text-align: center; margin-top: 12px; margin-bottom: 32px; }
+page h1, page h2, page h3, page h4, page h5 { color: rgba(255,255,255,.75); font-weight: 500; line-height: 36px;  }
+page h4 { font-size: 24px; margin: 8px 0; }
 table { width: 100%; border-collapse: collapse; }
 th, td { border: 1px solid #fff; padding: 8px; }
 
@@ -45,8 +44,8 @@ th, td { border: 1px solid #fff; padding: 8px; }
 @media screen and (max-width: 767px) { 
   header { display: block; margin-bottom: 0; }
   links { display: none; padding-left: 26px; }
-  pages { background: #252529; width: 100%; display: block; }
   content sidebar { display: none; }
+  page { display: block; background: none; width: 100%; }
   content.index sidebar { display: block; margin: 0 auto; width: 100%; padding: 0 8px; }
   expander { display: block; border: 1px solid #47474c; padding: 4px 8px; position: absolute; right: 24px; top: 16px; }
   links > * { padding: 12px 0 12px 0 !important; }
