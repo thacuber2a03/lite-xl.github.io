@@ -215,9 +215,9 @@ Plugins can be downloaded from the [plugins repository][2].
 
 ## Restarting the editor
 
-If you modifies the user configuration file or some of the Lua implementation files
+If you modify the user configuration file or some of the Lua implementation files
 you may restart the editor using the command `core:restart`.
-All the application will be restarting by keeping the window that is already in use.
+The entire application will be restarting by keeping the window that is already in use.
 
 ## Color Themes
 
