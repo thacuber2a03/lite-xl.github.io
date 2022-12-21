@@ -119,7 +119,7 @@ of the code in the file does.</p>
 <span class="c1">-- the "keymap" module will allow us to set keybindings for our commands</span>
 <span class="kd">local</span> <span class="n">keymap</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.keymap"</span>
 
-<span class="c1">-- since we wants to modify RootView, we'll need to require it first</span>
+<span class="c1">-- since we want to modify RootView, we'll need to require it first</span>
 <span class="kd">local</span> <span class="n">RootView</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.rootview"</span>
 
 <span class="c1">-----------------------------------------------------------------------</span>
@@ -131,7 +131,7 @@ of the code in the file does.</p>
 <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">text_color</span> <span class="o">=</span> <span class="p">{</span><span class="mi">200</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">220</span><span class="p">}</span> <span class="c1">-- or use `{ common.color "#C88CDC" }`</span>
 <span class="c1">-----------------------------------------------------------------------</span>
 <span class="c1">-- Let's create a function to calculate the coordinates of our text.</span>
-<span class="c1">-- While we're at it, let's add out function to the `config` module.</span>
+<span class="c1">-- While we're at it, let's add our function to the `config` module.</span>
 <span class="c1">-- We'll take the message we want to display as the argument to the</span>
 <span class="c1">-- function to determine the x and y coordinates of the text.</span>
 
