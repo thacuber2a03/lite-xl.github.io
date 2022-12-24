@@ -33,8 +33,15 @@ However, some of the behavior can be changed via environment variables.
 - `VERBOSE`: enable verbose output. Can be useful to debug which files were generated.
 
 
+# Credits
+
+[Material Design Icons][5] are used in the website. It is licensed under [Apache 2.0 License][6].
+
+
 
 [1]: https://github.com/lite-xl/lite-xl
 [2]: https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server
 [3]: https://www.npmjs.com/package/http-server
 [4]: https://github.com/watchexec/watchexec
+[5]: https://materialdesignicons.com/
+[6]: https://github.com/Templarian/MaterialDesign/blob/1d1761974cabe0868441fac6069438e5243d3446/LICENSE
