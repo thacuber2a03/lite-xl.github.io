@@ -12,7 +12,8 @@ body > * { width: 100%; max-width: 1200px; display: block;  }
 /* Menu */
 header, links, logo { margin: 0 auto 24px auto; display: flex; align-items: center; position: relative; }
 logo > *, header > *, links > *, menu > * { margin: 0; font-size: 16px !important; padding: 0 8px; }
-a, menu, svg { text-decoration: none; color: #c1c1c6; vertical-align: middle; position: relative; cursor: pointer; fill: #c1c1c6; }
+a, menu, svg { text-decoration: none; color: #c1c1c6; position: relative; cursor: pointer; fill: #c1c1c6; }
+links svg { vertical-align: middle; }
 menu h2::after { content: ""; width: 12px; display: inline-block; background-size: 12px; margin-left: 4px; background-position: 100% 200%; background-repeat: no-repeat; height: 16px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23c1c1c6' ><polygon points='0,0 100,0 50,50'/></svg>") }
 menu { padding: 0; }
 links h2 { padding: 0 16px; }
