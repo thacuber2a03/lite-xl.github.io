@@ -92,7 +92,7 @@ If you&#39;re new to programming, you can read <a title='' target='_blank' href=
 of the code in the file does.</p>
 
 <h3 id="the-code">The code :</h3>
-<pre><span class="c1">-- mod-version:2 -- lite-xl 2.0</span>
+<pre><span class="c1">-- mod-version:3</span>
 
 <span class="c1">-- you MUST put mod-version:x on the first line of your plugin</span>
 <span class="c1">-- mod-version usually maps to lite-xl releases (eg. mod-version: 2 == lite-xl 2.0)</span>
@@ -235,12 +235,14 @@ of the code in the file does.</p>
    <span class="c1">--    * a function that takes the "input" as its argument</span>
    <span class="c1">-- (NOTE: here the variable we are reading input into is `text`)</span>
    <span class="p">[</span><span class="s2">"simple:setshow"</span><span class="p">]</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
-      <span class="n">core</span><span class="p">.</span><span class="n">command_view</span><span class="p">:</span><span class="n">enter</span><span class="p">(</span><span class="s2">"Test to display"</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-         <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">hw_message</span> <span class="o">=</span> <span class="n">text</span>
-         <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">show_my_message</span> <span class="o">=</span> <span class="kc">true</span>
-      <span class="k">end</span><span class="p">)</span>
+      <span class="n">core</span><span class="p">.</span><span class="n">command_view</span><span class="p">:</span><span class="n">enter</span><span class="p">(</span><span class="s2">"Test to display"</span><span class="p">,</span> <span class="p">{</span>
+         <span class="n">submit</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">hw_message</span> <span class="o">=</span> <span class="n">text</span>
+            <span class="n">config</span><span class="p">.</span><span class="n">plugins</span><span class="p">.</span><span class="n">simple</span><span class="p">.</span><span class="n">show_my_message</span> <span class="o">=</span> <span class="kc">true</span>
+         <span class="k">end</span>
+      <span class="p">})</span>
    <span class="k">end</span>
-<span class="p">}</span>
+<span class="p">})</span>
 <span class="c1">-----------------------------------------------------------------------</span>
 <span class="c1">-- Just for fun, let's assign our commands their own keybindings.</span>
 <span class="c1">-- Here, we assign the keybinding the same string(its name) as the one</span>
