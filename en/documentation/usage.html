@@ -199,10 +199,10 @@ view is a document</li>
 <span class="n">command</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"core.docview"</span><span class="p">,</span> <span class="p">{</span>
   <span class="p">[</span><span class="s2">"doc:save"</span><span class="p">]</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
     <span class="n">core</span><span class="p">.</span><span class="n">active_view</span><span class="p">.</span><span class="n">doc</span><span class="p">:</span><span class="n">save</span><span class="p">()</span>
-    <span class="n">core</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"Saved '%s', core.active_view.doc.filename)
-  end
-})
-</span></pre>
+    <span class="n">core</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"Saved '%s'"</span><span class="p">,</span> <span class="n">core</span><span class="p">.</span><span class="n">active_view</span><span class="p">.</span><span class="n">doc</span><span class="p">.</span><span class="n">filename</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="p">})</span>
+</pre>
 <p>Commands can be performed programatically (eg. from another command or by your
 user module) by calling the <code>command.perform</code> function after requiring the
 <code>command</code> module:</p>
