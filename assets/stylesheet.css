@@ -93,3 +93,7 @@ pre .nc {         color: #f4bf75; }
 pre .no {         color: #f4bf75; }
 pre .na {         color: #6a9fb5; }
 pre .ss {         color: #90a959; }
+
+/* Announcement header */
+#outdated { display: block; text-align: center; background-color: #5865f2; color: white; }
+#outdated a { color: #edeae0; text-decoration: underline; }
