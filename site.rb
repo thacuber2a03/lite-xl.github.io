@@ -57,6 +57,11 @@ files = Dir
       .select { |x| File.file?(x) }
       .map { |path|
         basename = path.gsub("locales/#{locale}", "").gsub(/.\w+$/, "")
+        basepath = path.gsub("locales/#{locale}", "")
+        original_lang_path = File.expand_path("locales/#{default_locale}/#{basepath}")
+
+        original_newer = begin locale != default_locale && File.mtime(original_lang_path) > File.mtime(path) ? "block" : "none" rescue "none" end
+        puts("#{original_lang_path} is newer than #{original_lang_path}") if verbose && original_newer == "block"
 
         # the slugs produced by target and id is different, as target slugifies each component
         # while id slugifies everything. For instance, path "/locale/en/magic!I don't know" produces
@@ -77,6 +82,7 @@ files = Dir
           .gsub("{{ id }}", id)
           .gsub("{{ lang }}", locale)
           .gsub("{{ path }}", File.join(Pathname(basename).each_filename.map { |component| component == "index" ? "" : slugify(component) }))
+          .gsub("{{ original_ver_is_newer }}", original_newer)
         File.write(root + target, contents)
 
         if generateIndex

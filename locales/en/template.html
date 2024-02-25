@@ -84,6 +84,9 @@
     </header>
     <content>
       <page id='page-{{ id }}'>
+        <h4 id="outdated" style="display:{{ original_ver_is_newer }}">
+          A newer version of this file is available in <a href="/en/{{ path }}">English</a>.
+        </h4>
         {{ page }}
       </page>
       <sidebar>
