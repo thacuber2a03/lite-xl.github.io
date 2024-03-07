@@ -15,7 +15,9 @@ jobs:
       - name: Restore file mtime
         run: |
           git ls-files -z | while read -d '' path; do
-            touch -d $(git log -1 --format="@%ct" "$path") "$path"
+            if [[ -e "$path" ]]; then
+              touch -d $(git log -1 --format="@%ct" "$path") "$path"
+            fi
           done
 
       - name: Install ruby
