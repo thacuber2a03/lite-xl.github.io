@@ -1,6 +1,8 @@
 name: Deploy site
 
-on: { push: { branches: [master] } }
+on:
+  push: { branches: [master] }
+  workflow_dispatch:
 
 jobs:
   build:
@@ -36,8 +38,15 @@ jobs:
         if: ${{ github.repository_owner == 'lite-xl' }}
         run: ruby site.rb
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: ./deploy
+          compression-level: 9
+
       - name: Upload to GitHub pages (for lite-xl org)
-        if: ${{ github.repository_owner == 'lite-xl' }}
+        if: ${{ github.repository_owner == 'lite-xl' && github.ref_name == 'master' }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -45,7 +54,7 @@ jobs:
           cname: lite-xl.com
 
       - name: Upload to GitHub pages (for forks)
-        if: ${{ github.repository_owner != 'lite-xl' }}
+        if: ${{ github.repository_owner != 'lite-xl' && github.ref_name == 'master' }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
