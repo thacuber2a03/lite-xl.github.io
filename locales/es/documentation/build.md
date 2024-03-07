@@ -93,8 +93,7 @@ ninja -C build install
 
 ## macOS
 
-macOS is fully supported and a notarized app disk image is provided in the
-[release page][1]. 
+macOS is fully supported and a notarized app disk image is provided in the [release page][1].
 In addition the application can be compiled using the generic instructions given above.
 
 ## Windows MSYS2
