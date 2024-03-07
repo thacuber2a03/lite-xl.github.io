@@ -8,21 +8,33 @@ jobs:
     # if: github.ref == 'refs/heads/master'
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Restore file mtime
+        run: |
+          git ls-files -z | while read -d '' path; do
+            touch -d $(git log -1 --format="@%ct" "$path") "$path"
+          done
+
       - name: Install ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
+
       - name: Install gems
         run: gem install redcarpet rouge
+
       - name: Set environment variables
         run: echo "SITE_ROOT=deploy" >> $GITHUB_ENV
+
       - name: Build (for forks)
         if: ${{ github.repository_owner != 'lite-xl' }}
         run: ruby site.rb "/$(echo '${{ github.repository }}' | cut -d/ -f2)"
+
       - name: Build (for lite-xl org)
         if: ${{ github.repository_owner == 'lite-xl' }}
         run: ruby site.rb
+
       - name: Upload to GitHub pages (for lite-xl org)
         if: ${{ github.repository_owner == 'lite-xl' }}
         uses: peaceiris/actions-gh-pages@v3
@@ -30,6 +42,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./deploy
           cname: lite-xl.com
+
       - name: Upload to GitHub pages (for forks)
         if: ${{ github.repository_owner != 'lite-xl' }}
         uses: peaceiris/actions-gh-pages@v3
