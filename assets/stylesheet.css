@@ -23,6 +23,7 @@ menu items { display: none; position: absolute; z-index: 1; top: 24px; backgroun
 menu items > * { padding: 4px; display: block; }
 expander { display: none; width: 30px; height: 30px; cursor: pointer; background-size: contain; background-position: 50% 50%; background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M5,8 l20,0 z M5,15 l20,0 z M5,22 l20,0 z' stroke='%2397979c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); }
 links:nth-last-child(2) { margin-left: auto; }
+menu img { display: inline; width: 24px; height: 18px; vertical-align: middle; }
 
 /* Content */
 content { margin: 0 auto 48px auto;  }
