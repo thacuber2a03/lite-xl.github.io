@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Lite XL - Syntaxhervorhebung</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg" href="/assets/img/logo.svg">
+    <link rel="stylesheet" href="/assets/stylesheet.css"/>
+    <script type='text/javascript' src='/assets/javascript.js'></script>
+    <meta name="description" content="Ein leichter, simpler, schneller, funktionsreicher, und extrem erweiterbarerer Texteditor geschrieben in C, und Lua, angepasst von lite.">
+  </head>
+  <body>
+    <header>
+      <logo>
+        <a href='/de'><img class='logo' src='/assets/img/logo.svg'/></a>
+        <h2><a href='/de'>Lite XL</a></h2>
+      </logo>
+      <links>
+        <menu>
+          <h2><a href="#">
+              <img src="/assets/img/flags/de.svg"/>
+              DE
+          </a></h2>
+          <items>
+            <a href="/en/tutorials/syntax-highlighting">
+              <img src="/assets/img/flags/us.svg"/>
+              English
+            </a>
+            <a href="/de/tutorials/syntax-highlighting">
+              <img src="/assets/img/flags/de.svg"/>
+              Deutsch
+            </a>
+          </items>
+        </menu>
+        <menu>
+          <h2><a href='/de/about'>Über</a></h2>
+          <items>
+            <a href='/de/about/faq'>FAQ</a>
+            <a href='/de/about/features'>Funktionen</a>
+            <a href='/de/about/screenshots'>Screenshots</a>
+            <a href='/de/about/contributors'>Mitwirkende</a>
+          </items>
+        </menu>
+        <menu>
+          <h2><a href='/de/documentation'>Dokumentation</a></h2>
+          <items>
+            <a href='/de/documentation/usage'>Nutzen</a>
+            <a href='/de/documentation/build'>Bauen</a>
+            <a href='/de/documentation/keymap'>Standard Keymap</a>
+            <a href='/de/documentation/keymap-macos'>MacOS Keymap</a>
+          </items>
+        </menu>
+        <menu>
+          <h2><a href='/de/tutorials'>Tutorials</a></h2>
+          <items>
+            <a href='/de/tutorials/simple-plugin'>Einfaches Plugin</a>
+            <a href='/de/tutorials/syntax-highlighting'>Syntaxhervorhebung</a>
+            <a href='/de/tutorials/api-overview'>API Overview</a>
+            <a href='/de/tutorials/system-fonts'>Systemschriftarten</a>
+          </items>
+        </menu>
+        <h2><a target="_blank" href='https://github.com/lite-xl/lite-xl-plugins'>
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M19 6V5A2 2 0 0 0 17 3H15A2 2 0 0 0 13 5V6H11V5A2 2 0 0 0 9 3H7A2 2 0 0 0 5 5V6H3V20H11.81A6.5 6.5 0 0 1 21 10.81V6M20.31 17.9A4.5 4.5 0 1 0 18.88 19.32L22 22.39L23.39 21M16.5 18A2.5 2.5 0 1 1 19 15.5A2.5 2.5 0 0 1 16.5 18Z" />
+          </svg>
+          Plugins
+        </a></h2>
+        <h2><a href='/de/downloads'>
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+          </svg>
+          Downloads
+        </a></h2>
+      </links>
+      <links>
+        <h2><a href='https://duckduckgo.com/?sites=lite-xl.com&kae=d&kt=p&kp=1&kn=1&k1=-1&q=%20'>
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+        </svg>
+          Suchen
+        </a></h2>
+      </links>
+      <expander/>
+    </header>
+    <content>
+      <page id='page-tutorials-syntax-highlighting'>
+        <h4 id="outdated" style="display:none">
+          A newer version of this file is available in <a href="/en/tutorials/syntax-highlighting">English</a>.
+        </h4>
+        <!-- Delete later: continue at line 161 -->
+
+<h1 id="toc_85">Syntaxhervorhebung</h1>
+
+<h2 id="toc_86">So erstellt man Syntaxhervorhebung für Lite XL</h2>
+
+<p>Syntaxhervorhebung Plugins für Lite XL sind Lua Dateien. Diese Dateien definieren Muster oder Regex
+verschiedene teile einer gegebenen Sprache, man ordnet Token-Typen zu Übereinstimmung zu.
+Diese verschiedenen Token-Typen werden dann verschiedene farben von deinem ausgesuchten Color Scheme gegeben.</p>
+
+<p>Wie andere Plugins, Syntax Definitionen werden von den folgenden Ordnern empfangen, in der folgenden Reihenfolge:</p>
+
+<ul>
+<li><code>/usr/share/lite-xl/plugins/</code></li>
+<li><code>$HOME/.config/lite-xl/plugins/</code></li>
+</ul>
+
+<p>BEMERKE: Der genaue Ort von diesen Ordnern wird von dein Betriebssystem und Installationsmethode abhängen. Zum Beispiel, unter Windows wird das Variable <code>$USERPROFILE</code> benutzt werden anstatt <code>$HOME</code>.</p>
+
+<p>Der Benutzer Modul Ordner für Lite Xl kann in diesen Orten auf different Betriebssystemen gefunden werden:</p>
+
+<ul>
+<li>Windows: <code>C:\Users\(nutzername)\.config\lite-xl</code></li>
+<li>MacOS: <code>/Users/(nutzername)/.config/lite-xl</code></li>
+<li>Linux: <code>/home/(nutzername)/.config/lite-xl</code></li>
+</ul>
+
+<p>Also, um eine neue Syntax Definition auf Linux zu erstellen, musst du eine <code>.lua</code> Datei in dein <code>$HOME/.config/lite-xl/plugins/</code> Ordner machen.</p>
+
+<h2 id="toc_87">Welche Syntax-Token arten sind unterstützt?</h2>
+
+<p>Die unterstützten Syntax_Token art, definiert von <code>lite-xl/core/style.lua</code>, sind:</p>
+
+<ul>
+<li>normal</li>
+<li>symbol</li>
+<li>comment</li>
+<li>keyword</li>
+<li>keyword2</li>
+<li>number</li>
+<li>literal</li>
+<li>string</li>
+<li>operator</li>
+<li>function</li>
+</ul>
+
+<p>In dein Syntaxhervorhebung Plugin, schreibst du Muster um Teile der Sprachen-Syntax zu entsprechen, und um Token-Typen zu übereinstimmen. Du musst nicht alle benutzen - benutze so viele die du brauchst für deine Sprache.</p>
+
+<p>Let&#39;s walk through an example syntax definition and see how this works.</p>
+
+<p>Gehen wir mal durch eine Beispiel Syntax Definition und wir werden sehen wie es funktioniert.</p>
+
+<h2 id="toc_88">Beispiel Syntax: ssh config Dateien</h2>
+
+<p>Das ist ein kleines, simples Beispiel von einer Syntax Definition, Es soll eine SSH config Datei hervorheben und es sieht so aus:</p>
+<pre><span class="c1">-- mod-version:2 -- lite-xl 2.0</span>
+<span class="kd">local</span> <span class="n">syntax</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.syntax"</span>
+
+<span class="n">syntax</span><span class="p">.</span><span class="n">add</span> <span class="p">{</span>
+  <span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"sshd?/?_?config$"</span> <span class="p">},</span>
+  <span class="n">comment</span> <span class="o">=</span> <span class="s1">'#'</span><span class="p">,</span>
+  <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"#.*\n"</span><span class="p">,</span>        <span class="nb">type</span> <span class="o">=</span> <span class="s2">"comment"</span>  <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"%d+"</span><span class="p">,</span>          <span class="nb">type</span> <span class="o">=</span> <span class="s2">"number"</span>   <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"[%a_][%w_]*"</span><span class="p">,</span>  <span class="nb">type</span> <span class="o">=</span> <span class="s2">"symbol"</span>   <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"@"</span><span class="p">,</span>            <span class="nb">type</span> <span class="o">=</span> <span class="s2">"operator"</span> <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="n">symbols</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- ssh config</span>
+    <span class="p">[</span><span class="s2">"Host"</span><span class="p">]</span>                         <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"ProxyCommand"</span><span class="p">]</span>                 <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
+
+    <span class="p">[</span><span class="s2">"HostName"</span><span class="p">]</span>                     <span class="o">=</span> <span class="s2">"keyword"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"IdentityFile"</span><span class="p">]</span>                 <span class="o">=</span> <span class="s2">"keyword"</span><span class="p">,</span>
+    <span class="o">...</span>
+
+    <span class="c1">-- sshd config</span>
+    <span class="p">[</span><span class="s2">"Subsystem"</span><span class="p">]</span>                    <span class="o">=</span> <span class="s2">"keyword2"</span><span class="p">,</span>
+
+    <span class="c1">-- Literals</span>
+    <span class="p">[</span><span class="s2">"yes"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"no"</span><span class="p">]</span>       <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"any"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"ask"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</pre>
+<p>Schauen wir uns mal jeden Teil an und schauen wie es funktioniert.</p>
+
+<h3 id="toc_89">Header</h3>
+
+<p>Die erste Zeile ist ein Lua kommentar und sagt Lite XL welche version dieses Plugin braucht. Die zweite Zeile importiert das <code>core.syntax</code> Modul
+dass wir nutzen können:</p>
+<pre><span class="c1">-- mod-version:2 -- lite-xl 2.0</span>
+<span class="kd">local</span> <span class="n">syntax</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.syntax"</span>
+</pre>
+<p>Dann fügen wir eine Syntax Definition mit <code>syntax.add {...}</code> zu lite ein.</p>
+
+<h4 id="toc_90">Files</h4>
+
+<p>Die <code>files</code> Eigenschaft sagt Lite XL welche Dateien these Syntax benutzt werden soll. Das ist ein Lua Muster, das mit dem vollständigen Pfad der geöffneten Datei übereinstimmt. Zum Beispiel, um gegen Markdown Dateien zu übereinstimmen - mit entweder eine <code>.md</code> oder eine <code>.markdown</code> Erweiterung,
+du könntest das machen:</p>
+<pre><span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%.md$"</span><span class="p">,</span> <span class="s2">"%.markdown$"</span> <span class="p">},</span>
+</pre>
+<p>In unseren original Beispiel, gleichen wir mit dem Ende des Pfads und nicht mit der Erweiterung ab, weil SSH config Dateien keine Erweiterung hat - und wir nicht alle <code>config</code> Dateien abgleichen. Wir erwarten den Pfad für SSH config Dateien so auszusehen:</p>
+
+<ul>
+<li><code>~/.ssh/config</code></li>
+<li><code>/etc/ssh/ssh_config</code></li>
+<li><code>/etc/ssh/sshd_config</code></li>
+</ul>
+
+<p>Dieses Muster gleicht Pfade ab die so aussehen:</p>
+<pre><span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"sshd?/?_?config$"</span> <span class="p">},</span>
+</pre>
+<h3 id="toc_91">Kommentare</h3>
+
+<p>Die Kommentar Eigenschaft definiert <em>nicht</em> welche Teile der Syntax Kommentare sind - Schaue auf Muster für das unten. Diese Eigenschaft sagt Lite XL welche Charaktere beim Anfang der ausgewählten Zeilen hinzufügt werden sollen, wenn du <code>ctrl+/</code> drückst.
+Du kannst auch <code>block_comment</code> benutzen um Lite XL zu sagen, wie es multiline oder Block Kommentare machen soll.</p>
+
+<h3 id="toc_92">Muster</h3>
+
+<p>Ein gegebener Textabschnitt kann nur ein Muster abgleicht werden. Wenn Lite XL einmal einschieden hat, dass es mit einem Muster übereinstimmt, dann wird es den Token-Typen zuweisen und es wird weitergehen.
+Muster werden getestet in der Reihenfolge wie es in der Syntax Definition geschrieben wurde, also wird das erste Übereinstimmen gewinnen.</p>
+
+<p>Jedes Muster nimmt einer dieser Formen an:</p>
+
+<h4 id="toc_93">Einfaches Muster</h4>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"#.*\n"</span><span class="p">,</span>        <span class="nb">type</span> <span class="o">=</span> <span class="s2">"comment"</span> <span class="p">},</span>
+</pre>
+<p>Diese Form gleicht die Zeile mit dem Muster ab und wenn es abstimmt, weist es in diesem Fall den passenden Text den gebenen Token <code>type</code> - <code>comment</code> zu.</p>
+
+<h4 id="toc_94">Start- &amp; Endmuster</h4>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%["</span><span class="p">,</span> <span class="s2">"%]"</span> <span class="p">},</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">"keyword"</span> <span class="p">},</span>
+</pre>
+<p>Diese Form hat zwei Muster - eines das mit dem Anfang des Bereichs übereinstimmt und eines dass mit dem Ende übereinstimmt. Alles zwischen den Anfang und den Ende wird den Token <code>type</code> zugewiesen.</p>
+
+<h4 id="toc_95">Start- &amp; Endmuster, mit Ausgang</h4>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'"'</span><span class="p">,</span> <span class="s1">'"'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\</span><span class="s1">'</span> <span class="p">},</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">"string"</span> <span class="p">},</span>
+</pre>
+<p>Dieses ist das Gleiche wie die letzte Form, aber mit einem dritten Parameter.
+Der dritte Teil, der <code>&#39;\&#39;</code> Teil in diesem Beispiel, spezifiziert den Charakter dass entkommen vom Schlussübereinstimmung ermöglicht.</p>
+
+<p>Für mehr Information von Lua Muster, sehe <a title='' target='_blank' href='https://www.lua.org/manual/5.3/manual.html#6.4.1'>Lua Muster Referenz (English)</a></p>
+
+<p>Wenn du PCRE Regular Expressions anstatt Lua Muster benutzen musst, kannst du das Stichwort <code>regex</code> anstelle von <code>pattern</code> benutzen.</p>
+
+<h3 id="toc_96">Symbole</h3>
+
+<blockquote>
+<p>Dieser Teil ist <strong>nicht mit dem <code>symbol</code> Token-Typ verwandt</strong>.</p>
+</blockquote>
+
+<p>Dieser Symbol Teil erlaubt dir Token-Typen zu bestimmten Schlüsselwörtern zuzuordnen - normalerweise sind das Wörter in der Sprache dass du hervorhebst.
+Der Token-Typ in diesem Teil nimmt immer Vorrang über Token-Typen deklariert im Muster.</p>
+
+<p>Zum Beispiel, Dieses Code markiert <code>Host</code> als <code>function</code> Token-Typ, <code>HostName</code> als <code>keyword</code> und <code>yes</code>, <code>no</code>, <code>any</code> &amp; <code>ask</code> als <code>literal</code>:</p>
+<pre><span class="p">[</span><span class="s2">"Host"</span><span class="p">]</span>                         <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
+<span class="p">[</span><span class="s2">"HostName"</span><span class="p">]</span>                     <span class="o">=</span> <span class="s2">"keyword"</span><span class="p">,</span>
+
+<span class="p">[</span><span class="s2">"yes"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+<span class="p">[</span><span class="s2">"no"</span><span class="p">]</span>       <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+<span class="p">[</span><span class="s2">"any"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+<span class="p">[</span><span class="s2">"ask"</span><span class="p">]</span>      <span class="o">=</span> <span class="s2">"literal"</span><span class="p">,</span>
+</pre>
+<h4 id="toc_97">Tips: Überprüfe deine Muster!</h4>
+
+<p>Es gibt häufige Fehler die gemacht werden können wenn man das <code>symbols</code> Table in Verbindung mit Muster benutzt.</p>
+
+<h5 id="toc_98">Fall 1: Leerzeichen zwischen zwei <code>symbols</code> Token:</h5>
+
+<p>Nehmen wir mal ein Beispiel:</p>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"[%a_][%w_]+%s+()[%a_][%w_]+"</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"keyword2"</span><span class="p">,</span> <span class="s2">"symbol"</span> <span class="p">}</span> <span class="p">}</span>
+</pre>
+<p>Jetzt erklären wir mal das Muster ein bisschen (Lasse die Leeren Klammer weg):</p>
+<pre><span class="o">[</span>%a_] <span class="o">=</span> alle Buchstaben und Unterstriche
+<span class="o">[</span>%w_] <span class="o">=</span> alle Buchstaben, Nummern und Unterstriche
+%s <span class="o">=</span> alle Leerzeichen Charaktere
+
+WORD <span class="o">=</span>
+  <span class="o">[</span>%a_] gefolgt von <span class="o">(</span>1 oder mehr <span class="o">[</span>%w_]<span class="o">)</span>
+
+pattern <span class="o">=</span>
+  WORD, gefolgt von <span class="o">(</span>einem oder mehreren %s<span class="o">)</span>, gefolgt von WORD
+</pre>
+<p>Nachher fügst du einen Eintrag <code>[&quot;my&quot;] = &quot;literal&quot;</code> im <code>symbols</code> Table.
+Du kannst die Syntax testen mit <code>my function</code>, und findest heraus das <code>&quot;my&quot;</code> nicht als <code>literal</code> markiert wurde. Warum ist das passiert?</p>
+
+<p>**<code>symbols</code> table braucht eine genaue Übereinstimmung<strong>.
+Wenn du sorgfältig schaust, siehst du dass leere Klammern **nach dem Leerzeichen</strong> platziert wurden!
+Dass sagt Lite XL dass <code>[%a_] gefolgt von (1 oder mehr [%w_])</code> ein Token ist, dass <code>my</code> übereinstimmen soll (bemerke das Leerzeichen in der Übereinstimmung).</p>
+
+<p>Das Lösung steckt darin, ein <code>normal</code> Token für Leerzeichen zwischen zwei Tokens hinzuzufügen:</p>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"[%a_][%w_]+()%s+()[%a_][%w_]+"</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"keyword2"</span><span class="p">,</span> <span class="s2">"normal"</span><span class="p">,</span> <span class="s2">"symbol"</span> <span class="p">}</span> <span class="p">}</span>
+</pre>
+<h5 id="toc_99">Fall 2: Muster &amp; <code>symbols</code> Token</h5>
+
+<p>Man könnte annehmen dass Lite XL magisch Text mit den <code>symbols</code> Table vergleicht. Dies ist nicht der Fall.</p>
+
+<p>In manchen Sprachen fügen Leute generische Muster hinzu, um den Abgleich an die Tabelle <code>symbols</code> zu delegieren.</p>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"[%a_][%w_]*"</span><span class="p">,</span> <span class="s2">"symbol"</span> <span class="p">}</span>
+</pre>
+<p>Jedoch könnte das <code>symbols</code> Table so ausschauen:</p>
+<pre><span class="n">symbols</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">[</span><span class="s2">"my-symbol"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"function"</span><span class="p">,</span>
+  <span class="p">[</span><span class="s2">"..something_else"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"literal"</span>
+<span class="p">}</span>
+</pre>
+<p><code>my-symbol</code> enthält ein Strich (<code>-</code>) und <code>&quot;..something_else&quot;</code> enthält zwei Punkte (<code>.</code>).
+Keinen von diesen Charakteren stimmt mit <code>[%a_][%w_]*</code> überein!</p>
+
+<p><strong>Vorsicht vor dem Text den du im <code>symbols</code> Table übereinstimmen willst.</strong>
+<strong>Wenn du es benutzen willst, musst du dir sicher sein, dass es mit einer dieser Muster übereinstimmt.</strong></p>
+
+<p>Die richtigen Muster sind:</p>
+<pre><span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"[%a_][%w%-_]*"</span><span class="p">,</span> <span class="s2">"symbol"</span> <span class="p">},</span>
+<span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"%.%.[%a_][%w_]*"</span><span class="p">,</span> <span class="s2">"symbol"</span> <span class="p">},</span>
+</pre>
+<h2 id="toc_100">Deine neue Syntax testen</h2>
+
+<p>Um deine neue Syntaxhervorhebung zu testen musst du diesen zwei Dinge machen:</p>
+
+<ul>
+<li>Lade den Lite XL Core neu</li>
+<li>Lade eine Datei deiner ausgewählten Sprache und schaue an wie es ausschaut</li>
+</ul>
+
+<p>Um den Core neuzuladen kannst du entweder Lite XL neustarten, oder du ladest den Core über das Befehlspalette neu.
+Um dies zu machen, drücke <code>ctrl+shit+</code> Befehlspalette zu zeigen, dann wähle <code>Core: Restart</code> aus (oder schreibe <code>crr</code> oder ähnliches um es zu finden), dann drücke Enter. Du musst den Core immer neustarten wenn du änderungen zur Syntaxhervorhebung machst.</p>
+
+<h2 id="toc_101">Beispiel des fortschrittlichen Syntax: Markdown</h2>
+
+<blockquote>
+<p><strong>Bemerke: Dieses Beispiel hat Funktionen von 2.1. Es ist nicht kompatible mit älteren Versionen von lite-xl</strong></p>
+</blockquote>
+
+<p>Nicht alle Sprachen sind so leicht wie SSH config Dateien. Markup Sprache wie HTML und Markdown sind sehr schwer richtig zu analysieren. Hier ist die Markdown Syntaxhervorhebung Datei in seiner vollen Pracht:</p>
+<pre><span class="c1">-- mod-version:3</span>
+<span class="kd">local</span> <span class="n">syntax</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.syntax"</span>
+<span class="kd">local</span> <span class="n">style</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.style"</span>
+<span class="kd">local</span> <span class="n">core</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core"</span>
+
+<span class="kd">local</span> <span class="n">initial_color</span> <span class="o">=</span> <span class="n">style</span><span class="p">.</span><span class="n">syntax</span><span class="p">[</span><span class="s2">"keyword2"</span><span class="p">]</span>
+
+<span class="c1">-- Add 3 type of font styles for use on markdown files</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">attr</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">({</span><span class="s2">"bold"</span><span class="p">,</span> <span class="s2">"italic"</span><span class="p">,</span> <span class="s2">"bold_italic"</span><span class="p">})</span> <span class="k">do</span>
+  <span class="kd">local</span> <span class="n">attributes</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">if</span> <span class="n">attr</span> <span class="o">~=</span> <span class="s2">"bold_italic"</span> <span class="k">then</span>
+    <span class="n">attributes</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
+  <span class="k">else</span>
+    <span class="n">attributes</span><span class="p">[</span><span class="s2">"bold"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">attributes</span><span class="p">[</span><span class="s2">"italic"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
+  <span class="k">end</span>
+  <span class="c1">-- no way to copy user custom font with additional attributes :(</span>
+  <span class="n">style</span><span class="p">.</span><span class="n">syntax_fonts</span><span class="p">[</span><span class="s2">"markdown_"</span><span class="o">..</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">renderer</span><span class="p">.</span><span class="n">font</span><span class="p">.</span><span class="nb">load</span><span class="p">(</span>
+    <span class="n">DATADIR</span> <span class="o">..</span> <span class="s2">"/fonts/JetBrainsMono-Regular.ttf"</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">.</span><span class="n">code_font</span><span class="p">:</span><span class="n">get_size</span><span class="p">(),</span>
+    <span class="n">attributes</span>
+  <span class="p">)</span>
+  <span class="c1">-- also add a color for it</span>
+  <span class="n">style</span><span class="p">.</span><span class="n">syntax</span><span class="p">[</span><span class="s2">"markdown_"</span><span class="o">..</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">style</span><span class="p">.</span><span class="n">syntax</span><span class="p">[</span><span class="s2">"keyword2"</span><span class="p">]</span>
+<span class="k">end</span>
+
+<span class="kd">local</span> <span class="n">in_squares_match</span> <span class="o">=</span> <span class="s2">"^%[%]"</span>
+<span class="kd">local</span> <span class="n">in_parenthesis_match</span> <span class="o">=</span> <span class="s2">"^%(%)"</span>
+
+<span class="n">syntax</span><span class="p">.</span><span class="n">add</span> <span class="p">{</span>
+  <span class="n">name</span> <span class="o">=</span> <span class="s2">"Markdown"</span><span class="p">,</span>
+  <span class="n">files</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%.md$"</span><span class="p">,</span> <span class="s2">"%.markdown$"</span> <span class="p">},</span>
+  <span class="n">block_comment</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"&lt;!--"</span><span class="p">,</span> <span class="s2">"--&gt;"</span> <span class="p">},</span>
+  <span class="n">space_handling</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">-- turn off this feature to handle it our selfs</span>
+  <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">---- Place patterns that require spaces at start to optimize matching speed</span>
+  <span class="c1">---- and apply the %s+ optimization immediately afterwards</span>
+    <span class="c1">-- bullets</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%s*%*%s"</span><span class="p">,</span>                 <span class="nb">type</span> <span class="o">=</span> <span class="s2">"number"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%s*%-%s"</span><span class="p">,</span>                 <span class="nb">type</span> <span class="o">=</span> <span class="s2">"number"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%s*%+%s"</span><span class="p">,</span>                 <span class="nb">type</span> <span class="o">=</span> <span class="s2">"number"</span> <span class="p">},</span>
+    <span class="c1">-- numbered bullet</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%s*[0-9]+[%.%)]%s"</span><span class="p">,</span>       <span class="nb">type</span> <span class="o">=</span> <span class="s2">"number"</span> <span class="p">},</span>
+    <span class="c1">-- blockquote</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%s*&gt;+%s"</span><span class="p">,</span>                 <span class="nb">type</span> <span class="o">=</span> <span class="s2">"string"</span> <span class="p">},</span>
+    <span class="c1">-- alternative bold italic formats</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%s___"</span><span class="p">,</span> <span class="s2">"___%f[%s]"</span> <span class="p">},</span>   <span class="nb">type</span> <span class="o">=</span> <span class="s2">"markdown_bold_italic"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%s__"</span><span class="p">,</span> <span class="s2">"__%f[%s]"</span> <span class="p">},</span>     <span class="nb">type</span> <span class="o">=</span> <span class="s2">"markdown_bold"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%s_[%S]"</span><span class="p">,</span> <span class="s2">"_%f[%s]"</span> <span class="p">},</span>   <span class="nb">type</span> <span class="o">=</span> <span class="s2">"markdown_italic"</span> <span class="p">},</span>
+    <span class="c1">-- reference links</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%s*%[%^()["</span><span class="o">..</span><span class="n">in_squares_match</span><span class="o">..</span><span class="s2">"]+()%]: "</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%s*%[%^?()["</span><span class="o">..</span><span class="n">in_squares_match</span><span class="o">..</span><span class="s2">"]+()%]:%s+.+\n"</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="c1">-- optimization</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"%s+"</span><span class="p">,</span>                      <span class="nb">type</span> <span class="o">=</span> <span class="s2">"normal"</span> <span class="p">},</span>
+
+  <span class="c1">---- HTML rules imported and adapted from language_html</span>
+  <span class="c1">---- to not conflict with markdown rules</span>
+    <span class="c1">-- Inline JS and CSS</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s2">"&lt;%s*[sS][cC][rR][iI][pP][tT]%s+[tT][yY][pP][eE]%s*=%s*"</span> <span class="o">..</span>
+        <span class="s2">"['\"</span><span class="p">]</span><span class="o">%</span><span class="n">a</span><span class="o">+/</span><span class="p">[</span><span class="n">jJ</span><span class="p">][</span><span class="n">aA</span><span class="p">][</span><span class="n">vV</span><span class="p">][</span><span class="n">aA</span><span class="p">][</span><span class="n">sS</span><span class="p">][</span><span class="n">cC</span><span class="p">][</span><span class="n">rR</span><span class="p">][</span><span class="n">iI</span><span class="p">][</span><span class="n">pP</span><span class="p">][</span><span class="n">tT</span><span class="p">][</span><span class="s1">'</span><span class="se">\"</span><span class="s1">]%s*&gt;",
+      "&lt;%s*/[sS][cC][rR][iI][pP][tT]&gt;"
+      },
+      syntax = ".js",
+      type = "function"
+    },
+    {
+      pattern = {
+      "&lt;%s*[sS][cC][rR][iI][pP][tT]%s*&gt;",
+      "&lt;%s*/%s*[sS][cC][rR][iI][pP][tT]&gt;"
+      },
+      syntax = ".js",
+      type = "function"
+    },
+    {
+      pattern = {
+      "&lt;%s*[sS][tT][yY][lL][eE][^&gt;]*&gt;",
+      "&lt;%s*/%s*[sS][tT][yY][lL][eE]%s*&gt;"
+      },
+      syntax = ".css",
+      type = "function"
+    },
+    -- Comments
+    { pattern = { "&lt;!%-%-", "%-%-&gt;" },   type = "comment" },
+    -- Tags
+    { pattern = "%f[^&lt;]![%a_][%w_]*",    type = "keyword2" },
+    { pattern = "%f[^&lt;][%a_][%w_]*",     type = "function" },
+    { pattern = "%f[^&lt;]/[%a_][%w_]*",    type = "function" },
+    -- Attributes
+    {
+      pattern = "[a-z%-]+%s*()=%s*()\".-\"",
+      type = { "keyword", "operator", "string" }
+    },
+    {
+      pattern = "[a-z%-]+%s*()=%s*()'</span><span class="p">.</span><span class="o">-</span><span class="s1">'",
+      type = { "keyword", "operator", "string" }
+    },
+    {
+      pattern = "[a-z%-]+%s*()=%s*()%-?%d[%d%.]*",
+      type = { "keyword", "operator", "number" }
+    },
+    -- Entities
+    { pattern = "&amp;#?[a-zA-Z0-9]+;",         type = "keyword2" },
+
+  ---- Markdown rules
+    -- math
+    { pattern = { "%$%$", "%$%$", "\"  },  type = "string", syntax = ".tex"},
+    { pattern = { "%$", "%$", "\" },       type = "string", syntax = ".tex"},
+    -- code blocks
+    { pattern = { "```c++", "```" },        type = "string", syntax = ".cpp" },
+    -- ... there'</span><span class="n">s</span> <span class="n">some</span> <span class="n">other</span> <span class="n">patterns</span> <span class="n">here</span><span class="p">,</span> <span class="n">but</span> <span class="n">I</span> <span class="n">removed</span> <span class="n">them</span> <span class="k">for</span> <span class="n">brevity</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"```lobster"</span><span class="p">,</span> <span class="s2">"```"</span> <span class="p">},</span>    <span class="nb">type</span> <span class="o">=</span> <span class="s2">"string"</span><span class="p">,</span> <span class="n">syntax</span> <span class="o">=</span> <span class="s2">".lobster"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"```"</span><span class="p">,</span> <span class="s2">"```"</span> <span class="p">},</span>           <span class="nb">type</span> <span class="o">=</span> <span class="s2">"string"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"``"</span><span class="p">,</span> <span class="s2">"``"</span> <span class="p">},</span>             <span class="nb">type</span> <span class="o">=</span> <span class="s2">"string"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%f[\`]%`[%S]"</span><span class="p">,</span> <span class="s2">"`"</span> <span class="p">},</span>   <span class="nb">type</span> <span class="o">=</span> <span class="s2">"string"</span> <span class="p">},</span>
+    <span class="c1">-- strike</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"~~"</span><span class="p">,</span> <span class="s2">"~~"</span> <span class="p">},</span>             <span class="nb">type</span> <span class="o">=</span> <span class="s2">"keyword2"</span> <span class="p">},</span>
+    <span class="c1">-- highlight</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"=="</span><span class="p">,</span> <span class="s2">"=="</span> <span class="p">},</span>             <span class="nb">type</span> <span class="o">=</span> <span class="s2">"literal"</span> <span class="p">},</span>
+    <span class="c1">-- lines</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%-%-%-+\n"</span><span class="p">,</span>               <span class="nb">type</span> <span class="o">=</span> <span class="s2">"comment"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%*%*%*+\n"</span><span class="p">,</span>               <span class="nb">type</span> <span class="o">=</span> <span class="s2">"comment"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^___+\n"</span><span class="p">,</span>                  <span class="nb">type</span> <span class="o">=</span> <span class="s2">"comment"</span> <span class="p">},</span>
+    <span class="c1">-- bold and italic</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%*%*%*%S"</span><span class="p">,</span> <span class="s2">"%*%*%*"</span> <span class="p">},</span>   <span class="nb">type</span> <span class="o">=</span> <span class="s2">"markdown_bold_italic"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%*%*%S"</span><span class="p">,</span> <span class="s2">"%*%*"</span> <span class="p">},</span>       <span class="nb">type</span> <span class="o">=</span> <span class="s2">"markdown_bold"</span> <span class="p">},</span>
+    <span class="c1">-- handle edge case where asterisk can be at end of line and not close</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"%f[\%*]%*[%S]"</span><span class="p">,</span> <span class="s2">"%*%f[^%*]"</span> <span class="p">},</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="s2">"markdown_italic"</span>
+    <span class="p">},</span>
+    <span class="c1">-- alternative bold italic formats</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^___[%s%p%w]+___%s"</span> <span class="p">,</span>      <span class="nb">type</span> <span class="o">=</span> <span class="s2">"markdown_bold_italic"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^__[%s%p%w]+__%s"</span> <span class="p">,</span>        <span class="nb">type</span> <span class="o">=</span> <span class="s2">"markdown_bold"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^_[%s%p%w]+_%s"</span> <span class="p">,</span>          <span class="nb">type</span> <span class="o">=</span> <span class="s2">"markdown_italic"</span> <span class="p">},</span>
+    <span class="c1">-- heading with custom id</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^#+%s[%w%s%p]+(){()#[%w%-]+()}"</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"keyword"</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"string"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="c1">-- headings</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^#+%s.+\n"</span><span class="p">,</span>                <span class="nb">type</span> <span class="o">=</span> <span class="s2">"keyword"</span> <span class="p">},</span>
+    <span class="c1">-- superscript and subscript</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"%^()%d+()%^"</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"%~()%d+()%~"</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="c1">-- definitions</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^:%s.+"</span><span class="p">,</span>                   <span class="nb">type</span> <span class="o">=</span> <span class="s2">"function"</span> <span class="p">},</span>
+    <span class="c1">-- emoji</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">":[a-zA-Z0-9_%-]+:"</span><span class="p">,</span>        <span class="nb">type</span> <span class="o">=</span> <span class="s2">"literal"</span> <span class="p">},</span>
+    <span class="c1">-- images and link</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"!?%[!?%[()["</span><span class="o">..</span><span class="n">in_squares_match</span><span class="o">..</span><span class="s2">"]+()%]%(()["</span><span class="o">..</span><span class="n">in_parenthesis_match</span><span class="o">..</span><span class="s2">"]+()%)%]%(()["</span><span class="o">..</span><span class="n">in_parenthesis_match</span><span class="o">..</span><span class="s2">"]+()%)"</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"string"</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"!?%[!?%[?()["</span><span class="o">..</span><span class="n">in_squares_match</span><span class="o">..</span><span class="s2">"]+()%]?%]%(()["</span><span class="o">..</span><span class="n">in_parenthesis_match</span><span class="o">..</span><span class="s2">"]+()%)"</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"string"</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="c1">-- reference links</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"%[()["</span><span class="o">..</span><span class="n">in_squares_match</span><span class="o">..</span><span class="s2">"]+()%] *()%[()["</span><span class="o">..</span><span class="n">in_squares_match</span><span class="o">..</span><span class="s2">"]+()%]"</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"string"</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"!?%[%^?()["</span><span class="o">..</span><span class="n">in_squares_match</span><span class="o">..</span><span class="s2">"]+()%]"</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="c1">-- url's and email</span>
+    <span class="p">{</span>
+      <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"&lt;[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+%.[a-zA-Z0-9-.]+&gt;"</span><span class="p">,</span>
+      <span class="nb">type</span> <span class="o">=</span> <span class="s2">"function"</span>
+    <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"&lt;https?://%S+&gt;"</span><span class="p">,</span>           <span class="nb">type</span> <span class="o">=</span> <span class="s2">"function"</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"https?://%S+"</span><span class="p">,</span>             <span class="nb">type</span> <span class="o">=</span> <span class="s2">"function"</span> <span class="p">},</span>
+    <span class="c1">-- optimize consecutive dashes used in tables</span>
+    <span class="p">{</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"%-+"</span><span class="p">,</span>                      <span class="nb">type</span> <span class="o">=</span> <span class="s2">"normal"</span> <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="n">symbols</span> <span class="o">=</span> <span class="p">{</span> <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1">-- Adjust the color on theme changes</span>
+<span class="n">core</span><span class="p">.</span><span class="n">add_thread</span><span class="p">(</span><span class="k">function</span><span class="p">()</span>
+  <span class="k">while</span> <span class="kc">true</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="n">initial_color</span> <span class="o">~=</span> <span class="n">style</span><span class="p">.</span><span class="n">syntax</span><span class="p">[</span><span class="s2">"keyword2"</span><span class="p">]</span> <span class="k">then</span>
+      <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">attr</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">({</span><span class="s2">"bold"</span><span class="p">,</span> <span class="s2">"italic"</span><span class="p">,</span> <span class="s2">"bold_italic"</span><span class="p">})</span> <span class="k">do</span>
+        <span class="n">style</span><span class="p">.</span><span class="n">syntax</span><span class="p">[</span><span class="s2">"markdown_"</span><span class="o">..</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">style</span><span class="p">.</span><span class="n">syntax</span><span class="p">[</span><span class="s2">"keyword2"</span><span class="p">]</span>
+      <span class="k">end</span>
+      <span class="n">initial_color</span> <span class="o">=</span> <span class="n">style</span><span class="p">.</span><span class="n">syntax</span><span class="p">[</span><span class="s2">"keyword2"</span><span class="p">]</span>
+    <span class="k">end</span>
+    <span class="nb">coroutine.yield</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span><span class="p">)</span>
+</pre>
+<h3 id="toc_102">Syntaxschriftarten (Seit 1.16.10)</h3>
+
+<p>Die Syntax erlaubt Benutzer verschiedene Schriftarten Stile (Bold, Italic, usw.) für verschiedene Muster zu setzen.
+Um ein Schriftarten Stil von ein Token zu ändern, füge eine Schriftarten bei <code>style.syntax_fonts[token_type]</code> hinzu.
+Zum Beispiel:
+<code>
+-- Wird sorgen, dass jedes &quot;fancysyntax_fancy_token&quot; Italic sein wird.
+style.syntax_fonts[&quot;fancysyntax_fancy_token&quot;] = renderer.font.load(&quot;myfont.ttf&quot;, 14 * SCALE, { italic = true })
+</code></p>
+
+<p>Das Markdown Beispiele automatisiert dies mit einem for loop.</p>
+
+<p>Die Limitationen hier sind dass Schriftarten nicht von anderen Attributen kopiert werden können, also müssen Schriftartenpfade fest codiert werden.
+Der Missbrauch von <code>style.syntax_fonts</code> kann zur <strong>langsame Leistung</strong> und einen <strong>hohen Speicherverbrauch</strong> führen.
+Dies ist bemerkbar wenn ein Benutzer versucht die Größe des Editors mit <code>ctrl-scroll</code> or <code>ctrl+</code> and <code>ctrl-</code> zu ändern.
+Bitte benutze es in Moderation.</p>
+
+<h3 id="toc_103">Leerzeichen Umgang (v2.1 (Bevorstehend) / <code>master</code>)</h3>
+
+<p>Normalerweise stellt Lite XL das Muster <code>{ pattern = &quot;%s+&quot;, type = &quot;normal&quot; }</code> zu der Syntaxhervorhebung.
+Dies verbessert die Leistung drastisch bei Zeilen die mit Leerzeichen (z.B schwer-eingerücke Zeilen)
+Durchs anpassen des Leerzeichens bevor andere Muster muss Lite XL nicht durch die ganze Syntax durchgehen.
+Jedoch gibt es Syntaxen die Leerzeichen anpassen müssen (z.B Markdown mit einrückten Codeblocken)
+Also kann dies deaktiviert werden indem man <code>space_handling</code> to <code>false.</code> stellt.</p>
+
+<blockquote>
+<p>Um die Leerzeichen Umgang Optimisierung zu behalten, oder um ältere Versionen von Lite XL zu unterstützen kann
+<code>{ pattern = &quot;%s+&quot;, type = &quot;normal&quot; }</code> nach Muster, die Leerzeichen brauchen hinzugefügt werden.</p>
+</blockquote>
+
+<h3 id="toc_104">Einfache Muster mit mehrere Tokens (1.16.10)</h3>
+
+<p>Dies ist ein Ausschnitt dass von der Markdown Syntaxhervorhebung genommen wurde:</p>
+<pre><span class="kd">local</span> <span class="n">in_squares_match</span> <span class="o">=</span> <span class="s2">"^%[%]"</span>
+<span class="c1">-- reference links</span>
+<span class="p">{</span>
+  <span class="n">pattern</span> <span class="o">=</span> <span class="s2">"^%s*%[%^()["</span><span class="o">..</span><span class="n">in_squares_match</span><span class="o">..</span><span class="s2">"]+()%]: "</span><span class="p">,</span>
+  <span class="nb">type</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"function"</span><span class="p">,</span> <span class="s2">"number"</span><span class="p">,</span> <span class="s2">"function"</span> <span class="p">}</span>
+<span class="p">},</span>
+</pre>
+<p>Manchmal macht es Sinn verschiedene Teile eines Musters anderst zu hervorheben.
+Leere Klammer (<code>()</code>) in Lua Muster werden die Position vom Text in den Klammern zurückgeben.
+Dies wird Lite XL sagen, wenn es den Typ des Tokens ändern muss.
+Zum Beispiel, <code>^%s*%[%^</code> ist <code>&quot;function&quot;</code>, <code>[&quot;..in_squares_match..&quot;]+</code> ist <code>&quot;number&quot;</code> und <code>%]:</code> ist <code>&quot;function&quot;</code>.</p>
+
+<h3 id="toc_105">Subsyntaxen (Seit 1.16.10)</h3>
+
+<p>Lite XL unterschützt Einbettung von anderen Syntaxen in einer existierenden Syntax.
+Dies kann benutzt werden, um Codeblöcke im Markdown Syntax zu Unterstützen.</p>
+
+<p>Zum Beispiel:
+<code>lua
+{ pattern = { &quot;</code>cpp&quot;, &quot;<code>&quot; },        type = &quot;string&quot;, syntax = &quot;.cpp&quot; },
+</code></p>
+
+<p>Dies würde <code></code><code>cpp</code><code>und</code><code></code><code></code> mit <code>&quot;string&quot;</code> markieren während alles innerhalb mit der Syntax dass mit <code>&quot;.cpp&quot;</code> übereinstimmt markiert wird.</p>
+
+      </page>
+      <sidebar>
+        <box>
+          <h2>Mache mit</h2>
+          <a target='_blank' href='https://github.com/lite-xl/lite-xl'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 18 18">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            Github
+          </a>
+          <a target='_blank' href='https://discord.gg/UQKnzBhY5H'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 18 18">
+              <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/>
+            </svg>
+            Discord
+          </a>
+          <a target='_blank' href='https://matrix.to/#/#lite-xl:matrix.org'>
+            <svg xmlns="http://www.w3.org/2000/svg" style="padding-right: 2px;" width="22" height="24" viewBox="0 0 520 520">
+              <path d="M13.7,11.9v496.2h35.7V520H0V0h49.4v11.9H13.7z"/><path d="M166.3,169.2v25.1h0.7c6.7-9.6,14.8-17,24.2-22.2c9.4-5.3,20.3-7.9,32.5-7.9c11.7,0,22.4,2.3,32.1,6.8c9.7,4.5,17,12.6,22.1,24c5.5-8.1,13-15.3,22.4-21.5c9.4-6.2,20.6-9.3,33.5-9.3c9.8,0,18.9,1.2,27.3,3.6c8.4,2.4,15.5,6.2,21.5,11.5c6,5.3,10.6,12.1,14,20.6c3.3,8.5,5,18.7,5,30.7v124.1h-50.9V249.6c0-6.2-0.2-12.1-0.7-17.6c-0.5-5.5-1.8-10.3-3.9-14.3c-2.2-4.1-5.3-7.3-9.5-9.7c-4.2-2.4-9.9-3.6-17-3.6c-7.2,0-13,1.4-17.4,4.1c-4.4,2.8-7.9,6.3-10.4,10.8c-2.5,4.4-4.2,9.4-5,15.1c-0.8,5.6-1.3,11.3-1.3,17v103.3h-50.9v-104c0-5.5-0.1-10.9-0.4-16.3c-0.2-5.4-1.3-10.3-3.1-14.9c-1.8-4.5-4.8-8.2-9-10.9c-4.2-2.7-10.3-4.1-18.5-4.1c-2.4,0-5.6,0.5-9.5,1.6c-3.9,1.1-7.8,3.1-11.5,6.1c-3.7,3-6.9,7.3-9.5,12.9c-2.6,5.6-3.9,13-3.9,22.1v107.6h-50.9V169.2H166.3z"/>
+              <path d="M506.3,508.1V11.9h-35.7V0H520v520h-49.4v-11.9H506.3z"/>
+            </svg>
+            Matrix
+          </a>
+          <!--
+          <a target='_blank' href='https://adamharrison.github.io/lite-xl-web'>
+            <svg style="width:22px;height:22px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M21,2H3A2,2 0 0,0 1,4V20A2,2 0 0,0 3,22H21A2,2 0 0,0 23,20V4A2,2 0 0,0 21,2M11,17.5L9.5,19L5,14.5L9.5,10L11,11.5L8,14.5L11,17.5M14.5,19L13,17.5L16,14.5L13,11.5L14.5,10L19,14.5L14.5,19M21,7H3V4H21V7Z" />
+            </svg>
+            Try Live!
+          </a>
+          -->
+        </box>
+        <box>
+          <h2>Status</h2>
+          <a target='_blank' href='https://discord.gg/UQKnzBhY5H'><img src='https://img.shields.io/discord/847122429742809208?label=discord&logo=discord'/></a>
+          <a target='_blank' href='https://repology.org/project/lite-xl/versions#align-right'><img style='width: 100%;' src='https://repology.org/badge/vertical-allrepos/lite-xl.svg'/></a>
+        </box>
+      </sidebar>
+    </content>
+  </body>
+</html>

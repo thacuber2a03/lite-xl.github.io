@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Lite XL - Nutzen</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg" href="/assets/img/logo.svg">
+    <link rel="stylesheet" href="/assets/stylesheet.css"/>
+    <script type='text/javascript' src='/assets/javascript.js'></script>
+    <meta name="description" content="Ein leichter, simpler, schneller, funktionsreicher, und extrem erweiterbarerer Texteditor geschrieben in C, und Lua, angepasst von lite.">
+  </head>
+  <body>
+    <header>
+      <logo>
+        <a href='/de'><img class='logo' src='/assets/img/logo.svg'/></a>
+        <h2><a href='/de'>Lite XL</a></h2>
+      </logo>
+      <links>
+        <menu>
+          <h2><a href="#">
+              <img src="/assets/img/flags/de.svg"/>
+              DE
+          </a></h2>
+          <items>
+            <a href="/en/documentation/usage">
+              <img src="/assets/img/flags/us.svg"/>
+              English
+            </a>
+            <a href="/de/documentation/usage">
+              <img src="/assets/img/flags/de.svg"/>
+              Deutsch
+            </a>
+          </items>
+        </menu>
+        <menu>
+          <h2><a href='/de/about'>Über</a></h2>
+          <items>
+            <a href='/de/about/faq'>FAQ</a>
+            <a href='/de/about/features'>Funktionen</a>
+            <a href='/de/about/screenshots'>Screenshots</a>
+            <a href='/de/about/contributors'>Mitwirkende</a>
+          </items>
+        </menu>
+        <menu>
+          <h2><a href='/de/documentation'>Dokumentation</a></h2>
+          <items>
+            <a href='/de/documentation/usage'>Nutzen</a>
+            <a href='/de/documentation/build'>Bauen</a>
+            <a href='/de/documentation/keymap'>Standard Keymap</a>
+            <a href='/de/documentation/keymap-macos'>MacOS Keymap</a>
+          </items>
+        </menu>
+        <menu>
+          <h2><a href='/de/tutorials'>Tutorials</a></h2>
+          <items>
+            <a href='/de/tutorials/simple-plugin'>Einfaches Plugin</a>
+            <a href='/de/tutorials/syntax-highlighting'>Syntaxhervorhebung</a>
+            <a href='/de/tutorials/api-overview'>API Overview</a>
+            <a href='/de/tutorials/system-fonts'>Systemschriftarten</a>
+          </items>
+        </menu>
+        <h2><a target="_blank" href='https://github.com/lite-xl/lite-xl-plugins'>
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M19 6V5A2 2 0 0 0 17 3H15A2 2 0 0 0 13 5V6H11V5A2 2 0 0 0 9 3H7A2 2 0 0 0 5 5V6H3V20H11.81A6.5 6.5 0 0 1 21 10.81V6M20.31 17.9A4.5 4.5 0 1 0 18.88 19.32L22 22.39L23.39 21M16.5 18A2.5 2.5 0 1 1 19 15.5A2.5 2.5 0 0 1 16.5 18Z" />
+          </svg>
+          Plugins
+        </a></h2>
+        <h2><a href='/de/downloads'>
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+          </svg>
+          Downloads
+        </a></h2>
+      </links>
+      <links>
+        <h2><a href='https://duckduckgo.com/?sites=lite-xl.com&kae=d&kt=p&kp=1&kn=1&k1=-1&q=%20'>
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+        </svg>
+          Suchen
+        </a></h2>
+      </links>
+      <expander/>
+    </header>
+    <content>
+      <page id='page-documentation-usage'>
+        <h4 id="outdated" style="display:none">
+          A newer version of this file is available in <a href="/en/documentation/usage">English</a>.
+        </h4>
+        <h1 id="toc_37">Nutzen</h1>
+
+<p>Lite XL ist ein leichter Texteditor dass größtensteils geschrieben in Lua - es zielt darauf ab etwas praktisches, schönes, <em>kleines</em> und schnelles zu bieten. 
+So leicht wie möglich umgesetzt; leicht zur modifizieren und erweitern, oder zum Benutzen ohne beides zu machen.</p>
+
+<p>Lite XL ist auf dem Lite Editor basiert und bietet paar Verbesserungen an
+während es immernoch kompatible bleibt.</p>
+
+<h2 id="toc_38">Erste Schritte</h2>
+
+<p>Lite XL funktioniert mit <em>Projektverzeichnissen</em> - dies sind Ordnern indem der Code 
+deines Projektes und andere Daten beinhaltet sind.</p>
+
+<p>Um ein spezifisches Projektverzeichnis zu öffnen kann der Ordnername als Befehlzeilenargument angegeben werden. <em>(<code>.</code> kann angegeben werden um den jetzigen Ordner zu benutzen)</em>
+oder der Ordner kann ins Fenster gezogen werden.</p>
+
+<p>Einmal angefangen kann das Projektverzeichnis mit dem Befehl <code>core:change-project-folder</code> geändert werden. Der Befehl wird alle Dokumente schließen 
+die zu Zeit offen sind und wechselt zum neuen Projektverzeichnis.</p>
+
+<p>Wenn du ein neues Projektverzeichnis in einem neuen Fenster öffnen willst kannst du den Befehl <code>core:open-project-folder</code> ausführen.
+Es wird ein neues Fenster mit dem ausgewählten Projektverzeichnis öffnen.</p>
+
+<p>Die Hauptmethode um Dateien in Lite XL zu öffnen ist der Befehl <code>core:find-file</code> - 
+dies bietet eine fuzzy finder über alle Dateien des Projekts an 
+und kann mit dem <code>ctrl</code>+<code>p</code> Abkürzung geöffnet werden.</p>
+
+<p>Befehle können durch Tastaturkürzel aktiviert werden, oder wenn man <code>core:find-command</code> benutzt.
+Das <code>core:find-command</code> Befehl ist normalerweise an <code>ctrl</code>+<code>shift</code>+<code>p</code> gebunden. Zum Beispiel,
+wenn man die Tastaturkürzel oben drückt und <code>newdoc</code> schreibt und dann <code>return</code> drückt, öffnet man ein neues Dokument.
+Die eingestellte Tastaturkürzel für jedes Befehl kann man auf der rechten Seite des Namens sehen. Also kann man mit <code>ctrl</code>+<code>shift</code>+<code>p</code> drücken, um Tastaturkürzel für Befehle zu finden.</p>
+
+<h2 id="toc_39">Benutzerdatenverzeichnisse</h2>
+
+<p>Lite XL benutzt Standardsystembenutzerverzeichnisse; Die Nutzerdaten können in <code>$HOME/.config/lite-xl</code> auf Linux und MacOS gefunden werden.
+Auf Windows wird das Variable <code>$USERPROFILE</code> anstatt <code>$HOME</code> benutzt.</p>
+
+<h2 id="toc_40">Benutzermodule</h2>
+
+<p>Lite XL wird durch Benutzermodule konfiguriert. Das Benutzermodul kann benutzt werden um neue Tastaturkürzel und
+neue Farbschemen hinzuzufügen, oder den Stil oder andere Teile des Editors zu ändern.</p>
+
+<p>Das Benutzermodul wird geladen nachdem die Anwendung gestartet wurde, nachdem Plugins geladen wurden.</p>
+
+<p>Das Benutzermodul kann modifiziert werden indem man das <code>core:open-user-module</code> Befehl ausführt
+sonst kann es auch modifiziert werden indem man die <code>$HOME/.config/lite-xl/init.lua</code> Datei öffnet.</p>
+
+<p>Auf Windows wird das Variable <code>$USERPROFILE</code> anstatt <code>$HOME</code> benutzt.</p>
+
+<p><strong>tl;dr:</strong></p>
+
+<ul>
+<li>Windows: <code>C:\Users\(username)\.config\lite-xl\init.lua</code></li>
+<li>MacOS: <code>/Users/(usernmame)/.config/lite-xl/init.lua</code></li>
+<li>Linux: <code>/home/(username)/.config/lite-xl/init.lua</code></li>
+</ul>
+
+<p>Dies sind nicht die genauen Orte, aber sie helfen dir sie zu finden.</p>
+
+<p>Bitte bemerke dass Lite XLs Benutzermodul ein ganz anderen Ort hat als Lite Editors.</p>
+
+<h2 id="toc_41">Projektmodul</h2>
+
+<p>Das Projektmodul ist ein optionaler Modul der vom aktuellen Verzeichnis des Projekts geladen wird, wenn Lite XL startet.
+Projektmodule können nützlich sein wenn man eigene Befehle für projektspezifische Befehle für Buildsysteme oder das Laden von projektspezifische Plugins braucht.</p>
+
+<p>Nachdem die Plugins- und Benutzermodule geladen wurden,</p>
+
+<p>Das Projektmodul kann editiert werden indem man <code>core:open-project-module</code> ausführt - Wenn das Modul nicht existiert, wird das Befehl eines erstellen.</p>
+
+<h2 id="toc_42">Füge Ordner zum Projekt hinzu</h2>
+
+<p>Es ist möglich andere Projektverzeichnisse hinzuzufügen indem man den <code>core:add-directory</code> Befehl ausführt.
+Es wird auf der rechten Seite angezeigt werden und du kannst die Dateien im Ordner mit den <code>ctrl</code>+<code>p</code> Befehl auswählen.</p>
+
+<p>Andere Projektverzeichnisse können mit dem <code>core:remove-directory</code> Befehl entfernt werden.</p>
+
+<p>Wenn du dann Lite XL wiederöffnest werden die gleichen Projektverzeichnisse bleiben.
+Die Anwendung merkt sich dein Arbeitsplatz und auch die hinzugefügten Projektverzeichnisse.</p>
+
+<p>Seit Version 1.15 braucht Lite XL kein Arbeitsplatz Plugin, es ist ein Teil des Editors.</p>
+
+<h2 id="toc_43">Erstelle einen leeren Ordner</h2>
+
+<p>Mit dem <code>files:create-directory</code> Befehl oder control-click im Treeview kann man leere subordner erstellen.</p>
+
+<h2 id="toc_44">Befehle</h2>
+
+<p>Befehle werden im Befehlfinder und im Tastaturkürzelsystem von Lite XL benutzt.
+Ein Befehl besteht aus diesen drei Komponenten:</p>
+
+<ul>
+<li><strong>Name</strong> - der Befehl name in Form von <code>Namensraum:aktion-name</code>, z.B <code>doc:select-all</code></li>
+<li><strong>Aussagen</strong> - Eine Funktion die true zurückgibt wenn der Befehl ausgeführt werden kann, z.B für alle Dokumentenbefehle wird geschaut ob das ausgewählte View ein Dokument ist</li>
+<li><strong>Funktion</strong> - Die Funktion die das Befehl ausführt</li>
+</ul>
+
+<p>Befehle können hinzugefügt werden mit der <code>command.add</code> Funktion die vom <code>core.command</code> Modul bereitgestellt wird:</p>
+<pre><span class="kd">local</span> <span class="n">core</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core"</span>
+<span class="kd">local</span> <span class="n">command</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.command"</span>
+
+<span class="n">command</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"core.docview"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="p">[</span><span class="s2">"doc:save"</span><span class="p">]</span> <span class="o">=</span> <span class="k">function</span><span class="p">()</span>
+    <span class="n">core</span><span class="p">.</span><span class="n">active_view</span><span class="p">.</span><span class="n">doc</span><span class="p">:</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">core</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">"Saved '%s'"</span><span class="p">,</span> <span class="n">core</span><span class="p">.</span><span class="n">active_view</span><span class="p">.</span><span class="n">doc</span><span class="p">.</span><span class="n">filename</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="p">})</span>
+</pre>
+<p>Befehle können programmatisch ausgeführt werden, indem man die <code>command.perform</code> Funktion vom <code>core.command</code> Modul benutzt:</p>
+<pre><span class="kd">local</span> <span class="n">command</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.command"</span>
+<span class="n">command</span><span class="p">.</span><span class="n">perform</span> <span class="s2">"core:quit"</span>
+</pre>
+<h3 id="toc_45">Tastaturkürzel</h3>
+
+<p>Alle Tastaturkürzel werden vom <code>core.keymap</code> Modul verarbeitet.
+Eine Tastaturkürzel verbindet ein &quot;Kürzel&quot; (z.B <code>ctrl</code>+<code>q</code>) mit ein oder mehreren Befehlen (z.B <code>core:quit</code>).
+Wenn eine Tastaturkürzel gedrückt wird, iteratiert Lite XL über jedes Befehl dass zu dieser Tastaturkürzel zugewiesen wurde
+und führt die <em>Aussage Funktion</em> für diesem Befehl aus - wenn eine Aussage erfolgreich ist, dann stoppt es die Iteration und führt den Befehl aus.</p>
+
+<p>Ein Beispiel ist die <code>tab</code> Taste:</p>
+<pre>  <span class="p">[</span><span class="s2">"tab"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"command:complete"</span><span class="p">,</span> <span class="s2">"doc:indent"</span> <span class="p">},</span>
+</pre>
+<p>Wenn Tab gedrückt wird, wird <code>command:complete</code> nur ausgeführt wenn die ausgewählte View das Befehleingang ist. Sonst
+wird das <code>doc:indent</code> ausgeführt wenn das ausgewählte View das Dokument ist.</p>
+
+<p>Ein neues Tastaturkürzel kann so in dein Benutzermodul hinzugefügt werden:</p>
+<pre><span class="kd">local</span> <span class="n">keymap</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"core.keymap"</span>
+<span class="n">keymap</span><span class="p">.</span><span class="n">add</span> <span class="p">{</span> <span class="p">[</span><span class="s2">"ctrl+q"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"core:quit"</span> <span class="p">}</span>
+</pre>
+<p>Eine Liste der Standard Tastaturkürzel kann <a title=''  href='/de/documentation/keymap'>hier</a> gefunden werden.</p>
+
+<h2 id="toc_46">Globale Variablen</h2>
+
+<p>Es gibt ein paar globale Variablen die vom Editor gesetzt werden.
+Diese Variablen sind überall und sollten nicht überschrieben werden.</p>
+
+<ul>
+<li><code>ARGS</code>: Befehlszeilenargumente. <code>argv[1]</code> ist der Name der Anwendung, <code>argv[2]</code> ist das erste Parameter, ...</li>
+<li><code>PLATFORM</code>: Ausgabe von <code>SDL_GetPlatform()</code>. Kann <code>Windows</code>, <code>Mac OS X</code>, <code>Linux</code>, <code>iOS</code> und <code>Android</code> sein.</li>
+<li><code>SCALE</code>: Schriftartengröße. Normalerweise 1, Aber kann bei HiDPI Systemen höher sein.</li>
+<li><code>EXEFILE</code>: Absoluter Pfad zur ausführdatei.</li>
+<li><code>EXEDIR</code>: Der ausführpfad. <strong>Schreibe nicht zu diesem Ordner</strong></li>
+<li><code>VERSION</code>: lite-xl Version.</li>
+<li><code>MOD_VERSION</code>: mod-version die in Plugins benutzt wird. Wird geändert wenn die API sich ändert.</li>
+<li><code>PATHSEP</code>: Pfad Trennzeichen. <code>\</code> (Windows) or <code>/</code> (Anderen Betriebssystemen)</li>
+<li><code>DATADIR</code>: Der Daten Ordner, wo der Lua Teil von lite-xl ist. <strong>Schreibe nicht zu diesem Ordner.</strong></li>
+<li><code>USERDIR</code>: Benutzerkonfiguration Ordner.</li>
+</ul>
+
+<blockquote>
+<p><code>USERDIR</code> soll anstatt <code>DATADIR</code> benutzet werden wenn man den Editor konfiguriert
+weil <code>DATADIR</code> vielleicht nicht schreibbar ist.
+(Zum Beispiel, wenn der Editor in <code>/usr</code> installiert ist, dann ist <code>DATADIR</code> in <code>/usr/share/lite-xl</code>!)
+<code>USERDIR</code> ist immer für den Nutzer schreibbar, es erlaubt mehrere Nutzer ihren Editor zu konfigurieren</p>
+</blockquote>
+
+<h2 id="toc_47">Plugins</h2>
+
+<p>Plugins in Lite XL sind normale Lua Module und werden auch so behandelt - Kein komplizierter Pluginmanager wird bereitgestellt, und wenn einmal ein Plugin geladen ist, kann es sich nicht selber entladen.</p>
+
+<p>Um ein Plugins zu installieren kannst du es einfach im <code>plugins</code> Ordner im Benutzermodulordner reingeben.
+Wenn Lite XL startet, ladet es zuerst die Plugins im Datenordner, dann wird es die Plugins im Benutzermodulordner laden.</p>
+
+<p>Um ein Plugin zu deinstallieren, kann man einfach die Plugin Datei löschen - alle Plugins 
+(Auch die was mit dem Editor installiert kommen) können gelöscht werden, um ihre Funktionen zu entfernen.</p>
+
+<p>Wenn du Plugins nur unter bestimmten Umstanden laden willst (z.B nur in einem bestimmen Project), 
+dann kann der Plugin irgendwo außer im <code>plugins</code> Ordner gegeben werden. Der Plugin kann dann manuell geladen werden mit der
+<code>require</code> Funktion.</p>
+
+<p>Plugins können vom <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl-plugins'>Plugins Repository</a> heruntergeladen werden.</p>
+
+<h2 id="toc_48">Den Editor neustarten</h2>
+
+<p>Wenn du eine Benutzerkonfiguration Datei oder eine Lua Implementation Datei modifizierst, 
+dann kannst du mit <code>core:restart</code> Befehl den Editor neustarten.
+Die ganze Anwendung wird neugeladen indem es ein existierendes Fenster neustartet.</p>
+
+<h2 id="toc_49">Color Themes</h2>
+
+<p>Farbthemen in Lite XL sind Lua Module die Farbfelder von Lite XLs <code>core.style</code> Modul überschreiben.
+Vordefinierte Farbenmethoden sind im <code>colors</code> Ordner im Datenordner.
+Neue Farbthemen können installiert werden im <code>colors</code> Ordner dass in dein Benutzermodulordner ist.</p>
+
+<p>Ein Farbthema kann benutzt werden indem man es in dein Benutzermodulordner erfordert:</p>
+<pre><span class="n">core</span><span class="p">.</span><span class="n">reload_module</span> <span class="s2">"colors.winter"</span>
+</pre>
+<p>Im Lite Editor wird die <code>require</code> funktion benutzt anstatt <code>core.reload_module</code>.
+In Lite XL soll <code>core.reload_module</code> benutzt werden um sicher zu sein, dass ein Farbmodul echt neugeladen wird,
+wenn man die Benutzerkonfiguration speichert.</p>
+
+<p>Farbthemen können vom <a title='' target='_blank' href='https://github.com/lite-xl/lite-xl-colors'>Farbthemen Repository</a> heruntergeladen werden.
+Sie sind in Lite XL Veröffentlichungpacketen enthalten.</p>
+
+      </page>
+      <sidebar>
+        <box>
+          <h2>Mache mit</h2>
+          <a target='_blank' href='https://github.com/lite-xl/lite-xl'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 18 18">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            Github
+          </a>
+          <a target='_blank' href='https://discord.gg/UQKnzBhY5H'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 18 18">
+              <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/>
+            </svg>
+            Discord
+          </a>
+          <a target='_blank' href='https://matrix.to/#/#lite-xl:matrix.org'>
+            <svg xmlns="http://www.w3.org/2000/svg" style="padding-right: 2px;" width="22" height="24" viewBox="0 0 520 520">
+              <path d="M13.7,11.9v496.2h35.7V520H0V0h49.4v11.9H13.7z"/><path d="M166.3,169.2v25.1h0.7c6.7-9.6,14.8-17,24.2-22.2c9.4-5.3,20.3-7.9,32.5-7.9c11.7,0,22.4,2.3,32.1,6.8c9.7,4.5,17,12.6,22.1,24c5.5-8.1,13-15.3,22.4-21.5c9.4-6.2,20.6-9.3,33.5-9.3c9.8,0,18.9,1.2,27.3,3.6c8.4,2.4,15.5,6.2,21.5,11.5c6,5.3,10.6,12.1,14,20.6c3.3,8.5,5,18.7,5,30.7v124.1h-50.9V249.6c0-6.2-0.2-12.1-0.7-17.6c-0.5-5.5-1.8-10.3-3.9-14.3c-2.2-4.1-5.3-7.3-9.5-9.7c-4.2-2.4-9.9-3.6-17-3.6c-7.2,0-13,1.4-17.4,4.1c-4.4,2.8-7.9,6.3-10.4,10.8c-2.5,4.4-4.2,9.4-5,15.1c-0.8,5.6-1.3,11.3-1.3,17v103.3h-50.9v-104c0-5.5-0.1-10.9-0.4-16.3c-0.2-5.4-1.3-10.3-3.1-14.9c-1.8-4.5-4.8-8.2-9-10.9c-4.2-2.7-10.3-4.1-18.5-4.1c-2.4,0-5.6,0.5-9.5,1.6c-3.9,1.1-7.8,3.1-11.5,6.1c-3.7,3-6.9,7.3-9.5,12.9c-2.6,5.6-3.9,13-3.9,22.1v107.6h-50.9V169.2H166.3z"/>
+              <path d="M506.3,508.1V11.9h-35.7V0H520v520h-49.4v-11.9H506.3z"/>
+            </svg>
+            Matrix
+          </a>
+          <!--
+          <a target='_blank' href='https://adamharrison.github.io/lite-xl-web'>
+            <svg style="width:22px;height:22px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M21,2H3A2,2 0 0,0 1,4V20A2,2 0 0,0 3,22H21A2,2 0 0,0 23,20V4A2,2 0 0,0 21,2M11,17.5L9.5,19L5,14.5L9.5,10L11,11.5L8,14.5L11,17.5M14.5,19L13,17.5L16,14.5L13,11.5L14.5,10L19,14.5L14.5,19M21,7H3V4H21V7Z" />
+            </svg>
+            Try Live!
+          </a>
+          -->
+        </box>
+        <box>
+          <h2>Status</h2>
+          <a target='_blank' href='https://discord.gg/UQKnzBhY5H'><img src='https://img.shields.io/discord/847122429742809208?label=discord&logo=discord'/></a>
+          <a target='_blank' href='https://repology.org/project/lite-xl/versions#align-right'><img style='width: 100%;' src='https://repology.org/badge/vertical-allrepos/lite-xl.svg'/></a>
+        </box>
+      </sidebar>
+    </content>
+  </body>
+</html>
