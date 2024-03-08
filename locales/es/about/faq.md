@@ -8,7 +8,7 @@ Consigue el plugin [LSP].
 
 Prueba [lite-xl-terminal].
 
-#### ¿Y qué hay de los tabs y el tamaño de la indentación?
+#### ¿Y qué hay de los tabs y el tamaño de la sangría?
 
 Escribe en tu configuración de usuario (el icono de engranaje en el árbol de archivos):
 
