@@ -1,14 +1,14 @@
 # FAQ
 
-#### Puedo tener autocompletación intelligente (intellisense/LSP)?
+#### ¿Puedo tener autocompletación intelligente (intellisense/LSP)?
 
 Consigue el plugin [LSP].
 
-#### Donde está la terminal integrada?
+#### ¿Donde está la terminal integrada?
 
 Prueba [lite-xl-terminal].
 
-#### Y qué hay de los tabs y el tamaño de la indentación?
+#### ¿Y qué hay de los tabs y el tamaño de la indentación?
 
 Escribe en tu configuración de usuario (el icono de engranaje en el árbol de archivos):
 
@@ -17,14 +17,14 @@ config.tab_type = "soft" -- 'soft' para usar espacios, 'hard' para tabs reales (
 config.indent_size = 4   -- 4 espacios
 ```
 
-#### Cómo conecto commandos a ciertas teclas?
+#### ¿Cómo conecto commandos a ciertas teclas?
 
 ```lua
 local keymap = require "core.keymap"
 keymap.add { ["ctrl+escape"] = "core:quit" }
 ```
 
-#### Cómo *desconecto* commandos de ciertas teclas?
+#### ¿Cómo *desconecto* commandos de ciertas teclas?
 
 ```lua
 -- el segundo argumento te permite sobreescribir los comandos de ciertas teclas
@@ -32,7 +32,7 @@ keymap.add { ["ctrl+escape"] = "core:quit" }
 keymap.add({ ["ctrl+escape"] = {} }, true)
 ```
 
-#### Cómo consigo los comandos conectados a esas teclas?
+#### ¿Cómo consigo los comandos conectados a esas teclas?
 
 Puedes buscar comandos en la paleta de comandos.
 
@@ -40,15 +40,15 @@ Para cada comando, reemplaza los espacios del comando con guiones.
 
 Por ejemplo: `Core: Find Command` → `core:find-command`
 
-#### Qué versión de Lua usa el editor?
+#### ¿Qué versión de Lua usa el editor?
 
 Lua 5.4.
 
-#### Algún modo que emule a Vim?
+#### ¿Algún modo que emule a Vim?
 
 Consigue [vibe].
 
-#### Recomendaciones de plugins?
+#### ¿Algunas recomendaciones de plugins?
 
 En caso de que no quieras revisar nuestro [repositorio de plugins][1],
 esta es una lista de plugins que hacen a Lite XL más agradable.
@@ -64,7 +64,7 @@ esta es una lista de plugins que hacen a Lite XL más agradable.
 | [selectionhighlight] | Resalta código que sea igual a la selección.
 | [lite-xl-discord]    | Discord RPC.
 
-#### Donde está tal herramienta? Qué hay de X funcionalidad?
+#### ¿Donde está tal herramienta? ¿Qué hay de X funcionalidad?
 
 Puedes tener más información en la [página de características](/es/about/features).
 
