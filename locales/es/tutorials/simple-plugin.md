@@ -1,4 +1,4 @@
-# Plugin "Simple"
+# Un simple plugin
 
 ### ¿Qué es Simple?
 Simple es un plugin muy básico, escrito con la intención de introducir

@@ -1,13 +1,14 @@
-# MacOS Keymap
+# Mapa de teclas de MacOS
 
-Keymaps on different operating systems have the same functionality, just bound slightly differently
-in order to conform to normal expectations for that operating system.
+Los atajos de teclado en sistemas operativos distintos funcionan de la misma manera,
+sólo están conectados a combinaciónes de teclas ligeramente distintas para cumplir
+con las expectativas de ese sistema operativo.
 
-Currently, there are only two operating system layouts. MacOS, and [everything else](/en/documentation/keymap).
+Por el momento, solo hay dos mapas de teclas distintos. MacOS, y [todo lo demás](/es/documentation/keymap).
 
-## Keymap
+## Mapa de teclas
 
-|Key Combination|Actions|
+| Combinación | Acciones |
 |---------------|-------|
 |`cmd`+`/`|`doc:toggle-line-comments`|
 |`cmd`+`1`|`root:switch-to-tab-1`|
