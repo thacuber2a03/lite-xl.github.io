@@ -1,4 +1,4 @@
-# FAQ
+# Preguntas más frecuentes
 
 #### ¿Puedo tener autocompletación intelligente (intellisense/LSP)?
 

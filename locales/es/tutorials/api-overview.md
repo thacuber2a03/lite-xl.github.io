@@ -1,18 +1,18 @@
-# API Overview
+# Descripción general del API
 
-### This is a work in progress.
+### Este es un trabajo en proceso.
 
-Here we provide some resources and explanation to some API and aspects of Lite XL.
-For API docs, it's available in [the repo][1]
-Thus, we'll not explain _everything_, only the more important and frequently used features.
+Aquí proveemos algunos recursos y explicaciones para algunos aspectos del API y de Lite XL.
+La documentación formal del API esta disponible en [el repositorio][1].
+Por tal razón, no explicaremos *todo*, solo las funciones más importantes y frecuentes.
 
-Built-in APIs:
+APIs integradas:
 
 - [Process API][2]
 - [System API][3]
 - [Regex API][4]
 
 [1]: https://github.com/lite-xl/lite-xl/tree/master/docs
-[2]: /en/tutorials/overview/process
-[3]: /en/tutorials/overview/system
-[4]: /en/tutorials/overview/regex
+[2]: /es/tutorials/overview/process
+[3]: /es/tutorials/overview/system
+[4]: /es/tutorials/overview/regex

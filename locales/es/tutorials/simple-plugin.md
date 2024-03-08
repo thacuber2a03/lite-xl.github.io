@@ -1,89 +1,87 @@
-# Simple Plugin
+# Plugin "Simple"
 
-### What is Simple?
-Simple is a very basic plugin written with the intention of introducing developers
-who are new to Lite XL to the process of writing plugins for the editor.
+### ¿Qué es Simple?
+Simple es un plugin muy básico, escrito con la intención de introducir
+a nuevos desarrolladores de Lite XL al proceso de escritura de plugins para el editor.
 
-### What does the plugin do?
-The plugin displays a message (that is taken as input from the user) at the top
-right corner of the editor window. It also allows the user to toggle
-the visibility of the message.
+### ¿Qué hace el plugin?
+El plugin muestra un mensaje (tomado como entrada del usuario) en
+la esquina superior derecha de la ventana del editor. También le permite
+al usuario alternar la visibilidad del mensaje.
 
-### I can't write Lua!
-If you come from other programming languages, take a look at [Lua cheatsheet][1].
-If you're new to programming, you can read [this][2].
+### ¡No sé escribir en Lua!
+Si vienes de otros lenguages de programación, lee este [cheatsheet de Lua][1].
+Si eres nuevo programando, puedes leer [esto][2].
 
-### Format of the tutorial
-The code contains comments detailing what most (if not all)
-of the code in the file does.
+### Formato del tutorial
+El código contiene elementos detallando que es lo que la mayor parte, si no todo el código en el archivo hace.
 
 
-### The code :
+### El código:
 ```lua
 -- mod-version:3
 
--- you MUST put mod-version:x on the first line of your plugin
--- mod-version usually maps to lite-xl releases (eg. mod-version: 2 == lite-xl 2.0)
--- lite-xl won't load the plugin if the mod-version mismatches
+-- TIENES que escribir mod-version:x en la primera línea del plugin.
+-- mod-version usualmente equivale al componente mayor de
+-- la versión de los lanzamientos de Lite XL (p. ej. mod-version: 2 == lite-xl 2.0).
+-- Lite XL no va a cargar el archivo si el mod-version no es igual
 
 -----------------------------------------------------------------------
 -- NAME       : Simple
--- DESCRIPTION: A simple guide on how to make your first Lite XL plugin
+-- DESCRIPTION: Una simple guía acerca de cómo hacer tu primer plugin de Lite XL
 -- AUTHOR     : Ashwin Godbole (aelobdog)
--- GOALS      : To render some text inside the editor
+-- GOALS      : Dibujar texto en la pantalla
 -----------------------------------------------------------------------
 -- Disclaimer :
--- I am not a lua developer, and my knowledge about writing plugins for
--- Lite XL is very limited. This file serves the purpose of helping the
--- reader get started with plugin development for Lite XL, and therefore
--- demonstrates only some very basic features. For more complex plugin
--- development, be sure to check out the source code of some other
--- plugins after going through this file.
+-- No soy un desarrollador de Lua, y mi conocimiento acerca de escribir plugins para
+-- Lite XL es muy limitado. Este archivo sirve el propósito de ayudar al
+-- lector a empezar con el desarrollo de plugins para Lite XL, y por tal motivo
+-- solo demuestra algunas funciones básicas. Para desarrollo de plugins más complejo,
+-- asegúrate de revisar el código fuente de otros plugins luego de leer este archivo.
 -----------------------------------------------------------------------
--- Before we start writing any code for the plugin, we must import the
--- required modules from the "core" package.
+-- Antes de empezar a escribir código para el plugin, tenemos que importar los
+-- módulos requeridos desde el paquete "core".
 
--- the "core" module
+-- el módulo "core"
 local core = require "core"
 
--- the "command" module will help us register commands for our plugin.
+-- el módulo "command" nos ayudará registrar comandos para nuestro plugin.
 local command = require "core.command"
 
--- the "style" module will allow us to use styling options
+-- el módulo "style" nos permitirá usar opciones de estilizado
 local style = require "core.style"
 
--- the "config" module will be used to store certain things like colors
--- and functions
+-- el módulo "config" será usado para guardar ciertas cosas
+-- como colores y funciones
 local config = require "core.config"
 
--- the "keymap" module will allow us to set keybindings for our commands
+-- el módulo "keymap" nos permitirá conectar combinaciones de teclas a nuestros comandos
 local keymap = require "core.keymap"
 
--- since we want to modify RootView, we'll need to require it first
+-- como queremos modificar RootView, primero lo tenemos que requerir
 local RootView = require "core.rootview"
 
 -----------------------------------------------------------------------
--- per-plugin config must stay in config.plugins.(plugin name)
+-- la configuración de cada plugin tiene que estar en config.plugins.(nombre de plugin)
 config.plugins.simple = {}
 
--- colors are just three or four comma separated values (RGBA) (range 0 - 255)
--- put inside of '{ }'. We will add our color to the config module.
-config.plugins.simple.text_color = {200, 140, 220} -- or use `{ common.color "#C88CDC" }`
+-- Los colores son solo tres o cuatro valores separados por comas (RGBA) (rango 0 - 255)
+-- puestos dentro de '{ }'. Añadiremos nuestro color al módulo de configuración.
+config.plugins.simple.text_color = {200, 140, 220} -- o usa `{ common.color "#C88CDC" }`
 -----------------------------------------------------------------------
--- Let's create a function to calculate the coordinates of our text.
--- While we're at it, let's add our function to the `config` module.
--- We'll take the message we want to display as the argument to the
--- function to determine the x and y coordinates of the text.
+-- Vamos a crear una función para calcular las coordenadas de nuestro texto.
+-- Mientras tanto, le añadiremos nuestras funciónes al módulo `config`.
+-- Tomaremos el mensaje que queremos mostrar como argumento a la función
+-- para determinar las coordenadas x e y del texto.
 
 function config.plugins.simple.get_text_coordinates(message)
-   -- For this plugin, we want to display the text on the top right
-   -- corner of the screen. For this, we need to know the editor's width
-   -- and height.
+   -- Para este plugin, queremos mostrar el texto en la esquina superior izquierda
+   -- de la pantalla. Para esto, tenemos que saber el ancho y alto del editor.
 
-   -- The current font's size can be obtained from the "style" module.
-   -- The editor's dimensions can be obtained by
-   --   1. WIDTH  : core.root_view.size.x
-   --   2. HEIGHT : core.root_view.size.y
+   -- El tamaño de la fuente actual puede ser obtenido del módulo "style".
+   -- Las dimensiones del editor pueden ser obtenidos usando:
+   --   1. ANCHO : core.root_view.size.x
+   --   2. ALTO  : core.root_view.size.y
 
    local message_width = style.code_font:get_width(message.." ")
    local font_height = style.code_font:get_size()
@@ -93,75 +91,76 @@ function config.plugins.simple.get_text_coordinates(message)
    return x, y
 end
 -----------------------------------------------------------------------
--- Let's now get to actually drawing the text inside the editor.
--- In order to "inject" our own code to draw text,
--- we'll need to save the original draw function
--- We'll save `RootView.draw` to a variable we call `parent_draw`
+-- Ahora vamos a realmente dibujar el texto dentro del editor.
+-- Para "inyectar" nuestro código para dibujar texto,
+-- tenemos que guardar la función de dibujo original.
+-- Guardaremos `RootView.draw` a una variable que llamaremos `parent_draw`.
 
 local parent_draw = RootView.draw
 
--- Now let's overload the original definition of `draw` in RootView
--- by redefining the function.
+-- Ahora sobrecarguemos la definición original de `draw` en RootView
+-- redefiniendo la función.
 
 function RootView:draw()
-   -- We call the parent's function to keep the editor functional...
-   -- obviously we must still draw all the other stuff !
-   -- So we call the `parent_draw` function before doing anything else.
+   -- Llamamos a la función padre para mantener al editor funcional...
+   -- aún tenemos que dibujar todo lo demás!
+   -- Así que llamamos a `parent_draw` antes de hacer cualquier otra cosa.
    parent_draw(self)
 
-   -- we'll add an option to toggle the message on and off. let's use a
-   -- boolean variable to keep track of whether we want to display the
-   -- message or not.
+   -- Añadiremos una opción para alternar el mensaje. Usemos un
+   -- boolean para saber si queremos mostrar el mensaje o no.
    if config.plugins.simple.show_my_message then
-      -- We'll be getting the message to display as input from the user
-      -- later. We'll store that user input in `config.plugins.simple.hw_message`.
-      -- (NOTE: this variable does not come in-built in lite-xl;
-      --        it is a variable that we will define later.)
+      -- Tomaremos el mensaje para mostrar como entrada del usuario más tarde.
+      -- Guardaremos esa entrada en `config.plugins.simple.hw_message`.
+      -- (NOTA: esta variable no viene integrada en lite-xl;
+      --        es una variable que definiremos luego.)
 
-      -- let's store the value of config.plugins.simple.hw_message in a local variable
-      -- `message` in case config.plugins.simple.hw_message we set the message to
-      -- "message not set yet!"
+      -- Guardemos el valor de `config.plugins.simple.hw_message` en una variable local booleana
+      -- `message` en caso de que le hayamos puesto a `config.plugins.simple.hw_message`
+      -- el mensaje "¡aún no hay mensaje!"
       local message
 
       if config.plugins.simple.hw_message then
           message = config.plugins.simple.hw_message
       else
-          message = "Message not set yet !"
+          message = "¡aún no hay mensaje!"
       end
 
-      -- let's get the coordinates for our text
+      -- Consigamos las coordenadas para nuestro texto.
       local x, y = config.plugins.simple.get_text_coordinates(message)
 
-      -- let's finally draw the text to the window !
-      -- the draw_text function from `renderer` is an important function
-      -- as it is used to display any and all text inside of the editor
-      -- window
+      -- Finalmente, dibujemos el texto a la pantalla!
+      -- La función `draw_text` de `renderer` es una función importante
+      -- ya que se usa para mostrar todo el texto dentro de la pantalla del editor.
       renderer.draw_text(style.code_font, message, x, y, config.plugins.simple.text_color)
    end
 end
 -----------------------------------------------------------------------
--- Let's allow the user to turn the message on and off
--- we'll write a function to flip our "show" boolean variable.
+-- Permitamosle al usuario encender o apagar el mensaje.
+-- Escribiremos una función que alternará nuestra variable booleana "show".
 
 local function toggle_helloworld()
    config.plugins.simple.show_my_message = not config.plugins.simple.show_my_message
 end
 -----------------------------------------------------------------------
--- Finally, let's add the toggle function to the command list so that
--- we can call it from the C-S-p command panel. Let's add one command
--- to toggle the visibility of the message on and off and one to get
--- the user's message and then display it.
+-- Finalmente, vamos a añadir la función de alternación a la lista de commandos, para que así
+-- la podamos llamar desde el panel de comandos C-S-p (el buscador de comandos). Vamos a agregar un comando
+-- para alternar la visibilidad del mensaje y uno para conseguir el mensaje del usuario y mostrarlo.
 
 command.add(nil, {
-   -- Toggle the visibility of the message
+   -- Alternar la visibilidad del mensaje
    ["simple:toggle"] = toggle_helloworld,
 
-   -- Set and show the message
-   -- This is the way to get user input through the command bar.
-   -- `core.command_view:enter` takes 2 arguments:
-   --    * the prompt to display before taking input
-   --    * a function that takes the "input" as its argument
-   -- (NOTE: here the variable we are reading input into is `text`)
+   -- Establecer y mostrar el mensaje
+   -- Esta es una buena manera de tomar entrada del usuario a través de la barra de comandos.
+   -- `core.command_view:enter` toma 2 argumentos:
+   --    * el mensaje que se va a mostrar antes de recibir entrada
+   --    * una función que toma la entrada como argumento
+   -- (NOTA: aquí la variable en la que estamos leyendo la entrada es `text`)
+
+   -- (nota del traductor: cuando se escribió este tutorial, esta era
+   -- la manera de hacerlo, pero ahora tienes que pasar una tabla con
+   -- un campo para cada función de la barra de comandos)
    ["simple:setshow"] = function()
       core.command_view:enter("Test to display", {
          submit = function(text)
@@ -172,21 +171,20 @@ command.add(nil, {
    end
 })
 -----------------------------------------------------------------------
--- Just for fun, let's assign our commands their own keybindings.
--- Here, we assign the keybinding the same string(its name) as the one
--- that we set while creating the command
+-- Sólo por diversion, asignemos nuestos comandos sus propios atajos.
+-- Aqui, le asignamos a los atajos el mismo string (el nombre) que les pusimos
+-- a los comandos cuando los creamos.
 keymap.add {
    ["alt+s"] = "simple:setshow",
    ["alt+t"] = "simple:toggle",
 }
 ```
 
-### Further reading
-- [Lite: An Implementation Overview][3], an excellent post by rxi that stays mostly relevant to lite-xl.
-- [API overview][4], where some of the APIs are explained.
-
+### Lecturas adicionales
+- [Lite: An Implementation Overview][3], un post excelente por rxi que sigue siendo parcialmente relevante para Lite XL.
+- [Descripción general del API][4], donde se explican algunas de las funciones del API.
 
 [1]: https://devhints.io/lua
 [2]: https://www.lua.org/pil
 [3]: https://rxi.github.io/lite_an_implementation_overview.html
-[4]: /en/tutorials/api-overview
+[4]: /es/tutorials/api-overview
