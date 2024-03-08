@@ -199,7 +199,7 @@ Para instalar un plugin, sólo dejalo en el subdirectorio `plugins` del director
 Cuando Lite XL inicie, primero cargará los plugins en el directorio `data` y luego cargará
 los plugins en el directorio de usuario.
 
-Para desinstalar un plugin, el archivo del plugin puede ser borrado — todo plugin
+Para desinstalar un plugin, borra el archivo del plugin — todo plugin
 (incluyendo aquellos incluidos por defecto con la instalación) puede ser borrado
 para remover su funcionalidad.
 
