@@ -19,8 +19,7 @@ El editor se ve increíble en pantallas de cualquier tamaño.
 También hay opciones configurables, como hinting y antialiasing.
 
 ## Edición multi-cursor
-Puedes crear múltiples cursores usando `ctrl` + `lclick` sobre cualquier linea
-o `ctrl` + `shift` + `up` o `ctrl` + `shift` + `down`.
+Puedes crear múltiples cursores usando `ctrl` + `lclick` sobre cualquier linea o `ctrl` + `shift` + `up`/`down`.
 
 ---
 
