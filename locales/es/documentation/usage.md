@@ -24,7 +24,7 @@ Si quieres abrir un directorio en una nueva ventana, el comando `core:open-proje
 abrirá una nueva ventana del editor con el directorio seleccionado.
 
 La manera principal para abrir archivos en Lite XL es a través del comando `core:find-file`
-— este proporcióna un buscador difuso sobre todos los archivos del proyecto y puede ser
+— este proporciona un buscador difuso sobre todos los archivos del proyecto y puede ser
 abierto a través del atajo de teclado `ctrl`+`p` por defecto.
 
 Los comandos pueden ser ejecutados usando atajos de teclado, o usando el comando
@@ -43,7 +43,7 @@ En Windows, la variable `$USERPROFILE` se usará en lugar de `$HOME`.
 
 ## Módulo del usuario
 
-Lite XL puede ser configurado usando el módulo de usuario. El modulo de usuario se
+Lite XL puede ser configurado usando el módulo de usuario. El módulo de usuario se
 puede utilizar para cambiar opciones en el módulo de configuación, añadir atajos
 de teclado adicionales, cargar temas personalizados, modificar el estilo
 o cambiar cualquier otra parte del editor a tu antojo.
@@ -140,7 +140,7 @@ command.perform "core:quit"
 
 ### Mapa de teclas
 
-Todos los atajos de teclado son manejados por el modulo `core.keymap`.
+Todos los atajos de teclado son manejados por el módulo `core.keymap`.
 Un atajo de teclado conecta una combinación de teclas (un "stroke", p. ej. `ctrl`+`q`)
 a uno o más comandos (p. ej. `core:quit`). Cuando el atajo es presionado
 Lite XL irá a través de cada comando asignado a ese atajo y evaluará la

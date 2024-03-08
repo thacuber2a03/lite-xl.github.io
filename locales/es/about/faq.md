@@ -53,7 +53,7 @@ Consigue [vibe].
 En caso de que no quieras revisar nuestro [repositorio de plugins][1],
 esta es una lista de plugins que hacen a Lite XL más agradable.
 
-| Plugin               | Uso
+| Plugin               | Uso del plugin
 | ---                  | ---
 | [autoinsert]         | Automáticamente inserta brackets y comillas de cierre.
 | [bracketmatch]       | Resalta pares de brackets.
