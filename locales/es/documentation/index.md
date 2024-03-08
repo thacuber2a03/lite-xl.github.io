@@ -1,8 +1,8 @@
-# Documentation
+# Documentación
 
-These pages contain documentation to build, run and use Lite XL.
+Estas páginas contienen documentación para compilar, ejecutar y usar Lite XL.
 
-- [Build](/en/documentation/build)
-- [Keymap (MacOS)](/en/documentation/keymap-macos)
-- [Keymap](/en/documentation/keymap)
-- [Usage](/en/documentation/usage)
+- [Compilación](/en/documentation/build)
+- [Mapa de teclas (MacOS)](/en/documentation/keymap-macos)
+- [Mapa de teclas](/en/documentation/keymap)
+- [Uso](/en/documentation/usage)
